@@ -34,6 +34,9 @@ class TrackersViewController: UIViewController {
 
     private lazy var searchController = UISearchController(searchResultsController: nil)
 
+    private var categories: [TrackerCategory] = []
+    private var completedTrackers: [TrackerRecord] = []
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
