@@ -62,7 +62,7 @@ class TrackersViewController: UIViewController {
 
         setupUIBarButtonItem()
 
-        if categories.isEmpty {
+        if !categories.isEmpty {
             setupBlankView()
         } else {
             setupView()
@@ -113,22 +113,58 @@ class TrackersViewController: UIViewController {
         view.backgroundColor = .ypWhite
         view.addSubview(trackersCollectionView)
 
+        NSLayoutConstraint.activate([
+            trackersCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            trackersCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            trackersCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            trackersCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
     }
 }
 
-//MARK: -UICollectionViewDelegate
-extension TrackersViewController: UICollectionViewDelegate {
+//MARK: -UICollectionViewDelegateFlowLayout
+extension TrackersViewController: UICollectionViewDelegateFlowLayout {
 
+    private var params: GeometricParams {
+        return GeometricParams(cellCount: 2,
+                               leftInset: 10,
+                               rightInset: 10,
+                               cellSpacing: 10)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return getSize(collectionView: collectionView)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
+        UIEdgeInsets(top: params.cellSpacing,
+                     left: params.leftInset,
+                     bottom: params.cellSpacing,
+                     right: params.rightInset)
+    }
+
+    private func getSize(collectionView: UICollectionView) -> CGSize {
+        let availableWidth = collectionView.frame.width - params.paddingWidth
+        let cellWidth =  availableWidth / CGFloat(params.cellCount)
+        return CGSize(width: cellWidth,
+                      height: cellWidth * 2 / 2)
+    }
 }
 
 //MARK: -UICollectionViewDataSource
 extension TrackersViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return 6
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = TrackersCell()
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TrackersCell.identifier, for: indexPath) as? TrackersCell else {
+            return UICollectionViewCell()
+        }
+
+        cell.prepareForReuse()
         return cell
     }
 }

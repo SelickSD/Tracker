@@ -20,6 +20,7 @@
 		44028A3E2B23798F00A0BEBE /* TrackerCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44028A3D2B23798F00A0BEBE /* TrackerCategory.swift */; };
 		44028A402B23799C00A0BEBE /* TrackerRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44028A3F2B23799C00A0BEBE /* TrackerRecord.swift */; };
 		441324772B25EE4E00CE4CFF /* TrackersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441324762B25EE4E00CE4CFF /* TrackersCell.swift */; };
+		4413247B2B25FF6C00CE4CFF /* GeometricParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4413247A2B25FF6C00CE4CFF /* GeometricParams.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		44028A3D2B23798F00A0BEBE /* TrackerCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerCategory.swift; sourceTree = "<group>"; };
 		44028A3F2B23799C00A0BEBE /* TrackerRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerRecord.swift; sourceTree = "<group>"; };
 		441324762B25EE4E00CE4CFF /* TrackersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackersCell.swift; sourceTree = "<group>"; };
+		4413247A2B25FF6C00CE4CFF /* GeometricParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometricParams.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +118,7 @@
 				44028A3D2B23798F00A0BEBE /* TrackerCategory.swift */,
 				44028A3F2B23799C00A0BEBE /* TrackerRecord.swift */,
 				441324762B25EE4E00CE4CFF /* TrackersCell.swift */,
+				4413247A2B25FF6C00CE4CFF /* GeometricParams.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -193,6 +196,7 @@
 				44028A3E2B23798F00A0BEBE /* TrackerCategory.swift in Sources */,
 				440289DD2B17A04100A0BEBE /* ViewController.swift in Sources */,
 				440289ED2B18EA0600A0BEBE /* TabBarController.swift in Sources */,
+				4413247B2B25FF6C00CE4CFF /* GeometricParams.swift in Sources */,
 				440289F02B18ED2100A0BEBE /* TrackersViewController.swift in Sources */,
 				440289F52B18F45F00A0BEBE /* UIColor + Extensions.swift in Sources */,
 				44028A402B23799C00A0BEBE /* TrackerRecord.swift in Sources */,
