@@ -19,6 +19,7 @@
 		44028A3C2B23798100A0BEBE /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44028A3B2B23798100A0BEBE /* Tracker.swift */; };
 		44028A3E2B23798F00A0BEBE /* TrackerCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44028A3D2B23798F00A0BEBE /* TrackerCategory.swift */; };
 		44028A402B23799C00A0BEBE /* TrackerRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44028A3F2B23799C00A0BEBE /* TrackerRecord.swift */; };
+		441324772B25EE4E00CE4CFF /* TrackersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441324762B25EE4E00CE4CFF /* TrackersCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		44028A3B2B23798100A0BEBE /* Tracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tracker.swift; sourceTree = "<group>"; };
 		44028A3D2B23798F00A0BEBE /* TrackerCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerCategory.swift; sourceTree = "<group>"; };
 		44028A3F2B23799C00A0BEBE /* TrackerRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerRecord.swift; sourceTree = "<group>"; };
+		441324762B25EE4E00CE4CFF /* TrackersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackersCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,7 +70,7 @@
 		440289D72B17A04100A0BEBE /* Tracker */ = {
 			isa = PBXGroup;
 			children = (
-				44028A3A2B23796900A0BEBE /* Models */,
+				441324782B25F3E500CE4CFF /* Trackers */,
 				440289F32B18F44700A0BEBE /* Extensions */,
 				440289EE2B18ECAB00A0BEBE /* Navigation */,
 				440289D82B17A04100A0BEBE /* AppDelegate.swift */,
@@ -77,7 +79,6 @@
 				440289E12B17A04200A0BEBE /* Assets.xcassets */,
 				440289E32B17A04200A0BEBE /* LaunchScreen.storyboard */,
 				440289E62B17A04200A0BEBE /* Info.plist */,
-				440289EF2B18ED2100A0BEBE /* TrackersViewController.swift */,
 				440289F12B18ED3A00A0BEBE /* StatisticViewController.swift */,
 			);
 			path = Tracker;
@@ -99,12 +100,22 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		44028A3A2B23796900A0BEBE /* Models */ = {
+		441324782B25F3E500CE4CFF /* Trackers */ = {
+			isa = PBXGroup;
+			children = (
+				440289EF2B18ED2100A0BEBE /* TrackersViewController.swift */,
+				441324792B25F40F00CE4CFF /* Models */,
+			);
+			path = Trackers;
+			sourceTree = "<group>";
+		};
+		441324792B25F40F00CE4CFF /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				44028A3B2B23798100A0BEBE /* Tracker.swift */,
 				44028A3D2B23798F00A0BEBE /* TrackerCategory.swift */,
 				44028A3F2B23799C00A0BEBE /* TrackerRecord.swift */,
+				441324762B25EE4E00CE4CFF /* TrackersCell.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -186,6 +197,7 @@
 				440289F52B18F45F00A0BEBE /* UIColor + Extensions.swift in Sources */,
 				44028A402B23799C00A0BEBE /* TrackerRecord.swift in Sources */,
 				44028A3C2B23798100A0BEBE /* Tracker.swift in Sources */,
+				441324772B25EE4E00CE4CFF /* TrackersCell.swift in Sources */,
 				440289F22B18ED3A00A0BEBE /* StatisticViewController.swift in Sources */,
 				440289D92B17A04100A0BEBE /* AppDelegate.swift in Sources */,
 				440289DB2B17A04100A0BEBE /* SceneDelegate.swift in Sources */,
