@@ -48,6 +48,8 @@ class TrackersViewController: UIViewController {
         view.delegate = self
         view.dataSource = self
         view.register(TrackersCell.self, forCellWithReuseIdentifier: TrackersCell.identifier)
+        view.register(HeaderCellView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderCellView.identifier)
+//        view.allowsMultipleSelection = false
         view.backgroundColor = .ypWhite
         return view
     }()
@@ -145,6 +147,17 @@ extension TrackersViewController: UICollectionViewDelegateFlowLayout {
                      right: params.rightInset)
     }
 
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {       // 2
+
+        let indexPath = IndexPath(row: 0, section: section)         // 3
+        let headerView = self.collectionView(collectionView, viewForSupplementaryElementOfKind: UICollectionView.elementKindSectionHeader, at: indexPath)                   // 4
+
+        return headerView.systemLayoutSizeFitting(CGSize(width: collectionView.frame.width,
+                                                         height: UIView.layoutFittingExpandedSize.height),
+                                                         withHorizontalFittingPriority: .required,
+                                                         verticalFittingPriority: .fittingSizeLevel)           // 5
+    }
+
     private func getSize(collectionView: UICollectionView) -> CGSize {
         let availableWidth = collectionView.frame.width - params.paddingWidth
         let cellWidth =  availableWidth / CGFloat(params.cellCount)
@@ -166,5 +179,14 @@ extension TrackersViewController: UICollectionViewDataSource {
 
         cell.prepareForReuse()
         return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+
+        guard let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HeaderCellView.identifier, for: indexPath) as? HeaderCellView else {
+            return UICollectionReusableView()
+        }
+        print(#function)
+        return view
     }
 }
