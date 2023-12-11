@@ -147,15 +147,17 @@ extension TrackersViewController: UICollectionViewDelegateFlowLayout {
                      right: params.rightInset)
     }
 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {       // 2
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
 
-        let indexPath = IndexPath(row: 0, section: section)         // 3
-        let headerView = self.collectionView(collectionView, viewForSupplementaryElementOfKind: UICollectionView.elementKindSectionHeader, at: indexPath)                   // 4
+//        let indexPath = IndexPath(row: 0, section: section)
+//        let headerView = self.collectionView(collectionView, viewForSupplementaryElementOfKind: UICollectionView.elementKindSectionHeader, at: indexPath)
+       let size = getSize(collectionView: collectionView)
 
-        return headerView.systemLayoutSizeFitting(CGSize(width: collectionView.frame.width,
-                                                         height: UIView.layoutFittingExpandedSize.height),
-                                                         withHorizontalFittingPriority: .required,
-                                                         verticalFittingPriority: .fittingSizeLevel)           // 5
+        return CGSize(width: size.width, height: size.height / 5)
+//        return headerView.systemLayoutSizeFitting(CGSize(width: collectionView.frame.width,
+//                                                         height: UIView.layoutFittingExpandedSize.height),
+//                                                         withHorizontalFittingPriority: .required,
+//                                                         verticalFittingPriority: .fittingSizeLevel)
     }
 
     private func getSize(collectionView: UICollectionView) -> CGSize {
@@ -186,7 +188,7 @@ extension TrackersViewController: UICollectionViewDataSource {
         guard let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HeaderCellView.identifier, for: indexPath) as? HeaderCellView else {
             return UICollectionReusableView()
         }
-        print(#function)
+
         return view
     }
 }

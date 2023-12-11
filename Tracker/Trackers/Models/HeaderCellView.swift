@@ -29,13 +29,13 @@ class HeaderCellView: UICollectionReusableView {
     }
 
     private func setupView() {
+
+        self.clipsToBounds = true
         addSubview(titleLabel)
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            titleLabel.topAnchor.constraint(equalTo: topAnchor),
-            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+            titleLabel.topAnchor.constraint(equalTo: self.topAnchor)
         ])
     }
 }
