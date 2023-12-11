@@ -22,6 +22,8 @@
 		441324772B25EE4E00CE4CFF /* TrackersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441324762B25EE4E00CE4CFF /* TrackersCell.swift */; };
 		4413247B2B25FF6C00CE4CFF /* GeometricParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4413247A2B25FF6C00CE4CFF /* GeometricParams.swift */; };
 		4413247D2B26225300CE4CFF /* HeaderCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4413247C2B26225300CE4CFF /* HeaderCellView.swift */; };
+		4413247F2B2773DD00CE4CFF /* CreateNewTrackerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4413247E2B2773DD00CE4CFF /* CreateNewTrackerViewController.swift */; };
+		441324812B277B3900CE4CFF /* CreateNewHabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441324802B277B3900CE4CFF /* CreateNewHabitViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +44,8 @@
 		441324762B25EE4E00CE4CFF /* TrackersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackersCell.swift; sourceTree = "<group>"; };
 		4413247A2B25FF6C00CE4CFF /* GeometricParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometricParams.swift; sourceTree = "<group>"; };
 		4413247C2B26225300CE4CFF /* HeaderCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCellView.swift; sourceTree = "<group>"; };
+		4413247E2B2773DD00CE4CFF /* CreateNewTrackerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewTrackerViewController.swift; sourceTree = "<group>"; };
+		441324802B277B3900CE4CFF /* CreateNewHabitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewHabitViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +112,8 @@
 			isa = PBXGroup;
 			children = (
 				440289EF2B18ED2100A0BEBE /* TrackersViewController.swift */,
+				4413247E2B2773DD00CE4CFF /* CreateNewTrackerViewController.swift */,
+				441324802B277B3900CE4CFF /* CreateNewHabitViewController.swift */,
 				441324792B25F40F00CE4CFF /* Models */,
 			);
 			path = Trackers;
@@ -196,6 +202,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4413247F2B2773DD00CE4CFF /* CreateNewTrackerViewController.swift in Sources */,
 				44028A3E2B23798F00A0BEBE /* TrackerCategory.swift in Sources */,
 				440289DD2B17A04100A0BEBE /* ViewController.swift in Sources */,
 				440289ED2B18EA0600A0BEBE /* TabBarController.swift in Sources */,
@@ -209,6 +216,7 @@
 				440289F22B18ED3A00A0BEBE /* StatisticViewController.swift in Sources */,
 				440289D92B17A04100A0BEBE /* AppDelegate.swift in Sources */,
 				440289DB2B17A04100A0BEBE /* SceneDelegate.swift in Sources */,
+				441324812B277B3900CE4CFF /* CreateNewHabitViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

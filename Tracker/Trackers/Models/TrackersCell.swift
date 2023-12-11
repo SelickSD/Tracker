@@ -63,6 +63,7 @@ class TrackersCell: UICollectionViewCell {
         button.clipsToBounds = true
         button.setImage(UIImage(systemName: "plus"), for: .normal)
         button.tintColor = .ypWhite
+        button.addTarget(self, action: #selector(didTapPlusButton), for: .touchUpInside)
         return button
     }()
 
@@ -93,6 +94,9 @@ class TrackersCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    @objc private func didTapPlusButton() {
+
+    }
 
     private func setupView() {
 

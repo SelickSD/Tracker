@@ -49,7 +49,6 @@ class TrackersViewController: UIViewController {
         view.dataSource = self
         view.register(TrackersCell.self, forCellWithReuseIdentifier: TrackersCell.identifier)
         view.register(HeaderCellView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderCellView.identifier)
-//        view.allowsMultipleSelection = false
         view.backgroundColor = .ypWhite
         return view
     }()
@@ -64,7 +63,7 @@ class TrackersViewController: UIViewController {
 
         setupUIBarButtonItem()
 
-        if !categories.isEmpty {
+        if categories.isEmpty {
             setupBlankView()
         } else {
             setupView()
@@ -80,7 +79,7 @@ class TrackersViewController: UIViewController {
     }
 
     @objc private func addTapped() {
-
+        self.present(CreateNewTrackerViewController(), animated: true)
     }
 
     private func setupBlankView() {
@@ -149,15 +148,8 @@ extension TrackersViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
 
-//        let indexPath = IndexPath(row: 0, section: section)
-//        let headerView = self.collectionView(collectionView, viewForSupplementaryElementOfKind: UICollectionView.elementKindSectionHeader, at: indexPath)
-       let size = getSize(collectionView: collectionView)
-
+        let size = getSize(collectionView: collectionView)
         return CGSize(width: size.width, height: size.height / 5)
-//        return headerView.systemLayoutSizeFitting(CGSize(width: collectionView.frame.width,
-//                                                         height: UIView.layoutFittingExpandedSize.height),
-//                                                         withHorizontalFittingPriority: .required,
-//                                                         verticalFittingPriority: .fittingSizeLevel)
     }
 
     private func getSize(collectionView: UICollectionView) -> CGSize {
