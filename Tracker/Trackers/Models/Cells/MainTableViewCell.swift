@@ -55,13 +55,12 @@ class MainTableViewCell: UITableViewCell {
             self.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
             titleLabel.text = "Расписание"
         default:
-            print(3)
+            break
         }
     }
 
     private func setupView() {
         self.backgroundColor = .systemGray6
-
 
         self.addSubview(titleLabel)
         self.addSubview(nextButton)

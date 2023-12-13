@@ -41,10 +41,44 @@ class CreateNewHabitViewController: UIViewController {
         return tableView
     }()
 
+    private lazy var cancelButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.clipsToBounds = true
+        button.setTitleColor(.red, for: .normal)
+        button.backgroundColor = .ypWhite
+        button.layer.borderColor = UIColor.red.cgColor
+        button.layer.borderWidth = 0.5
+        button.layer.cornerRadius = 16
+        button.setTitle("Отменить", for: .normal)
+        button.addTarget(self, action: #selector(didTapCancelButton), for: .touchUpInside)
+        return button
+    }()
+
+    private lazy var createButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.clipsToBounds = true
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .gray
+        button.layer.cornerRadius = 16
+        button.setTitle("Создать", for: .normal)
+        button.addTarget(self, action: #selector(didTapCreateButton), for: .touchUpInside)
+        return button
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupView()
+    }
+
+    @objc private func didTapCancelButton() {
+
+    }
+
+    @objc private func didTapCreateButton() {
+
     }
 
     private func setupView() {
@@ -53,6 +87,8 @@ class CreateNewHabitViewController: UIViewController {
         view.addSubview(pageNameLabel)
         view.addSubview(habitTextField)
         view.addSubview(mainTableView)
+        view.addSubview(cancelButton)
+        view.addSubview(createButton)
 
         NSLayoutConstraint.activate([
             pageNameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -66,16 +102,18 @@ class CreateNewHabitViewController: UIViewController {
             mainTableView.topAnchor.constraint(equalTo: habitTextField.bottomAnchor, constant: 40),
             mainTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             mainTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            mainTableView.heightAnchor.constraint(equalToConstant: 200)
-        ])
-    }
+            mainTableView.heightAnchor.constraint(equalToConstant: 200),
 
-    private func configCell(for cell: MainTableViewCell, with indexPath: IndexPath) {
-//        guard let presenter = self.presenter else {return}
-//
-//        presenter.getCell(cell: cell, index: indexPath.row)
-//        cell.delegate = self
-//        tableView.reloadRows(at: [indexPath], with: .automatic)
+            cancelButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            cancelButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            cancelButton.heightAnchor.constraint(equalToConstant: 60),
+            cancelButton.trailingAnchor.constraint(equalTo: view.centerXAnchor, constant: -8),
+
+            createButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            createButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            createButton.heightAnchor.constraint(equalToConstant: 60),
+            createButton.leadingAnchor.constraint(equalTo: view.centerXAnchor, constant: 8)
+        ])
     }
 }
 
