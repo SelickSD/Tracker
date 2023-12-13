@@ -66,8 +66,16 @@ class CreateNewHabitViewController: UIViewController {
             mainTableView.topAnchor.constraint(equalTo: habitTextField.bottomAnchor, constant: 40),
             mainTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             mainTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            mainTableView.heightAnchor.constraint(equalToConstant: 150)
+            mainTableView.heightAnchor.constraint(equalToConstant: 200)
         ])
+    }
+
+    private func configCell(for cell: MainTableViewCell, with indexPath: IndexPath) {
+//        guard let presenter = self.presenter else {return}
+//
+//        presenter.getCell(cell: cell, index: indexPath.row)
+//        cell.delegate = self
+//        tableView.reloadRows(at: [indexPath], with: .automatic)
     }
 }
 
@@ -83,12 +91,23 @@ extension CreateNewHabitViewController: UITableViewDelegate {
 
 //MARK: -UITableViewDataSource
 extension CreateNewHabitViewController: UITableViewDataSource {
+    private var maxRows: Int { return 2 }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return maxRows
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = MainTableViewCell()
+
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: MainTableViewCell.identifier, for: indexPath) as? MainTableViewCell else {
+            return UITableViewCell()
+        }
+
+        cell.configCell(rowOfCell: indexPath.row, maxCount: maxRows)
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 75
     }
 }
