@@ -74,7 +74,7 @@ class CreateNewHabitViewController: UIViewController {
     }
 
     @objc private func didTapCancelButton() {
-
+        self.dismiss(animated: true)
     }
 
     @objc private func didTapCreateButton() {
@@ -124,7 +124,17 @@ extension CreateNewHabitViewController: UITextFieldDelegate {
 
 //MARK: -UITableViewDelegate
 extension CreateNewHabitViewController: UITableViewDelegate {
-
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("qwqwq")
+        switch indexPath.row {
+        case 0:
+            print("1")
+        case 1:
+            self.present(ScheduleViewController(), animated: true)
+        default:
+            break
+        }
+    }
 }
 
 //MARK: -UITableViewDataSource
