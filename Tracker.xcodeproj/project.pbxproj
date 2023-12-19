@@ -29,6 +29,7 @@
 		441324882B2B661B00CE4CFF /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441324872B2B661B00CE4CFF /* ScheduleViewController.swift */; };
 		4413248A2B2B6B5E00CE4CFF /* ScheduleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441324892B2B6B5E00CE4CFF /* ScheduleTableViewCell.swift */; };
 		4413248C2B2CB17300CE4CFF /* DayOfWeek.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4413248B2B2CB17300CE4CFF /* DayOfWeek.swift */; };
+		4413248E2B31F6F200CE4CFF /* Date + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4413248D2B31F6F200CE4CFF /* Date + Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		441324872B2B661B00CE4CFF /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
 		441324892B2B6B5E00CE4CFF /* ScheduleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTableViewCell.swift; sourceTree = "<group>"; };
 		4413248B2B2CB17300CE4CFF /* DayOfWeek.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayOfWeek.swift; sourceTree = "<group>"; };
+		4413248D2B31F6F200CE4CFF /* Date + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date + Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 			children = (
 				440289F42B18F45F00A0BEBE /* UIColor + Extensions.swift */,
 				441324822B28C44800CE4CFF /* UITextField + Extensions.swift */,
+				4413248D2B31F6F200CE4CFF /* Date + Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -244,6 +247,7 @@
 				440289F22B18ED3A00A0BEBE /* StatisticViewController.swift in Sources */,
 				440289D92B17A04100A0BEBE /* AppDelegate.swift in Sources */,
 				440289DB2B17A04100A0BEBE /* SceneDelegate.swift in Sources */,
+				4413248E2B31F6F200CE4CFF /* Date + Extensions.swift in Sources */,
 				441324812B277B3900CE4CFF /* CreateNewHabitViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -125,7 +125,6 @@ extension CreateNewHabitViewController: UITextFieldDelegate {
 //MARK: -UITableViewDelegate
 extension CreateNewHabitViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("qwqwq")
         switch indexPath.row {
         case 0:
             print("1")

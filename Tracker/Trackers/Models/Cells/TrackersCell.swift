@@ -90,6 +90,11 @@ class TrackersCell: UICollectionViewCell {
         setupView()
     }
 
+    func configCell(description: String, date: String) {
+        descriptionLabel.text = description
+        dateLabel.text = date
+    }
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

@@ -57,9 +57,11 @@ class TrackersViewController: UIViewController {
 
     private var categories: [TrackerCategory] = []
     private var completedTrackers: [TrackerRecord] = []
+    private var currentDate: Date = Date()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        mock()
 
         setupUIBarButtonItem()
 
@@ -73,8 +75,9 @@ class TrackersViewController: UIViewController {
     @objc private func datePickerValueChanged(_ sender: UIDatePicker) {
         let selectedDate = sender.date
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd.MM.yyyy" // Формат даты
+        dateFormatter.dateFormat = "dd.MM.yyyy"
         let formattedDate = dateFormatter.string(from: selectedDate)
+        currentDate = selectedDate
         print("Выбранная дата: \(formattedDate)")
     }
 
@@ -121,6 +124,42 @@ class TrackersViewController: UIViewController {
             trackersCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
+
+    private func mock() {
+
+        let array = [
+            TrackerCategory(name: "Test", trackers: [Tracker(name: "Test1",
+                                                             color: .ypBlue,
+                                                             emoji: "s",
+                                                             schedule: [.sunday, .friday])
+            ])
+        ]
+        categories = array
+    }
+
+    private func configCell(for cell: TrackersCell, with indexPath: IndexPath) {
+        let id = categories[0].trackers[indexPath.row].id
+        var count = 0
+
+        if !completedTrackers.isEmpty {
+            completedTrackers.forEach({value in
+                if value.id == id {
+                    count += 1
+                }
+            })
+        }
+
+        var text = ""
+
+        switch count {
+        case 0:
+            text = "Дней"
+        default:
+            text = "День"
+        }
+
+        cell.configCell(description: categories[0].trackers[indexPath.row].name, date: "\(count) \(text)")
+    }
 }
 
 //MARK: -UICollectionViewDelegateFlowLayout
@@ -163,14 +202,14 @@ extension TrackersViewController: UICollectionViewDelegateFlowLayout {
 //MARK: -UICollectionViewDataSource
 extension TrackersViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 6
+        return categories.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TrackersCell.identifier, for: indexPath) as? TrackersCell else {
             return UICollectionViewCell()
         }
-
+        configCell(for: cell, with: indexPath)
         cell.prepareForReuse()
         return cell
     }
