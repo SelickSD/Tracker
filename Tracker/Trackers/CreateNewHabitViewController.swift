@@ -9,6 +9,18 @@ import UIKit
 
 class CreateNewHabitViewController: UIViewController {
 
+    private let emojis = [
+        "🙂", "😻", "🌺", "🐶", "❤️", "😱",
+        "😇", "😡", "🥶", "🤔", "🙌", "🍔",
+        "🥦", "🏓", "🥇", "🎸", "🏝️", "😪"
+    ]
+
+    private let colours = [
+        "FD4C49", "FF881E", "007BFA", "6E44FE", "33CF69", "E66DD4",
+        "F9D4D4", "34A7FE", "46E69D", "35347C", "FF674D", "FF99CC",
+        "F6C48B", "7994F5", "832CF1", "AD56DA", "8D72E6", "2FD058"
+    ]
+
     private lazy var pageNameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -31,6 +43,19 @@ class CreateNewHabitViewController: UIViewController {
         return textField
     }()
 
+    private lazy var backgroundScrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+
+    private lazy var contentView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .ypWhite
+        return view
+    }()
+
     private lazy var mainTableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.dataSource = self
@@ -39,6 +64,21 @@ class CreateNewHabitViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(MainTableViewCell.self, forCellReuseIdentifier: MainTableViewCell.identifier)
         return tableView
+    }()
+
+    private lazy var presentCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.delegate = self
+        view.dataSource = self
+        view.register(PresentViewCell.self, forCellWithReuseIdentifier: PresentViewCell.identifier)
+        view.register(SupplementaryView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "header")
+        view.register(SupplementaryView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "footer")
+        view.allowsMultipleSelection = false
+
+        return view
     }()
 
     private lazy var cancelButton: UIButton = {
@@ -82,37 +122,56 @@ class CreateNewHabitViewController: UIViewController {
     }
 
     private func setupView() {
-
         view.backgroundColor = .ypWhite
+
+        view.addSubview(backgroundScrollView)
         view.addSubview(pageNameLabel)
-        view.addSubview(habitTextField)
-        view.addSubview(mainTableView)
-        view.addSubview(cancelButton)
-        view.addSubview(createButton)
+        backgroundScrollView.addSubview(contentView)
+        contentView.addSubview(habitTextField)
+        contentView.addSubview(mainTableView)
+        contentView.addSubview(presentCollectionView)
+        //        contentView.addSubview(cancelButton)
+        //        contentView.addSubview(createButton)
 
         NSLayoutConstraint.activate([
             pageNameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             pageNameLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
 
-            habitTextField.topAnchor.constraint(equalTo: pageNameLabel.bottomAnchor, constant: 40),
-            habitTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            habitTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            backgroundScrollView.topAnchor.constraint(equalTo: pageNameLabel.bottomAnchor, constant: 40),
+            backgroundScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            backgroundScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            backgroundScrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+
+            contentView.topAnchor.constraint(equalTo: backgroundScrollView.topAnchor),
+            contentView.leadingAnchor.constraint(equalTo: backgroundScrollView.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: backgroundScrollView.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: backgroundScrollView.bottomAnchor),
+            contentView.widthAnchor.constraint(equalTo: view.widthAnchor),
+
+            habitTextField.topAnchor.constraint(equalTo: contentView.topAnchor),
+            habitTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            habitTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             habitTextField.heightAnchor.constraint(equalToConstant: 75),
 
-            mainTableView.topAnchor.constraint(equalTo: habitTextField.bottomAnchor, constant: 40),
-            mainTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            mainTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            mainTableView.topAnchor.constraint(equalTo: habitTextField.bottomAnchor, constant: 10),
+            mainTableView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            mainTableView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             mainTableView.heightAnchor.constraint(equalToConstant: 200),
 
-            cancelButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            cancelButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            cancelButton.heightAnchor.constraint(equalToConstant: 60),
-            cancelButton.trailingAnchor.constraint(equalTo: view.centerXAnchor, constant: -8),
-
-            createButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            createButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            createButton.heightAnchor.constraint(equalToConstant: 60),
-            createButton.leadingAnchor.constraint(equalTo: view.centerXAnchor, constant: 8)
+            presentCollectionView.topAnchor.constraint(equalTo: mainTableView.bottomAnchor, constant: 10),
+            presentCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            presentCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            presentCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            //
+            //            cancelButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            //            cancelButton.topAnchor.constraint(equalTo: presentCollectionView.bottomAnchor, constant: 20),
+            //            cancelButton.heightAnchor.constraint(equalToConstant: 60),
+            //            cancelButton.trailingAnchor.constraint(equalTo: contentView.centerXAnchor, constant: -8),
+            //
+            //            createButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            //            createButton.bottomAnchor.constraint(equalTo: presentCollectionView.bottomAnchor, constant: 20),
+            //            createButton.heightAnchor.constraint(equalToConstant: 60),
+            //            createButton.leadingAnchor.constraint(equalTo: contentView.centerXAnchor, constant: 8)
         ])
     }
 }
@@ -156,5 +215,80 @@ extension CreateNewHabitViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 75
+    }
+}
+
+//MARK: -UICollectionViewDelegateFlowLayout
+extension CreateNewHabitViewController: UICollectionViewDelegateFlowLayout {
+
+    private var params: GeometricParams {
+        return GeometricParams(cellCount: 2,
+                               leftInset: 10,
+                               rightInset: 10,
+                               cellSpacing: 10)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+
+        let size = getSize(collectionView: collectionView)
+        return CGSize(width: size.width, height: size.height / 5)
+    }
+
+    private func getSize(collectionView: UICollectionView) -> CGSize {
+        let availableWidth = collectionView.frame.width - params.paddingWidth
+        let cellWidth =  availableWidth / CGFloat(params.cellCount)
+        return CGSize(width: cellWidth,
+                      height: cellWidth * 2 / 2)
+    }
+}
+
+//MARK: -UICollectionViewDataSource
+extension CreateNewHabitViewController: UICollectionViewDataSource {
+
+    func numberOfSections(in: UICollectionView) -> Int {
+        return 2
+    }
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        switch section {
+        case 0:
+            return emojis.count
+        case 1:
+            return colours.count
+        default:
+            return 0
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PresentViewCell.identifier, for: indexPath) as? PresentViewCell else {
+            return UICollectionViewCell()
+        }
+        switch indexPath.section {
+        case 0:
+            cell.titleLabel.text = emojis[indexPath.row]
+        case 1:
+            cell.backgroundColor = UIColor(hex: colours[indexPath.row])
+        default:
+            break
+        }
+        
+        return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        var id: String
+        switch kind {
+        case UICollectionView.elementKindSectionHeader:
+            id = "header"
+        case UICollectionView.elementKindSectionFooter:
+            id = "footer"
+        default:
+            id = ""
+        }
+
+        let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: id, for: indexPath) as! SupplementaryView
+        view.titleLabel.text = "Здесь находится Supplementary view"
+        return view
     }
 }

@@ -9,6 +9,10 @@ import UIKit
 
 class TrackersCell: UICollectionViewCell {
     static let identifier = "TrackersCell"
+    weak var delegate: TrackersCellDelegate?
+
+    private var isCompleted: Bool = false
+    private var id: UUID = UUID()
 
     private lazy var colorView: UIView = {
         let view = UIView()
@@ -90,9 +94,13 @@ class TrackersCell: UICollectionViewCell {
         setupView()
     }
 
-    func configCell(description: String, date: String) {
+    func configCell(description: String, date: String, id: UUID, isCompleted: Bool) {
         descriptionLabel.text = description
         dateLabel.text = date
+        self.id = id
+        self.isCompleted = isCompleted
+
+        isCompleted ? plusButton.setImage(UIImage(named:"Done"), for: .normal) : plusButton.setImage(UIImage(systemName: "plus"), for: .normal)
     }
 
     required init?(coder: NSCoder) {
@@ -100,7 +108,8 @@ class TrackersCell: UICollectionViewCell {
     }
 
     @objc private func didTapPlusButton() {
-
+        delegate?.didTapPlusButton(id: id)
+        isCompleted ? plusButton.setImage(UIImage(systemName: "plus"), for: .normal) : plusButton.setImage(UIImage(systemName: "star"), for: .normal)
     }
 
     private func setupView() {

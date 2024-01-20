@@ -30,6 +30,9 @@
 		4413248A2B2B6B5E00CE4CFF /* ScheduleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441324892B2B6B5E00CE4CFF /* ScheduleTableViewCell.swift */; };
 		4413248C2B2CB17300CE4CFF /* DayOfWeek.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4413248B2B2CB17300CE4CFF /* DayOfWeek.swift */; };
 		4413248E2B31F6F200CE4CFF /* Date + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4413248D2B31F6F200CE4CFF /* Date + Extensions.swift */; };
+		441324922B3206FA00CE4CFF /* TrackersCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441324912B3206FA00CE4CFF /* TrackersCellDelegate.swift */; };
+		44B3187D2B5BD61600CA1206 /* PresentViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B3187C2B5BD61600CA1206 /* PresentViewCell.swift */; };
+		44B3187F2B5BD95700CA1206 /* SupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B3187E2B5BD95700CA1206 /* SupplementaryView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +61,9 @@
 		441324892B2B6B5E00CE4CFF /* ScheduleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTableViewCell.swift; sourceTree = "<group>"; };
 		4413248B2B2CB17300CE4CFF /* DayOfWeek.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayOfWeek.swift; sourceTree = "<group>"; };
 		4413248D2B31F6F200CE4CFF /* Date + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date + Extensions.swift"; sourceTree = "<group>"; };
+		441324912B3206FA00CE4CFF /* TrackersCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackersCellDelegate.swift; sourceTree = "<group>"; };
+		44B3187C2B5BD61600CA1206 /* PresentViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentViewCell.swift; sourceTree = "<group>"; };
+		44B3187E2B5BD95700CA1206 /* SupplementaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupplementaryView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +96,8 @@
 		440289D72B17A04100A0BEBE /* Tracker */ = {
 			isa = PBXGroup;
 			children = (
+				441324902B3206DC00CE4CFF /* Delegates */,
+				4413248F2B32067400CE4CFF /* Protocols */,
 				441324782B25F3E500CE4CFF /* Trackers */,
 				440289F32B18F44700A0BEBE /* Extensions */,
 				440289EE2B18ECAB00A0BEBE /* Navigation */,
@@ -154,8 +162,25 @@
 				4413247C2B26225300CE4CFF /* HeaderCellView.swift */,
 				441324842B28C89300CE4CFF /* MainTableViewCell.swift */,
 				441324892B2B6B5E00CE4CFF /* ScheduleTableViewCell.swift */,
+				44B3187C2B5BD61600CA1206 /* PresentViewCell.swift */,
+				44B3187E2B5BD95700CA1206 /* SupplementaryView.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		4413248F2B32067400CE4CFF /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		441324902B3206DC00CE4CFF /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				441324912B3206FA00CE4CFF /* TrackersCellDelegate.swift */,
+			);
+			path = Delegates;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -234,7 +259,9 @@
 				4413248A2B2B6B5E00CE4CFF /* ScheduleTableViewCell.swift in Sources */,
 				440289DD2B17A04100A0BEBE /* ViewController.swift in Sources */,
 				441324882B2B661B00CE4CFF /* ScheduleViewController.swift in Sources */,
+				44B3187F2B5BD95700CA1206 /* SupplementaryView.swift in Sources */,
 				440289ED2B18EA0600A0BEBE /* TabBarController.swift in Sources */,
+				441324922B3206FA00CE4CFF /* TrackersCellDelegate.swift in Sources */,
 				4413247B2B25FF6C00CE4CFF /* GeometricParams.swift in Sources */,
 				440289F02B18ED2100A0BEBE /* TrackersViewController.swift in Sources */,
 				441324852B28C89300CE4CFF /* MainTableViewCell.swift in Sources */,
@@ -242,6 +269,7 @@
 				44028A402B23799C00A0BEBE /* TrackerRecord.swift in Sources */,
 				44028A3C2B23798100A0BEBE /* Tracker.swift in Sources */,
 				441324772B25EE4E00CE4CFF /* TrackersCell.swift in Sources */,
+				44B3187D2B5BD61600CA1206 /* PresentViewCell.swift in Sources */,
 				4413247D2B26225300CE4CFF /* HeaderCellView.swift in Sources */,
 				441324832B28C44800CE4CFF /* UITextField + Extensions.swift in Sources */,
 				440289F22B18ED3A00A0BEBE /* StatisticViewController.swift in Sources */,

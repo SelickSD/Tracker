@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TrackersViewController: UIViewController {
+class TrackersViewController: UIViewController, TrackersCellDelegate {
 
     private lazy var emptyView: UIImageView = {
         let view = UIImageView()
@@ -70,6 +70,12 @@ class TrackersViewController: UIViewController {
         } else {
             setupView()
         }
+    }
+
+    func didTapPlusButton(id: UUID) {
+        completedTrackers.append(TrackerRecord(id: id, date: Date()))
+
+        print(completedTrackers.count)
     }
 
     @objc private func datePickerValueChanged(_ sender: UIDatePicker) {
@@ -140,25 +146,33 @@ class TrackersViewController: UIViewController {
     private func configCell(for cell: TrackersCell, with indexPath: IndexPath) {
         let id = categories[0].trackers[indexPath.row].id
         var count = 0
+        var isCompleted = false
 
         if !completedTrackers.isEmpty {
             completedTrackers.forEach({value in
                 if value.id == id {
                     count += 1
                 }
+
+                if value.date == currentDate {
+                    isCompleted = true
+                }
             })
         }
 
-        var text = ""
+        cell.configCell(description: categories[0].trackers[indexPath.row].name,
+                        date: "\(count) \(getText(days: count))",
+                        id: categories[0].trackers[indexPath.row].id,
+                        isCompleted: isCompleted)
+    }
 
-        switch count {
+    private func getText(days: Int) -> String {
+        switch days {
         case 0:
-            text = "Дней"
+            return "Дней"
         default:
-            text = "День"
+            return "День"
         }
-
-        cell.configCell(description: categories[0].trackers[indexPath.row].name, date: "\(count) \(text)")
     }
 }
 
@@ -209,6 +223,7 @@ extension TrackersViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TrackersCell.identifier, for: indexPath) as? TrackersCell else {
             return UICollectionViewCell()
         }
+        cell.delegate = self
         configCell(for: cell, with: indexPath)
         cell.prepareForReuse()
         return cell
