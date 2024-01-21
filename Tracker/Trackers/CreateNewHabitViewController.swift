@@ -21,6 +21,8 @@ class CreateNewHabitViewController: UIViewController {
         "F6C48B", "7994F5", "832CF1", "AD56DA", "8D72E6", "2FD058"
     ]
 
+    private var configCells: [String: IndexPath] = [:]
+
     private lazy var pageNameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -74,8 +76,8 @@ class CreateNewHabitViewController: UIViewController {
         view.delegate = self
         view.dataSource = self
         view.register(PresentViewCell.self, forCellWithReuseIdentifier: PresentViewCell.identifier)
+        view.register(ColorViewCell.self, forCellWithReuseIdentifier: ColorViewCell.identifier)
         view.register(SupplementaryView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "header")
-        view.register(SupplementaryView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "footer")
         view.allowsMultipleSelection = false
 
         return view
@@ -266,19 +268,25 @@ extension CreateNewHabitViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PresentViewCell.identifier, for: indexPath) as? PresentViewCell else {
-            return UICollectionViewCell()
-        }
+
         switch indexPath.section {
         case 0:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PresentViewCell.identifier, for: indexPath) as? PresentViewCell else {
+                return UICollectionViewCell()
+            }
             cell.titleLabel.text = emojis[indexPath.row]
+            return cell
         case 1:
-            cell.backgroundColor = UIColor(hex: colours[indexPath.row])
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ColorViewCell.identifier, for: indexPath) as? ColorViewCell else {
+                return UICollectionViewCell()
+            }
+            cell.setColorOff(color: colours[indexPath.row])
+            return cell
         default:
             break
         }
 
-        return cell
+        return UICollectionViewCell()
     }
 
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -293,7 +301,57 @@ extension CreateNewHabitViewController: UICollectionViewDataSource {
         }
 
         let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: id, for: indexPath) as! SupplementaryView
-        view.titleLabel.text = "Здесь находится Supplementary view"
+
+        switch indexPath.section {
+        case 0:
+            view.titleLabel.text = "Emoji"
+        case 1:
+            view.titleLabel.text = "Цвет"
+        default:
+            break
+        }
+
         return view
+    }
+}
+
+extension CreateNewHabitViewController: UICollectionViewDelegate {
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+
+        let tmpConfig = configCells
+
+        switch indexPath.section {
+        case 0:
+            configCells.updateValue(indexPath, forKey: "Emoji")
+        case 1:
+            configCells.updateValue(indexPath, forKey: "Цвет")
+        default:
+            break
+        }
+
+        for (key, value) in configCells {
+            if tmpConfig[key] != value && key == "Emoji" {
+                guard let index = tmpConfig[key] else {
+                    let cell = collectionView.cellForItem(at: value) as? PresentViewCell
+                    cell?.backgroundColor = .ypBackgroundGrey
+                    return
+                }
+                let tmpCell = collectionView.cellForItem(at: index) as? PresentViewCell
+                let cell = collectionView.cellForItem(at: value) as? PresentViewCell
+                tmpCell?.backgroundColor = .white
+                cell?.backgroundColor = .ypBackgroundGrey
+            } else if tmpConfig[key] != value && key == "Цвет" {
+                guard let index = tmpConfig[key] else {
+                    let cell = collectionView.cellForItem(at: value) as? ColorViewCell
+                    cell?.setColorOn(color: colours[value.row])
+                    return
+                }
+                let tmpCell = collectionView.cellForItem(at: index) as? ColorViewCell
+                let cell = collectionView.cellForItem(at: value) as? ColorViewCell
+                tmpCell?.setColorOff(color: colours[index.row])
+                cell?.setColorOn(color: colours[value.row])
+            }
+        }
     }
 }

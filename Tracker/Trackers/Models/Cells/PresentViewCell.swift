@@ -17,7 +17,6 @@ class PresentViewCell: UICollectionViewCell {
 
         self.layer.cornerRadius = 12
         self.clipsToBounds = true
-//        self.translatesAutoresizingMaskIntoConstraints = false
 
         contentView.addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false

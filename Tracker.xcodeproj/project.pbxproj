@@ -33,6 +33,7 @@
 		441324922B3206FA00CE4CFF /* TrackersCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441324912B3206FA00CE4CFF /* TrackersCellDelegate.swift */; };
 		44B3187D2B5BD61600CA1206 /* PresentViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B3187C2B5BD61600CA1206 /* PresentViewCell.swift */; };
 		44B3187F2B5BD95700CA1206 /* SupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B3187E2B5BD95700CA1206 /* SupplementaryView.swift */; };
+		44E440A22B5D9A1C00AC2F4F /* ColorViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E440A12B5D9A1C00AC2F4F /* ColorViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +65,7 @@
 		441324912B3206FA00CE4CFF /* TrackersCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackersCellDelegate.swift; sourceTree = "<group>"; };
 		44B3187C2B5BD61600CA1206 /* PresentViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentViewCell.swift; sourceTree = "<group>"; };
 		44B3187E2B5BD95700CA1206 /* SupplementaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupplementaryView.swift; sourceTree = "<group>"; };
+		44E440A12B5D9A1C00AC2F4F /* ColorViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +166,7 @@
 				441324892B2B6B5E00CE4CFF /* ScheduleTableViewCell.swift */,
 				44B3187C2B5BD61600CA1206 /* PresentViewCell.swift */,
 				44B3187E2B5BD95700CA1206 /* SupplementaryView.swift */,
+				44E440A12B5D9A1C00AC2F4F /* ColorViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -257,6 +260,7 @@
 				4413248C2B2CB17300CE4CFF /* DayOfWeek.swift in Sources */,
 				44028A3E2B23798F00A0BEBE /* TrackerCategory.swift in Sources */,
 				4413248A2B2B6B5E00CE4CFF /* ScheduleTableViewCell.swift in Sources */,
+				44E440A22B5D9A1C00AC2F4F /* ColorViewCell.swift in Sources */,
 				440289DD2B17A04100A0BEBE /* ViewController.swift in Sources */,
 				441324882B2B661B00CE4CFF /* ScheduleViewController.swift in Sources */,
 				44B3187F2B5BD95700CA1206 /* SupplementaryView.swift in Sources */,
