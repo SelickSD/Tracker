@@ -29,6 +29,19 @@ class CreateNewHabitViewController: UIViewController {
         return label
     }()
 
+    private lazy var backgroundScrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+
+    private lazy var contentView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .ypWhite
+        return view
+    }()
+
     private lazy var habitTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -41,19 +54,6 @@ class CreateNewHabitViewController: UIViewController {
         textField.indent(size: 8)
         textField.delegate = self
         return textField
-    }()
-
-    private lazy var backgroundScrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        return scrollView
-    }()
-
-    private lazy var contentView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .ypWhite
-        return view
     }()
 
     private lazy var mainTableView: UITableView = {
@@ -130,14 +130,18 @@ class CreateNewHabitViewController: UIViewController {
         contentView.addSubview(habitTextField)
         contentView.addSubview(mainTableView)
         contentView.addSubview(presentCollectionView)
-        //        contentView.addSubview(cancelButton)
-        //        contentView.addSubview(createButton)
+        contentView.addSubview(cancelButton)
+        contentView.addSubview(createButton)
+
+        let equalHeight = contentView.heightAnchor.constraint(equalToConstant: 850)
+        equalHeight.priority = UILayoutPriority(250)
+
 
         NSLayoutConstraint.activate([
             pageNameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             pageNameLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
 
-            backgroundScrollView.topAnchor.constraint(equalTo: pageNameLabel.bottomAnchor, constant: 40),
+            backgroundScrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 102),
             backgroundScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             backgroundScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             backgroundScrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
@@ -147,6 +151,7 @@ class CreateNewHabitViewController: UIViewController {
             contentView.trailingAnchor.constraint(equalTo: backgroundScrollView.trailingAnchor),
             contentView.bottomAnchor.constraint(equalTo: backgroundScrollView.bottomAnchor),
             contentView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            equalHeight,
 
             habitTextField.topAnchor.constraint(equalTo: contentView.topAnchor),
             habitTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
@@ -156,22 +161,22 @@ class CreateNewHabitViewController: UIViewController {
             mainTableView.topAnchor.constraint(equalTo: habitTextField.bottomAnchor, constant: 10),
             mainTableView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             mainTableView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            mainTableView.heightAnchor.constraint(equalToConstant: 200),
+            mainTableView.heightAnchor.constraint(equalToConstant: 210),
 
             presentCollectionView.topAnchor.constraint(equalTo: mainTableView.bottomAnchor, constant: 10),
             presentCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             presentCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            presentCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-            //
-            //            cancelButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            //            cancelButton.topAnchor.constraint(equalTo: presentCollectionView.bottomAnchor, constant: 20),
-            //            cancelButton.heightAnchor.constraint(equalToConstant: 60),
-            //            cancelButton.trailingAnchor.constraint(equalTo: contentView.centerXAnchor, constant: -8),
-            //
-            //            createButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            //            createButton.bottomAnchor.constraint(equalTo: presentCollectionView.bottomAnchor, constant: 20),
-            //            createButton.heightAnchor.constraint(equalToConstant: 60),
-            //            createButton.leadingAnchor.constraint(equalTo: contentView.centerXAnchor, constant: 8)
+            presentCollectionView.heightAnchor.constraint(equalToConstant: 420),
+
+            cancelButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            cancelButton.topAnchor.constraint(equalTo: presentCollectionView.bottomAnchor, constant: 20),
+            cancelButton.heightAnchor.constraint(equalToConstant: 60),
+            cancelButton.trailingAnchor.constraint(equalTo: contentView.centerXAnchor, constant: -8),
+
+            createButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            createButton.topAnchor.constraint(equalTo: presentCollectionView.bottomAnchor, constant: 20),
+            createButton.heightAnchor.constraint(equalToConstant: 60),
+            createButton.leadingAnchor.constraint(equalTo: contentView.centerXAnchor, constant: 8)
         ])
     }
 }
@@ -272,7 +277,7 @@ extension CreateNewHabitViewController: UICollectionViewDataSource {
         default:
             break
         }
-        
+
         return cell
     }
 
