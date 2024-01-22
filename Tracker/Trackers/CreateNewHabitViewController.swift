@@ -22,6 +22,7 @@ class CreateNewHabitViewController: UIViewController {
     ]
 
     private var configCells: [String: IndexPath] = [:]
+    private var newTrackerName: String?
 
     private lazy var pageNameLabel: UILabel = {
         let label = UILabel()
@@ -44,6 +45,12 @@ class CreateNewHabitViewController: UIViewController {
         return view
     }()
 
+    private lazy var tapGestureView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
     private lazy var habitTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -55,6 +62,7 @@ class CreateNewHabitViewController: UIViewController {
         textField.layer.cornerRadius = 16
         textField.indent(size: 8)
         textField.delegate = self
+        textField.addTarget(self, action: #selector(habitTextChanged), for: .editingChanged)
         return textField
     }()
 
@@ -113,14 +121,33 @@ class CreateNewHabitViewController: UIViewController {
         super.viewDidLoad()
 
         setupView()
+        setupGestures()
     }
-
+    
     @objc private func didTapCancelButton() {
         self.dismiss(animated: true)
     }
 
     @objc private func didTapCreateButton() {
+        guard let string = newTrackerName else {
+            print("empty")
+            return
+        }
+        print(string)
+    }
 
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
+    }
+
+    @objc func habitTextChanged(_ textField: UITextField) {
+        newTrackerName = textField.text
+    }
+
+    private func setupGestures() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapGesture.cancelsTouchesInView = true
+        tapGestureView.addGestureRecognizer(tapGesture)
     }
 
     private func setupView() {
@@ -129,8 +156,9 @@ class CreateNewHabitViewController: UIViewController {
         view.addSubview(backgroundScrollView)
         view.addSubview(pageNameLabel)
         backgroundScrollView.addSubview(contentView)
-        contentView.addSubview(habitTextField)
         contentView.addSubview(mainTableView)
+        contentView.addSubview(tapGestureView)
+        tapGestureView.addSubview(habitTextField)
         contentView.addSubview(presentCollectionView)
         contentView.addSubview(cancelButton)
         contentView.addSubview(createButton)
@@ -155,9 +183,14 @@ class CreateNewHabitViewController: UIViewController {
             contentView.widthAnchor.constraint(equalTo: view.widthAnchor),
             equalHeight,
 
-            habitTextField.topAnchor.constraint(equalTo: contentView.topAnchor),
-            habitTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            habitTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            tapGestureView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            tapGestureView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            tapGestureView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            tapGestureView.heightAnchor.constraint(equalToConstant: 120),
+
+            habitTextField.topAnchor.constraint(equalTo: tapGestureView.topAnchor),
+            habitTextField.leadingAnchor.constraint(equalTo: tapGestureView.leadingAnchor, constant: 16),
+            habitTextField.trailingAnchor.constraint(equalTo: tapGestureView.trailingAnchor, constant: -16),
             habitTextField.heightAnchor.constraint(equalToConstant: 75),
 
             mainTableView.topAnchor.constraint(equalTo: habitTextField.bottomAnchor, constant: 10),
@@ -185,7 +218,10 @@ class CreateNewHabitViewController: UIViewController {
 
 //MARK: -UITextFieldDelegate
 extension CreateNewHabitViewController: UITextFieldDelegate {
-
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        view.endEditing(true)
+        return true
+    }
 }
 
 //MARK: -UITableViewDelegate
@@ -193,8 +229,10 @@ extension CreateNewHabitViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
+            view.endEditing(true)
             print("1")
         case 1:
+            view.endEditing(true)
             self.present(ScheduleViewController(), animated: true)
         default:
             break
