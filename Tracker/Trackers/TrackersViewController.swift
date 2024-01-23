@@ -61,7 +61,6 @@ class TrackersViewController: UIViewController, TrackersCellDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        mock()
 
         setupUIBarButtonItem()
 
@@ -129,18 +128,6 @@ class TrackersViewController: UIViewController, TrackersCellDelegate {
             trackersCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             trackersCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
-    }
-
-    private func mock() {
-
-        let array = [
-            TrackerCategory(name: "Test", trackers: [Tracker(name: "Test1",
-                                                             color: .ypBlue,
-                                                             emoji: "s",
-                                                             schedule: [.sunday, .friday])
-            ])
-        ]
-        categories = array
     }
 
     private func configCell(for cell: TrackersCell, with indexPath: IndexPath) {

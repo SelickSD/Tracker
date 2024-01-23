@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CreateNewHabitViewController: UIViewController {
+class CreateNewHabitViewController: UIViewController, CategoryViewControllerDelegate {
 
     private let emojis = [
         "🙂", "😻", "🌺", "🐶", "❤️", "😱",
@@ -23,6 +23,8 @@ class CreateNewHabitViewController: UIViewController {
 
     private var configCells: [String: IndexPath] = [:]
     private var newTrackerName: String?
+    private var categories: [String] = []
+    private var category: Int?
 
     private lazy var pageNameLabel: UILabel = {
         let label = UILabel()
@@ -123,7 +125,13 @@ class CreateNewHabitViewController: UIViewController {
         setupView()
         setupGestures()
     }
-    
+
+    func fetchCategory(index: Int, categories: [String]) {
+        self.categories = categories
+        category = index
+        print(category ?? "r")
+    }
+
     @objc private func didTapCancelButton() {
         self.dismiss(animated: true)
     }
@@ -227,10 +235,16 @@ extension CreateNewHabitViewController: UITextFieldDelegate {
 //MARK: -UITableViewDelegate
 extension CreateNewHabitViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let tableViewCell = tableView.cellForRow(at: indexPath) as? MainTableViewCell else {return}
         switch indexPath.row {
         case 0:
             view.endEditing(true)
-            print("1")
+            categories = ["a", "b", "c"]
+//            categories = ["Важно"]
+                let categoryViewController = CategoryViewController()
+                categoryViewController.delegate = self
+                categoryViewController.setupView(category: categories, targetCell: tableViewCell, index: category)
+                self.present(categoryViewController, animated: true)
         case 1:
             view.endEditing(true)
             self.present(ScheduleViewController(), animated: true)

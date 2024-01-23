@@ -17,6 +17,14 @@ class MainTableViewCell: UITableViewCell {
         return label
     }()
 
+    private lazy var categoryLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.clipsToBounds = true
+        label.textColor = .lightGray
+        return label
+    }()
+
     private lazy var nextButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -39,6 +47,12 @@ class MainTableViewCell: UITableViewCell {
 
     @objc private func didTapNextButton() {
 
+    }
+
+    func configLabel(newLabelText: String) {
+        categoryLabel.text = newLabelText
+        updateView()
+        layoutIfNeeded()
     }
 
     func configCell(rowOfCell: Int, maxCount: Int) {
@@ -68,6 +82,27 @@ class MainTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
             titleLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+
+            nextButton.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            nextButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16)
+        ])
+    }
+
+    private func updateView() {
+        titleLabel.removeFromSuperview()
+        nextButton.removeFromSuperview()
+
+
+        self.addSubview(titleLabel)
+        self.addSubview(categoryLabel)
+        self.addSubview(nextButton)
+
+        NSLayoutConstraint.activate([
+            titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            titleLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: -10),
+
+            categoryLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            categoryLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 10),
 
             nextButton.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             nextButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16)
