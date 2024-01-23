@@ -55,6 +55,16 @@ class MainTableViewCell: UITableViewCell {
         layoutIfNeeded()
     }
 
+    func discardChanges() {
+        titleLabel.removeFromSuperview()
+        nextButton.removeFromSuperview()
+        categoryLabel.removeFromSuperview()
+
+        setupView()
+        layoutIfNeeded()
+
+    }
+
     func configCell(rowOfCell: Int, maxCount: Int) {
 
         switch rowOfCell {

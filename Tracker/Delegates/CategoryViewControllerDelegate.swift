@@ -8,5 +8,5 @@
 import Foundation
 
 protocol CategoryViewControllerDelegate: AnyObject {
-    func fetchCategory(index: Int, categories: [String])
+    func fetchCategory(index: Int?, categories: [String])
 }

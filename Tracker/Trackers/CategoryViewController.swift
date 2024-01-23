@@ -94,8 +94,12 @@ class CategoryViewController: UIViewController, CategoryViewControllerProtocol {
     }
 
     private func delegateChange() {
-        guard let done = doneIndex else {return}
         guard let targetCell = myCell as? MainTableViewCell else {return}
+        guard let done = doneIndex else {
+            targetCell.discardChanges()
+            delegate?.fetchCategory(index: nil, categories: categories)
+            return
+        }
         targetCell.configLabel(newLabelText: categories[done.row])
         delegate?.fetchCategory(index: done.row, categories: categories)
     }
@@ -159,10 +163,12 @@ extension CategoryViewController: UITableViewDelegate {
             doneIndex = indexPath
             return
         }
-        
+
         if oldDone == indexPath {
             let cell = tableView.cellForRow(at: indexPath) as? CategoriesTableViewCell
             cell?.makeDone()
+            doneIndex = nil
+            index = nil
         } else {
             let oldCell = tableView.cellForRow(at: oldDone) as? CategoriesTableViewCell
             let cell = tableView.cellForRow(at: indexPath) as? CategoriesTableViewCell

@@ -126,7 +126,7 @@ class CreateNewHabitViewController: UIViewController, CategoryViewControllerDele
         setupGestures()
     }
 
-    func fetchCategory(index: Int, categories: [String]) {
+    func fetchCategory(index: Int?, categories: [String]) {
         self.categories = categories
         category = index
         print(category ?? "r")
