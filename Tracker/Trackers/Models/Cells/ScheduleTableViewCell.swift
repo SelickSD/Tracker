@@ -21,12 +21,13 @@ class ScheduleTableViewCell: UITableViewCell {
         let button = UISwitch()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.clipsToBounds = true
-        button.addTarget(self, action: #selector(didTapNextButton), for: .touchUpInside)
+        button.addTarget(self, action: #selector(didTapDayOfWeekButton), for: .touchUpInside)
         return button
     }()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.clipsToBounds = true
 
         setupView()
     }
@@ -35,33 +36,32 @@ class ScheduleTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    @objc private func didTapNextButton() {
-
+    func setSwitchOn() {
+        dayOfWeekSwitch.setOn(true, animated: true)
     }
 
-    func configCell(rowOfCell: Int, maxCount: Int) {
+    func setSwitchOff() {
+        dayOfWeekSwitch.setOn(false, animated: true)
+    }
+
+    @objc private func didTapDayOfWeekButton() {
+        dayOfWeekSwitch.setOn(true, animated: true)
+        print("true")
+    }
+
+    func configCell(rowOfCell: Int, maxCount: Int, dayName: String) {
+
+        titleLabel.text = dayName
 
         switch rowOfCell {
         case 0:
             self.layer.masksToBounds = true
             self.layer.cornerRadius = 10
             self.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-            titleLabel.text = DayOfWeek.monday.rawValue
-        case 1:
-            titleLabel.text = DayOfWeek.tuesday.rawValue
-        case 2:
-            titleLabel.text = DayOfWeek.wednesday.rawValue
-        case 3:
-            titleLabel.text = DayOfWeek.thursday.rawValue
-        case 4:
-            titleLabel.text = DayOfWeek.friday.rawValue
-        case 5:
-            titleLabel.text = DayOfWeek.saturday.rawValue
-        case 6:
+        case maxCount - 1:
             self.layer.masksToBounds = true
             self.layer.cornerRadius = 10
             self.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
-            titleLabel.text = DayOfWeek.sunday.rawValue
         default:
             break
         }

@@ -39,6 +39,7 @@
 		44DE3A342B6036A4007F5B5E /* CategoryViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DE3A332B6036A4007F5B5E /* CategoryViewControllerDelegate.swift */; };
 		44DE3A362B60E3BA007F5B5E /* CreateNewCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DE3A352B60E3BA007F5B5E /* CreateNewCategoryViewController.swift */; };
 		44DE3A382B60E841007F5B5E /* CreateNewCategoryViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DE3A372B60E841007F5B5E /* CreateNewCategoryViewControllerDelegate.swift */; };
+		44DE3A3A2B60F3D6007F5B5E /* ScheduleViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DE3A392B60F3D6007F5B5E /* ScheduleViewControllerDelegate.swift */; };
 		44E440A22B5D9A1C00AC2F4F /* ColorViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E440A12B5D9A1C00AC2F4F /* ColorViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -77,6 +78,7 @@
 		44DE3A332B6036A4007F5B5E /* CategoryViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewControllerDelegate.swift; sourceTree = "<group>"; };
 		44DE3A352B60E3BA007F5B5E /* CreateNewCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewCategoryViewController.swift; sourceTree = "<group>"; };
 		44DE3A372B60E841007F5B5E /* CreateNewCategoryViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewCategoryViewControllerDelegate.swift; sourceTree = "<group>"; };
+		44DE3A392B60F3D6007F5B5E /* ScheduleViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewControllerDelegate.swift; sourceTree = "<group>"; };
 		44E440A12B5D9A1C00AC2F4F /* ColorViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -200,6 +202,7 @@
 				441324912B3206FA00CE4CFF /* TrackersCellDelegate.swift */,
 				44DE3A332B6036A4007F5B5E /* CategoryViewControllerDelegate.swift */,
 				44DE3A372B60E841007F5B5E /* CreateNewCategoryViewControllerDelegate.swift */,
+				44DE3A392B60F3D6007F5B5E /* ScheduleViewControllerDelegate.swift */,
 			);
 			path = Delegates;
 			sourceTree = "<group>";
@@ -280,6 +283,7 @@
 				4413248A2B2B6B5E00CE4CFF /* ScheduleTableViewCell.swift in Sources */,
 				44E440A22B5D9A1C00AC2F4F /* ColorViewCell.swift in Sources */,
 				44DE3A322B6025AD007F5B5E /* CategoriesTableViewCell.swift in Sources */,
+				44DE3A3A2B60F3D6007F5B5E /* ScheduleViewControllerDelegate.swift in Sources */,
 				44DE3A382B60E841007F5B5E /* CreateNewCategoryViewControllerDelegate.swift in Sources */,
 				440289DD2B17A04100A0BEBE /* ViewController.swift in Sources */,
 				441324882B2B661B00CE4CFF /* ScheduleViewController.swift in Sources */,

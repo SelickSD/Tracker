@@ -9,6 +9,12 @@ import UIKit
 
 class ScheduleViewController: UIViewController {
 
+    weak var delegate: ScheduleViewControllerDelegate?
+
+    private let dayOfWeek: [DayOfWeek] = [.monday, .tuesday, .wednesday, .thursday, .friday, .saturday, .sunday]
+    private var choseDay: [DayOfWeek] = []
+    private var myCell: UITableViewCell?
+
     private lazy var pageNameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -39,16 +45,60 @@ class ScheduleViewController: UIViewController {
         return button
     }()
 
+    func setupTableView(choseDay: [DayOfWeek], targetCell: UITableViewCell) {
+        myCell = targetCell
+        self.choseDay = choseDay
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupView()
     }
 
-    @objc private func didTapDoneButton() {
-
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        delegateChange()
     }
-    
+
+    @objc private func didTapDoneButton() {
+            self.dismiss(animated: true)
+    }
+
+    private func delegateChange() {
+        guard let targetCell = myCell as? MainTableViewCell else {return}
+        delegate?.fetchDayOfWeek(dayOfWeek: choseDay)
+        targetCell.discardChanges()
+        if !choseDay.isEmpty {
+            targetCell.configLabel(newLabelText: createTextLabel())
+        }
+    }
+
+    private func createTextLabel() -> String {
+        var text = ""
+        dayOfWeek.forEach({ value in
+            if choseDay.contains(value) {
+                switch value {
+                case .monday:
+                    text = text + "Пн. "
+                case .tuesday:
+                    text = text + "Вт. "
+                case .wednesday:
+                    text = text + "Ср. "
+                case .thursday:
+                    text = text + "Чт. "
+                case .friday:
+                    text = text + "Пт. "
+                case .saturday:
+                    text = text + "Сб. "
+                case .sunday:
+                    text = text + "Вс. "
+                }
+            }
+        })
+        return text
+    }
+
     private func setupView() {
 
         view.backgroundColor = .ypWhite
@@ -75,15 +125,24 @@ class ScheduleViewController: UIViewController {
 
 //MARK: -UITableViewDelegate
 extension ScheduleViewController: UITableViewDelegate {
-
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath) as? ScheduleTableViewCell
+        if choseDay.contains(dayOfWeek[indexPath.row]) {
+            guard let index = choseDay.firstIndex(of: dayOfWeek[indexPath.row]) else {return}
+            choseDay.remove(at: index)
+            cell?.setSwitchOff()
+        } else {
+            choseDay.append(dayOfWeek[indexPath.row])
+            cell?.setSwitchOn()
+        }
+    }
 }
 
 //MARK: -UITableViewDataSource
 extension ScheduleViewController: UITableViewDataSource {
-    private var maxRows: Int { return 7 }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return maxRows
+        return dayOfWeek.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -92,7 +151,10 @@ extension ScheduleViewController: UITableViewDataSource {
             return UITableViewCell()
         }
 
-        cell.configCell(rowOfCell: indexPath.row, maxCount: maxRows)
+        cell.configCell(rowOfCell: indexPath.row, maxCount: dayOfWeek.count, dayName: dayOfWeek[indexPath.row].rawValue)
+        if choseDay.contains(dayOfWeek[indexPath.row]) {
+            cell.setSwitchOn()
+        }
         return cell
     }
 

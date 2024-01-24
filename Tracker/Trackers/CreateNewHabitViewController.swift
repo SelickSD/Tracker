@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CreateNewHabitViewController: UIViewController, CategoryViewControllerDelegate {
+class CreateNewHabitViewController: UIViewController, CategoryViewControllerDelegate, ScheduleViewControllerDelegate {
 
     private let emojis = [
         "🙂", "😻", "🌺", "🐶", "❤️", "😱",
@@ -25,6 +25,7 @@ class CreateNewHabitViewController: UIViewController, CategoryViewControllerDele
     private var newTrackerName: String?
     private var categories: [String] = []
     private var category: Int?
+    private var choseDay: [DayOfWeek] = []
 
     private lazy var pageNameLabel: UILabel = {
         let label = UILabel()
@@ -128,9 +129,11 @@ class CreateNewHabitViewController: UIViewController, CategoryViewControllerDele
 
     func fetchCategory(index: Int?, categories: [String]) {
         self.categories = categories
-        print(categories.count)
         category = index
-        print(category ?? "r")
+    }
+
+    func fetchDayOfWeek(dayOfWeek: [DayOfWeek]) {
+        self.choseDay = dayOfWeek
     }
 
     @objc private func didTapCancelButton() {
@@ -236,19 +239,19 @@ extension CreateNewHabitViewController: UITextFieldDelegate {
 //MARK: -UITableViewDelegate
 extension CreateNewHabitViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        view.endEditing(true)
         guard let tableViewCell = tableView.cellForRow(at: indexPath) as? MainTableViewCell else {return}
         switch indexPath.row {
         case 0:
-            view.endEditing(true)
-            //categories = ["a", "b", "c"]
-//            categories = ["Важно"]
-                let categoryViewController = CategoryViewController()
-                categoryViewController.delegate = self
-                categoryViewController.setupView(category: categories, targetCell: tableViewCell, index: category)
-                self.present(categoryViewController, animated: true)
+            let categoryViewController = CategoryViewController()
+            categoryViewController.delegate = self
+            categoryViewController.setupView(category: categories, targetCell: tableViewCell, index: category)
+            self.present(categoryViewController, animated: true)
         case 1:
-            view.endEditing(true)
-            self.present(ScheduleViewController(), animated: true)
+            let scheduleViewController = ScheduleViewController()
+            scheduleViewController.delegate = self
+            scheduleViewController.setupTableView(choseDay: choseDay, targetCell: tableViewCell)
+            self.present(scheduleViewController, animated: true)
         default:
             break
         }
