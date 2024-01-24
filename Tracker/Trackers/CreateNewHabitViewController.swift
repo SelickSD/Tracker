@@ -128,6 +128,7 @@ class CreateNewHabitViewController: UIViewController, CategoryViewControllerDele
 
     func fetchCategory(index: Int?, categories: [String]) {
         self.categories = categories
+        print(categories.count)
         category = index
         print(category ?? "r")
     }
@@ -239,7 +240,7 @@ extension CreateNewHabitViewController: UITableViewDelegate {
         switch indexPath.row {
         case 0:
             view.endEditing(true)
-            categories = ["a", "b", "c"]
+            //categories = ["a", "b", "c"]
 //            categories = ["Важно"]
                 let categoryViewController = CategoryViewController()
                 categoryViewController.delegate = self

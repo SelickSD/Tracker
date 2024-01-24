@@ -37,6 +37,8 @@
 		44DE3A2F2B6019F0007F5B5E /* CategoryViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DE3A2E2B6019F0007F5B5E /* CategoryViewControllerProtocol.swift */; };
 		44DE3A322B6025AD007F5B5E /* CategoriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DE3A312B6025AD007F5B5E /* CategoriesTableViewCell.swift */; };
 		44DE3A342B6036A4007F5B5E /* CategoryViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DE3A332B6036A4007F5B5E /* CategoryViewControllerDelegate.swift */; };
+		44DE3A362B60E3BA007F5B5E /* CreateNewCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DE3A352B60E3BA007F5B5E /* CreateNewCategoryViewController.swift */; };
+		44DE3A382B60E841007F5B5E /* CreateNewCategoryViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DE3A372B60E841007F5B5E /* CreateNewCategoryViewControllerDelegate.swift */; };
 		44E440A22B5D9A1C00AC2F4F /* ColorViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E440A12B5D9A1C00AC2F4F /* ColorViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -73,6 +75,8 @@
 		44DE3A2E2B6019F0007F5B5E /* CategoryViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewControllerProtocol.swift; sourceTree = "<group>"; };
 		44DE3A312B6025AD007F5B5E /* CategoriesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesTableViewCell.swift; sourceTree = "<group>"; };
 		44DE3A332B6036A4007F5B5E /* CategoryViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewControllerDelegate.swift; sourceTree = "<group>"; };
+		44DE3A352B60E3BA007F5B5E /* CreateNewCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewCategoryViewController.swift; sourceTree = "<group>"; };
+		44DE3A372B60E841007F5B5E /* CreateNewCategoryViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewCategoryViewControllerDelegate.swift; sourceTree = "<group>"; };
 		44E440A12B5D9A1C00AC2F4F /* ColorViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -148,6 +152,7 @@
 				441324802B277B3900CE4CFF /* CreateNewHabitViewController.swift */,
 				441324872B2B661B00CE4CFF /* ScheduleViewController.swift */,
 				44DE3A282B600921007F5B5E /* CategoryViewController.swift */,
+				44DE3A352B60E3BA007F5B5E /* CreateNewCategoryViewController.swift */,
 				441324792B25F40F00CE4CFF /* Models */,
 			);
 			path = Trackers;
@@ -194,6 +199,7 @@
 			children = (
 				441324912B3206FA00CE4CFF /* TrackersCellDelegate.swift */,
 				44DE3A332B6036A4007F5B5E /* CategoryViewControllerDelegate.swift */,
+				44DE3A372B60E841007F5B5E /* CreateNewCategoryViewControllerDelegate.swift */,
 			);
 			path = Delegates;
 			sourceTree = "<group>";
@@ -274,6 +280,7 @@
 				4413248A2B2B6B5E00CE4CFF /* ScheduleTableViewCell.swift in Sources */,
 				44E440A22B5D9A1C00AC2F4F /* ColorViewCell.swift in Sources */,
 				44DE3A322B6025AD007F5B5E /* CategoriesTableViewCell.swift in Sources */,
+				44DE3A382B60E841007F5B5E /* CreateNewCategoryViewControllerDelegate.swift in Sources */,
 				440289DD2B17A04100A0BEBE /* ViewController.swift in Sources */,
 				441324882B2B661B00CE4CFF /* ScheduleViewController.swift in Sources */,
 				44B3187F2B5BD95700CA1206 /* SupplementaryView.swift in Sources */,
@@ -283,6 +290,7 @@
 				4413247B2B25FF6C00CE4CFF /* GeometricParams.swift in Sources */,
 				440289F02B18ED2100A0BEBE /* TrackersViewController.swift in Sources */,
 				441324852B28C89300CE4CFF /* MainTableViewCell.swift in Sources */,
+				44DE3A362B60E3BA007F5B5E /* CreateNewCategoryViewController.swift in Sources */,
 				440289F52B18F45F00A0BEBE /* UIColor + Extensions.swift in Sources */,
 				44028A402B23799C00A0BEBE /* TrackerRecord.swift in Sources */,
 				44028A3C2B23798100A0BEBE /* Tracker.swift in Sources */,

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CategoryViewController: UIViewController, CategoryViewControllerProtocol {
+class CategoryViewController: UIViewController, CategoryViewControllerProtocol, CreateNewCategoryViewControllerDelegate {
 
     weak var delegate: CategoryViewControllerDelegate?
     private var categories: [String] = []
@@ -84,12 +84,22 @@ class CategoryViewController: UIViewController, CategoryViewControllerProtocol {
         }
     }
 
+    func fetchCategoryName(name: String) {
+        categories.append(name)
+        if !categories.isEmpty {
+            categoriesTableView.reloadData()
+            setupTargetView()
+        }
+    }
+
     @objc private func didTapDoneButton() {
         if doneIndex != nil {
             delegateChange()
             self.dismiss(animated: true)
         } else {
-
+            let newCategoryViewController = CreateNewCategoryViewController()
+            newCategoryViewController.delegate = self
+            self.present(newCategoryViewController, animated: true)
         }
     }
 
