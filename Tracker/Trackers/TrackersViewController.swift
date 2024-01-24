@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TrackersViewController: UIViewController, TrackersCellDelegate {
+class TrackersViewController: UIViewController, TrackersCellDelegate, TrackersViewControllerDelegate {
 
     private lazy var emptyView: UIImageView = {
         let view = UIImageView()
@@ -38,6 +38,19 @@ class TrackersViewController: UIViewController, TrackersCellDelegate {
         datePicker.preferredDatePickerStyle = .compact
         datePicker.addTarget(self, action: #selector(datePickerValueChanged(_:)), for: .valueChanged)
         return datePicker
+    }()
+
+    private lazy var backgroundScrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+
+    private lazy var contentView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .ypWhite
+        return view
     }()
 
     private lazy var trackersCollectionView: UICollectionView = {
@@ -77,6 +90,14 @@ class TrackersViewController: UIViewController, TrackersCellDelegate {
         print(completedTrackers.count)
     }
 
+    func fetchNewTrack(newHabit: TrackerCategory) {
+        if categories.isEmpty {
+            setupView()
+        }
+        updateCategory(newHabit: newHabit)
+        trackersCollectionView.reloadData()
+    }
+
     @objc private func datePickerValueChanged(_ sender: UIDatePicker) {
         let selectedDate = sender.date
         let dateFormatter = DateFormatter()
@@ -87,7 +108,30 @@ class TrackersViewController: UIViewController, TrackersCellDelegate {
     }
 
     @objc private func addTapped() {
-        self.present(CreateNewTrackerViewController(), animated: true)
+        let createNewTrackerViewController = CreateNewTrackerViewController()
+        createNewTrackerViewController.delegate = self
+        categories.forEach({ value in
+            createNewTrackerViewController.categories.append(value.name)
+        })
+        self.present(createNewTrackerViewController, animated: true)
+    }
+
+    private func updateCategory(newHabit: TrackerCategory) {
+        let oldCategory = categories
+        var isChange = false
+        var index = 0
+
+        oldCategory.forEach({ value in
+            if value.name == newHabit.name {
+                categories[index].updateTrackers(tracker: newHabit.trackers[0])
+                isChange.toggle()
+            }
+            index += 1
+        })
+
+        if !isChange {
+            categories.append(newHabit)
+        }
     }
 
     private func setupBlankView() {
@@ -119,38 +163,39 @@ class TrackersViewController: UIViewController, TrackersCellDelegate {
 
     private func setupView(){
 
-        view.backgroundColor = .ypWhite
-        view.addSubview(trackersCollectionView)
+        emptyView.removeFromSuperview()
+        openingLabel.removeFromSuperview()
+
+        view.addSubview(backgroundScrollView)
+        backgroundScrollView.addSubview(contentView)
+        contentView.addSubview(trackersCollectionView)
+
+        let equalHeight = contentView.heightAnchor.constraint(equalToConstant: 850)
+        equalHeight.priority = UILayoutPriority(250)
 
         NSLayoutConstraint.activate([
+            backgroundScrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            backgroundScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            backgroundScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            backgroundScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+
+            contentView.topAnchor.constraint(equalTo: backgroundScrollView.topAnchor),
+            contentView.leadingAnchor.constraint(equalTo: backgroundScrollView.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: backgroundScrollView.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: backgroundScrollView.bottomAnchor),
+            contentView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            equalHeight,
+
             trackersCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            trackersCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            trackersCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            trackersCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            trackersCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             trackersCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
 
     private func configCell(for cell: TrackersCell, with indexPath: IndexPath) {
-        let id = categories[0].trackers[indexPath.row].id
-        var count = 0
-        var isCompleted = false
-
-        if !completedTrackers.isEmpty {
-            completedTrackers.forEach({value in
-                if value.id == id {
-                    count += 1
-                }
-
-                if value.date == currentDate {
-                    isCompleted = true
-                }
-            })
-        }
-
-        cell.configCell(description: categories[0].trackers[indexPath.row].name,
-                        date: "\(count) \(getText(days: count))",
-                        id: categories[0].trackers[indexPath.row].id,
-                        isCompleted: isCompleted)
+        let trackForCategory = categories[indexPath.section].trackers[indexPath.row]
+        cell.configCell(track: trackForCategory)
     }
 
     private func getText(days: Int) -> String {
@@ -202,8 +247,13 @@ extension TrackersViewController: UICollectionViewDelegateFlowLayout {
 
 //MARK: -UICollectionViewDataSource
 extension TrackersViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+
+    func numberOfSections(in: UICollectionView) -> Int {
         return categories.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return categories[section].trackers.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -212,7 +262,6 @@ extension TrackersViewController: UICollectionViewDataSource {
         }
         cell.delegate = self
         configCell(for: cell, with: indexPath)
-        cell.prepareForReuse()
         return cell
     }
 
@@ -222,6 +271,7 @@ extension TrackersViewController: UICollectionViewDataSource {
             return UICollectionReusableView()
         }
 
+        view.prepareView(name: categories[indexPath.section].name)
         return view
     }
 }

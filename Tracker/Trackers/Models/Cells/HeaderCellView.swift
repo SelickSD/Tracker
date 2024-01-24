@@ -14,18 +14,22 @@ class HeaderCellView: UICollectionReusableView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.clipsToBounds = true
-        label.text = "Домашний уют"
         return label
     }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-
-        setupView()
+        self.clipsToBounds = true
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    func prepareView(name: String) {
+        
+        titleLabel.text = name
+        setupView()
     }
 
     private func setupView() {

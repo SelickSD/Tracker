@@ -40,6 +40,8 @@
 		44DE3A362B60E3BA007F5B5E /* CreateNewCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DE3A352B60E3BA007F5B5E /* CreateNewCategoryViewController.swift */; };
 		44DE3A382B60E841007F5B5E /* CreateNewCategoryViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DE3A372B60E841007F5B5E /* CreateNewCategoryViewControllerDelegate.swift */; };
 		44DE3A3A2B60F3D6007F5B5E /* ScheduleViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DE3A392B60F3D6007F5B5E /* ScheduleViewControllerDelegate.swift */; };
+		44DE3A3C2B61024B007F5B5E /* CreateNewHabitViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DE3A3B2B61024B007F5B5E /* CreateNewHabitViewControllerDelegate.swift */; };
+		44DE3A3E2B610EE9007F5B5E /* TrackersViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DE3A3D2B610EE9007F5B5E /* TrackersViewControllerDelegate.swift */; };
 		44E440A22B5D9A1C00AC2F4F /* ColorViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E440A12B5D9A1C00AC2F4F /* ColorViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -79,6 +81,8 @@
 		44DE3A352B60E3BA007F5B5E /* CreateNewCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewCategoryViewController.swift; sourceTree = "<group>"; };
 		44DE3A372B60E841007F5B5E /* CreateNewCategoryViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewCategoryViewControllerDelegate.swift; sourceTree = "<group>"; };
 		44DE3A392B60F3D6007F5B5E /* ScheduleViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewControllerDelegate.swift; sourceTree = "<group>"; };
+		44DE3A3B2B61024B007F5B5E /* CreateNewHabitViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewHabitViewControllerDelegate.swift; sourceTree = "<group>"; };
+		44DE3A3D2B610EE9007F5B5E /* TrackersViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackersViewControllerDelegate.swift; sourceTree = "<group>"; };
 		44E440A12B5D9A1C00AC2F4F /* ColorViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -203,6 +207,8 @@
 				44DE3A332B6036A4007F5B5E /* CategoryViewControllerDelegate.swift */,
 				44DE3A372B60E841007F5B5E /* CreateNewCategoryViewControllerDelegate.swift */,
 				44DE3A392B60F3D6007F5B5E /* ScheduleViewControllerDelegate.swift */,
+				44DE3A3B2B61024B007F5B5E /* CreateNewHabitViewControllerDelegate.swift */,
+				44DE3A3D2B610EE9007F5B5E /* TrackersViewControllerDelegate.swift */,
 			);
 			path = Delegates;
 			sourceTree = "<group>";
@@ -291,11 +297,13 @@
 				440289ED2B18EA0600A0BEBE /* TabBarController.swift in Sources */,
 				441324922B3206FA00CE4CFF /* TrackersCellDelegate.swift in Sources */,
 				44DE3A292B600921007F5B5E /* CategoryViewController.swift in Sources */,
+				44DE3A3C2B61024B007F5B5E /* CreateNewHabitViewControllerDelegate.swift in Sources */,
 				4413247B2B25FF6C00CE4CFF /* GeometricParams.swift in Sources */,
 				440289F02B18ED2100A0BEBE /* TrackersViewController.swift in Sources */,
 				441324852B28C89300CE4CFF /* MainTableViewCell.swift in Sources */,
 				44DE3A362B60E3BA007F5B5E /* CreateNewCategoryViewController.swift in Sources */,
 				440289F52B18F45F00A0BEBE /* UIColor + Extensions.swift in Sources */,
+				44DE3A3E2B610EE9007F5B5E /* TrackersViewControllerDelegate.swift in Sources */,
 				44028A402B23799C00A0BEBE /* TrackerRecord.swift in Sources */,
 				44028A3C2B23798100A0BEBE /* Tracker.swift in Sources */,
 				441324772B25EE4E00CE4CFF /* TrackersCell.swift in Sources */,

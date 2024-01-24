@@ -9,6 +9,10 @@ import UIKit
 
 class CreateNewHabitViewController: UIViewController, CategoryViewControllerDelegate, ScheduleViewControllerDelegate {
 
+    var categories: [String] = []
+    
+    weak var delegate: CreateNewHabitViewControllerDelegate?
+
     private let emojis = [
         "🙂", "😻", "🌺", "🐶", "❤️", "😱",
         "😇", "😡", "🥶", "🤔", "🙌", "🍔",
@@ -23,7 +27,6 @@ class CreateNewHabitViewController: UIViewController, CategoryViewControllerDele
 
     private var configCells: [String: IndexPath] = [:]
     private var newTrackerName: String?
-    private var categories: [String] = []
     private var category: Int?
     private var choseDay: [DayOfWeek] = []
 
@@ -141,11 +144,23 @@ class CreateNewHabitViewController: UIViewController, CategoryViewControllerDele
     }
 
     @objc private func didTapCreateButton() {
-        guard let string = newTrackerName else {
-            print("empty")
-            return
-        }
-        print(string)
+
+        guard let name = newTrackerName,
+              let colorIndex = configCells["Цвет"]?.row,
+              let emojiIndex = configCells["Emoji"]?.row,
+              let categoryIndex = category,
+              let color = UIColor(hex: colours[colorIndex]) else {return}
+
+        let newHabit = Tracker(name: name,
+                               color: color,
+                               emoji: emojis[emojiIndex],
+                               schedule: choseDay)
+
+        let trackerCategory = TrackerCategory(name: categories[categoryIndex],
+                                              trackers: [newHabit])
+
+        delegate?.fetchHabit(newHabit: trackerCategory)
+        self.dismiss(animated: true)
     }
 
     @objc private func dismissKeyboard() {

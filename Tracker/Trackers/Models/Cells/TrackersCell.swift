@@ -35,29 +35,25 @@ class TrackersCell: UICollectionViewCell {
     private lazy var emojiBackView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.cornerRadius = 12
+        view.layer.cornerRadius = 20
         view.clipsToBounds = true
-        view.backgroundColor = .green
+        view.backgroundColor = .white.withAlphaComponent(0.3)
         view.alpha = 1
         return view
     }()
 
-    private lazy var emojiView: UIImageView = {
-        let view = UIImageView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.image = UIImage(systemName: "star")
-        view.layer.cornerRadius = 10
-        view.clipsToBounds = true
-        view.backgroundColor = .cyan
-        return view
+    private lazy var emojiLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.clipsToBounds = true
+        return label
     }()
 
     private lazy var plusButtonBackView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.cornerRadius = 17
+        view.layer.cornerRadius = 20
         view.clipsToBounds = true
-        view.backgroundColor = .green
         return view
     }()
 
@@ -66,7 +62,6 @@ class TrackersCell: UICollectionViewCell {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.clipsToBounds = true
         button.setImage(UIImage(systemName: "plus"), for: .normal)
-        button.tintColor = .ypWhite
         button.addTarget(self, action: #selector(didTapPlusButton), for: .touchUpInside)
         return button
     }()
@@ -76,6 +71,7 @@ class TrackersCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.clipsToBounds = true
         label.text = "4 дня"
+        label.textColor = .ypBlack
         return label
     }()
 
@@ -83,7 +79,9 @@ class TrackersCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.clipsToBounds = true
-        label.text = "Поливать растения"
+        label.textColor = .ypWhite
+        label.numberOfLines = 0
+        label.textAlignment = .left
         return label
     }()
 
@@ -94,13 +92,13 @@ class TrackersCell: UICollectionViewCell {
         setupView()
     }
 
-    func configCell(description: String, date: String, id: UUID, isCompleted: Bool) {
-        descriptionLabel.text = description
-        dateLabel.text = date
-        self.id = id
-        self.isCompleted = isCompleted
+    func configCell(track: Tracker) {
 
-        isCompleted ? plusButton.setImage(UIImage(named:"Done"), for: .normal) : plusButton.setImage(UIImage(systemName: "plus"), for: .normal)
+        plusButtonBackView.backgroundColor = track.color
+        colorView.backgroundColor = track.color
+        emojiBackView.backgroundColor = .white.withAlphaComponent(0.3)
+        emojiLabel.text = track.emoji
+        descriptionLabel.text = track.name
     }
 
     required init?(coder: NSCoder) {
@@ -124,15 +122,15 @@ class TrackersCell: UICollectionViewCell {
 
         self.addSubview(colorView)
         colorView.addSubview(emojiBackView)
-        emojiBackView.addSubview(emojiView)
+        emojiBackView.addSubview(emojiLabel)
         colorView.addSubview(descriptionLabel)
 
         NSLayoutConstraint.activate([
 
             plusButtonBackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20),
             plusButtonBackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
-            plusButtonBackView.heightAnchor.constraint(equalToConstant: 34),
-            plusButtonBackView.widthAnchor.constraint(equalToConstant: 34),
+            plusButtonBackView.heightAnchor.constraint(equalToConstant: 40),
+            plusButtonBackView.widthAnchor.constraint(equalToConstant: 40),
 
             whiteView.topAnchor.constraint(equalTo: plusButtonBackView.topAnchor, constant: -10),
             whiteView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
@@ -152,16 +150,15 @@ class TrackersCell: UICollectionViewCell {
 
             emojiBackView.topAnchor.constraint(equalTo: colorView.topAnchor, constant: 10),
             emojiBackView.leadingAnchor.constraint(equalTo: colorView.leadingAnchor, constant: 10),
-            emojiBackView.heightAnchor.constraint(equalToConstant: 24),
-            emojiBackView.widthAnchor.constraint(equalToConstant: 24),
+            emojiBackView.heightAnchor.constraint(equalToConstant: 40),
+            emojiBackView.widthAnchor.constraint(equalToConstant: 40),
 
-            emojiView.centerYAnchor.constraint(equalTo: emojiBackView.centerYAnchor),
-            emojiView.centerXAnchor.constraint(equalTo: emojiBackView.centerXAnchor),
-            emojiView.heightAnchor.constraint(equalToConstant: 20),
-            emojiView.widthAnchor.constraint(equalToConstant: 20),
+            emojiLabel.centerYAnchor.constraint(equalTo: emojiBackView.centerYAnchor),
+            emojiLabel.centerXAnchor.constraint(equalTo: emojiBackView.centerXAnchor),
 
             descriptionLabel.leadingAnchor.constraint(equalTo: colorView.leadingAnchor, constant: 10),
-            descriptionLabel.bottomAnchor.constraint(equalTo: colorView.bottomAnchor, constant: -10)
+            descriptionLabel.bottomAnchor.constraint(equalTo: colorView.bottomAnchor, constant: -10),
+            descriptionLabel.trailingAnchor.constraint(equalTo: colorView.trailingAnchor, constant: -10)
         ])
     }
 }
