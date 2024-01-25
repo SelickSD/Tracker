@@ -54,8 +54,18 @@ class CreateNewTrackerViewController: UIViewController, CreateNewHabitViewContro
     }
 
     func fetchHabit(newHabit: TrackerCategory) {
+        var isNewName = true
         delegate?.fetchNewTrack(newHabit: newHabit)
-        categories.append(newHabit.name)
+        
+        for item in categories {
+            if item == newHabit.name {
+                isNewName = false
+            }
+        }
+
+        if isNewName {
+            categories.append(newHabit.name)
+        }
     }
 
 

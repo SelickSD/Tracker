@@ -14,6 +14,7 @@ class TrackersCell: UICollectionViewCell {
     private var isCompleted: Bool = false
     private var id: UUID = UUID()
     private var currentDays: [DayOfWeek] = []
+    private var count = 0
 
     private lazy var colorView: UIView = {
         let view = UIView()
@@ -71,7 +72,7 @@ class TrackersCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.clipsToBounds = true
-        label.text = "4 дня"
+        label.text = "0 дней"
         label.textColor = .ypBlack
         return label
     }()
@@ -93,14 +94,20 @@ class TrackersCell: UICollectionViewCell {
         setupView()
     }
 
-    func configCell(track: Tracker) {
+    func configCell(track: Tracker, isCompleted: Bool, count: Int, isEnabled: Bool) {
 
         plusButtonBackView.backgroundColor = track.color
+        plusButton.isEnabled = isEnabled
         colorView.backgroundColor = track.color
         emojiBackView.backgroundColor = .white.withAlphaComponent(0.3)
         emojiLabel.text = track.emoji
         descriptionLabel.text = track.name
         currentDays = track.schedule
+        id = track.id
+        self.isCompleted = isCompleted
+        dateLabel.text = count.days()
+        self.count = count
+        checkStatus()
     }
 
     required init?(coder: NSCoder) {
@@ -108,8 +115,27 @@ class TrackersCell: UICollectionViewCell {
     }
 
     @objc private func didTapPlusButton() {
-        delegate?.didTapPlusButton(id: id)
-        isCompleted ? plusButton.setImage(UIImage(systemName: "plus"), for: .normal) : plusButton.setImage(UIImage(systemName: "star"), for: .normal)
+        if !isCompleted {
+            delegate?.didTapPlusButton(id: id)
+            isCompleted = true
+            checkStatus()
+            count += 1
+            dateLabel.text = count.days()
+        } else {
+            delegate?.didUnTapPlusButton(id: id)
+            isCompleted = false
+            checkStatus()
+            count -= 1
+            dateLabel.text = count.days()
+        }
+    }
+
+    private func checkStatus() {
+        if isCompleted {
+            plusButton.setImage(UIImage(named: "Done"), for: .normal)
+        } else {
+            plusButton.setImage(UIImage(named: "Plus"), for: .normal)
+        }
     }
 
     private func setupView() {

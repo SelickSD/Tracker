@@ -90,9 +90,19 @@ class TrackersViewController: UIViewController, TrackersCellDelegate, TrackersVi
     }
 
     func didTapPlusButton(id: UUID) {
-        completedTrackers.append(TrackerRecord(id: id, date: Date()))
+        completedTrackers.append(TrackerRecord(id: id, date: currentDate))
+    }
 
-        print(completedTrackers.count)
+    func didUnTapPlusButton(id: UUID) {
+        let oldTracks = completedTrackers
+        var index = 0
+
+        for items in oldTracks {
+            if items.id == id && Calendar.current.component(.day, from: items.date) == Calendar.current.component(.day, from: currentDate) {
+                completedTrackers.remove(at: index)
+            }
+            index += 1
+        }
     }
 
     func fetchNewTrack(newHabit: TrackerCategory) {
@@ -106,7 +116,7 @@ class TrackersViewController: UIViewController, TrackersCellDelegate, TrackersVi
         let selectedDate = sender.date
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd.MM.yyyy"
-        let formattedDate = dateFormatter.string(from: selectedDate)
+//        let formattedDate = dateFormatter.string(from: selectedDate)
         currentDate = selectedDate
         updateFilterCategories()
         checkView()
@@ -237,17 +247,28 @@ class TrackersViewController: UIViewController, TrackersCellDelegate, TrackersVi
     }
 
     private func configCell(for cell: TrackersCell, with indexPath: IndexPath) {
+        var isCompleted = false
         let trackForCategory = filterDateCategories[indexPath.section].trackers[indexPath.row]
-        cell.configCell(track: trackForCategory)
-    }
+        var count = 0
+        var isEnabled = true
 
-    private func getText(days: Int) -> String {
-        switch days {
-        case 0:
-            return "Дней"
-        default:
-            return "День"
+        completedTrackers.forEach({ track in
+            if track.id == trackForCategory.id && Calendar.current.component(.day, from: track.date) == Calendar.current.component(.day, from: currentDate) {
+                isCompleted = true
+            }
+        })
+
+        completedTrackers.forEach({ track in
+            if track.id == trackForCategory.id {
+                count += 1
+            }
+        })
+
+        if Calendar.current.component(.day, from: currentDate) > Calendar.current.component(.day, from: Date()) {
+            isEnabled = false
         }
+
+        cell.configCell(track: trackForCategory, isCompleted: isCompleted, count: count, isEnabled: isEnabled)
     }
 }
 

@@ -42,6 +42,7 @@
 		44DE3A3A2B60F3D6007F5B5E /* ScheduleViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DE3A392B60F3D6007F5B5E /* ScheduleViewControllerDelegate.swift */; };
 		44DE3A3C2B61024B007F5B5E /* CreateNewHabitViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DE3A3B2B61024B007F5B5E /* CreateNewHabitViewControllerDelegate.swift */; };
 		44DE3A3E2B610EE9007F5B5E /* TrackersViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DE3A3D2B610EE9007F5B5E /* TrackersViewControllerDelegate.swift */; };
+		44DE3A402B62DC80007F5B5E /* Int + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DE3A3F2B62DC80007F5B5E /* Int + Extension.swift */; };
 		44E440A22B5D9A1C00AC2F4F /* ColorViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E440A12B5D9A1C00AC2F4F /* ColorViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -83,6 +84,7 @@
 		44DE3A392B60F3D6007F5B5E /* ScheduleViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewControllerDelegate.swift; sourceTree = "<group>"; };
 		44DE3A3B2B61024B007F5B5E /* CreateNewHabitViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewHabitViewControllerDelegate.swift; sourceTree = "<group>"; };
 		44DE3A3D2B610EE9007F5B5E /* TrackersViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackersViewControllerDelegate.swift; sourceTree = "<group>"; };
+		44DE3A3F2B62DC80007F5B5E /* Int + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int + Extension.swift"; sourceTree = "<group>"; };
 		44E440A12B5D9A1C00AC2F4F /* ColorViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -146,6 +148,7 @@
 				440289F42B18F45F00A0BEBE /* UIColor + Extensions.swift */,
 				441324822B28C44800CE4CFF /* UITextField + Extensions.swift */,
 				4413248D2B31F6F200CE4CFF /* Date + Extensions.swift */,
+				44DE3A3F2B62DC80007F5B5E /* Int + Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -315,6 +318,7 @@
 				440289D92B17A04100A0BEBE /* AppDelegate.swift in Sources */,
 				440289DB2B17A04100A0BEBE /* SceneDelegate.swift in Sources */,
 				4413248E2B31F6F200CE4CFF /* Date + Extensions.swift in Sources */,
+				44DE3A402B62DC80007F5B5E /* Int + Extension.swift in Sources */,
 				44DE3A2F2B6019F0007F5B5E /* CategoryViewControllerProtocol.swift in Sources */,
 				441324812B277B3900CE4CFF /* CreateNewHabitViewController.swift in Sources */,
 			);
