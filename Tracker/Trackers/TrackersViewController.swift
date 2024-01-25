@@ -117,7 +117,6 @@ class TrackersViewController: UIViewController, TrackersCellDelegate, TrackersVi
         let selectedDate = sender.date
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd.MM.yyyy"
-//        let formattedDate = dateFormatter.string(from: selectedDate)
         currentDate = selectedDate
         updateFilterCategories()
         checkView()
