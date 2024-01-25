@@ -9,9 +9,5 @@ import Foundation
 
 struct TrackerCategory {
     let name: String
-    var trackers: [Tracker]
-
-    mutating func updateTrackers(tracker: Tracker) {
-        self.trackers.append(tracker)
-    }
+    let trackers: [Tracker]
 }

@@ -78,22 +78,7 @@ class ScheduleViewController: UIViewController {
         var text = ""
         dayOfWeek.forEach({ value in
             if choseDay.contains(value) {
-                switch value {
-                case .monday:
-                    text = text + "Пн. "
-                case .tuesday:
-                    text = text + "Вт. "
-                case .wednesday:
-                    text = text + "Ср. "
-                case .thursday:
-                    text = text + "Чт. "
-                case .friday:
-                    text = text + "Пт. "
-                case .saturday:
-                    text = text + "Сб. "
-                case .sunday:
-                    text = text + "Вс. "
-                }
+                text = text + value.shortName
             }
         })
         return text
@@ -151,7 +136,7 @@ extension ScheduleViewController: UITableViewDataSource {
             return UITableViewCell()
         }
 
-        cell.configCell(rowOfCell: indexPath.row, maxCount: dayOfWeek.count, dayName: dayOfWeek[indexPath.row].rawValue)
+        cell.configCell(rowOfCell: indexPath.row, maxCount: dayOfWeek.count, dayName: dayOfWeek[indexPath.row].nameString)
         if choseDay.contains(dayOfWeek[indexPath.row]) {
             cell.setSwitchOn()
         }

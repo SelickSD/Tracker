@@ -13,6 +13,7 @@ class TrackersCell: UICollectionViewCell {
 
     private var isCompleted: Bool = false
     private var id: UUID = UUID()
+    private var currentDays: [DayOfWeek] = []
 
     private lazy var colorView: UIView = {
         let view = UIView()
@@ -99,6 +100,7 @@ class TrackersCell: UICollectionViewCell {
         emojiBackView.backgroundColor = .white.withAlphaComponent(0.3)
         emojiLabel.text = track.emoji
         descriptionLabel.text = track.name
+        currentDays = track.schedule
     }
 
     required init?(coder: NSCoder) {

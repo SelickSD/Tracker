@@ -71,16 +71,21 @@ class TrackersViewController: UIViewController, TrackersCellDelegate, TrackersVi
     private var categories: [TrackerCategory] = []
     private var completedTrackers: [TrackerRecord] = []
     private var currentDate: Date = Date()
+    private var filterDateCategories: [TrackerCategory] = []
+    private var isBlankView = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupUIBarButtonItem()
+        updateFilterCategories()
 
-        if categories.isEmpty {
+        if filterDateCategories.isEmpty {
             setupBlankView()
+            isBlankView = true
         } else {
             setupView()
+            isBlankView = false
         }
     }
 
@@ -91,10 +96,9 @@ class TrackersViewController: UIViewController, TrackersCellDelegate, TrackersVi
     }
 
     func fetchNewTrack(newHabit: TrackerCategory) {
-        if categories.isEmpty {
-            setupView()
-        }
         updateCategory(newHabit: newHabit)
+        updateFilterCategories()
+        checkView()
         trackersCollectionView.reloadData()
     }
 
@@ -104,7 +108,9 @@ class TrackersViewController: UIViewController, TrackersCellDelegate, TrackersVi
         dateFormatter.dateFormat = "dd.MM.yyyy"
         let formattedDate = dateFormatter.string(from: selectedDate)
         currentDate = selectedDate
-        print("Выбранная дата: \(formattedDate)")
+        updateFilterCategories()
+        checkView()
+        trackersCollectionView.reloadData()
     }
 
     @objc private func addTapped() {
@@ -116,6 +122,16 @@ class TrackersViewController: UIViewController, TrackersCellDelegate, TrackersVi
         self.present(createNewTrackerViewController, animated: true)
     }
 
+    private func checkView() {
+        if filterDateCategories.isEmpty && !isBlankView {
+            setupBlankView()
+            isBlankView = true
+        } else if !filterDateCategories.isEmpty && isBlankView {
+            setupView()
+            isBlankView = false
+        }
+    }
+
     private func updateCategory(newHabit: TrackerCategory) {
         let oldCategory = categories
         var isChange = false
@@ -123,7 +139,10 @@ class TrackersViewController: UIViewController, TrackersCellDelegate, TrackersVi
 
         oldCategory.forEach({ value in
             if value.name == newHabit.name {
-                categories[index].updateTrackers(tracker: newHabit.trackers[0])
+                var trackers = categories[index].trackers
+                trackers.append(newHabit.trackers[0])
+                categories.remove(at: index)
+                categories.insert(TrackerCategory(name: value.name, trackers: trackers), at: index)
                 isChange.toggle()
             }
             index += 1
@@ -136,6 +155,10 @@ class TrackersViewController: UIViewController, TrackersCellDelegate, TrackersVi
 
     private func setupBlankView() {
         view.backgroundColor = .ypWhite
+
+        backgroundScrollView.removeFromSuperview()
+        contentView.removeFromSuperview()
+        trackersCollectionView.removeFromSuperview()
 
         view.addSubview(emptyView)
         view.addSubview(openingLabel)
@@ -193,8 +216,28 @@ class TrackersViewController: UIViewController, TrackersCellDelegate, TrackersVi
         ])
     }
 
+    private func updateFilterCategories() {
+        filterDateCategories = []
+        let weekday = Calendar.current.component(.weekday, from: currentDate)
+        var tracks: [Tracker] = []
+
+        categories.forEach({ category in
+            category.trackers.forEach({ track in
+                track.schedule.forEach({ dayOfWeek in
+                    if weekday == dayOfWeek.rawValue {
+                        tracks.append(track)
+                    }
+                })
+            })
+            if !tracks.isEmpty {
+                filterDateCategories.append(TrackerCategory(name: category.name, trackers: tracks))
+            }
+            tracks = []
+        })
+    }
+
     private func configCell(for cell: TrackersCell, with indexPath: IndexPath) {
-        let trackForCategory = categories[indexPath.section].trackers[indexPath.row]
+        let trackForCategory = filterDateCategories[indexPath.section].trackers[indexPath.row]
         cell.configCell(track: trackForCategory)
     }
 
@@ -249,11 +292,11 @@ extension TrackersViewController: UICollectionViewDelegateFlowLayout {
 extension TrackersViewController: UICollectionViewDataSource {
 
     func numberOfSections(in: UICollectionView) -> Int {
-        return categories.count
+        return filterDateCategories.count
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return categories[section].trackers.count
+        return filterDateCategories[section].trackers.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -271,7 +314,7 @@ extension TrackersViewController: UICollectionViewDataSource {
             return UICollectionReusableView()
         }
 
-        view.prepareView(name: categories[indexPath.section].name)
+        view.prepareView(name: filterDateCategories[indexPath.section].name)
         return view
     }
 }
