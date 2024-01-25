@@ -68,19 +68,26 @@ class MainTableViewCell: UITableViewCell {
 
     func configCell(rowOfCell: Int, maxCount: Int) {
 
-        switch rowOfCell {
-        case 0:
+        if maxCount == 1 {
             self.layer.masksToBounds = true
             self.layer.cornerRadius = 10
-            self.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
             titleLabel.text = "Категория"
-        case maxCount - 1:
-            self.layer.masksToBounds = true
-            self.layer.cornerRadius = 10
-            self.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
-            titleLabel.text = "Расписание"
-        default:
-            break
+            self.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner, .layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+        } else {
+            switch rowOfCell {
+            case 0:
+                self.layer.masksToBounds = true
+                self.layer.cornerRadius = 10
+                self.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+                titleLabel.text = "Категория"
+            case maxCount - 1:
+                self.layer.masksToBounds = true
+                self.layer.cornerRadius = 10
+                self.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+                titleLabel.text = "Расписание"
+            default:
+                break
+            }
         }
     }
 

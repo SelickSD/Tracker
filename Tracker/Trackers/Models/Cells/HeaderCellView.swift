@@ -14,6 +14,7 @@ class HeaderCellView: UICollectionReusableView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.clipsToBounds = true
+        label.font = UIFont.systemFont(ofSize: 19, weight: .bold)
         return label
     }()
 

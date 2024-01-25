@@ -10,7 +10,8 @@ import UIKit
 class CreateNewHabitViewController: UIViewController, CategoryViewControllerDelegate, ScheduleViewControllerDelegate {
 
     var categories: [String] = []
-    
+    var isEvent = false
+
     weak var delegate: CreateNewHabitViewControllerDelegate?
 
     private let emojis = [
@@ -145,11 +146,18 @@ class CreateNewHabitViewController: UIViewController, CategoryViewControllerDele
 
     @objc private func didTapCreateButton() {
 
+        if isEvent {
+            choseDay = [
+                .monday, .tuesday, .wednesday,
+                .thursday, .friday, .saturday, .sunday]
+        }
+
         guard let name = newTrackerName,
               let colorIndex = configCells["Цвет"]?.row,
               let emojiIndex = configCells["Emoji"]?.row,
               let categoryIndex = category,
-              let color = UIColor(hex: colours[colorIndex]) else {return}
+              let color = UIColor(hex: colours[colorIndex]),
+              !choseDay.isEmpty else {return}
 
         let newHabit = Tracker(name: name,
                                color: color,
@@ -193,6 +201,12 @@ class CreateNewHabitViewController: UIViewController, CategoryViewControllerDele
         let equalHeight = contentView.heightAnchor.constraint(equalToConstant: 850)
         equalHeight.priority = UILayoutPriority(250)
 
+        var mainTableViewHeightAnchor = mainTableView.heightAnchor.constraint(equalToConstant: 210)
+
+        if isEvent {
+            mainTableViewHeightAnchor = mainTableView.heightAnchor.constraint(equalToConstant: 110)
+        }
+
 
         NSLayoutConstraint.activate([
             pageNameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -223,7 +237,7 @@ class CreateNewHabitViewController: UIViewController, CategoryViewControllerDele
             mainTableView.topAnchor.constraint(equalTo: habitTextField.bottomAnchor, constant: 10),
             mainTableView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             mainTableView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            mainTableView.heightAnchor.constraint(equalToConstant: 210),
+            mainTableViewHeightAnchor,
 
             presentCollectionView.topAnchor.constraint(equalTo: mainTableView.bottomAnchor, constant: 10),
             presentCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
@@ -275,7 +289,11 @@ extension CreateNewHabitViewController: UITableViewDelegate {
 
 //MARK: -UITableViewDataSource
 extension CreateNewHabitViewController: UITableViewDataSource {
-    private var maxRows: Int { return 2 }
+    private var maxRows: Int {
+        if isEvent {
+            return 1
+        }
+        return 2 }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return maxRows

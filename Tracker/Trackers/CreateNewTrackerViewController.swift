@@ -77,7 +77,11 @@ class CreateNewTrackerViewController: UIViewController, CreateNewHabitViewContro
     }
 
     @objc private func didTapCreateEventButton() {
-
+        let newHabitViewController = CreateNewHabitViewController()
+        newHabitViewController.delegate = self
+        newHabitViewController.categories = categories
+        newHabitViewController.isEvent = true
+        self.present(newHabitViewController, animated: true)
     }
 
     private func setupView() {
