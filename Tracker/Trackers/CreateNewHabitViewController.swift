@@ -7,8 +7,10 @@
 
 import UIKit
 
-final class CreateNewHabitViewController: UIViewController, CategoryViewControllerDelegate, ScheduleViewControllerDelegate {
-
+final class CreateNewHabitViewController: UIViewController,
+                                          CategoryViewControllerDelegate,
+                                          ScheduleViewControllerDelegate {
+    
     var categories: [String] = []
     var isEvent = false
     weak var delegate: CreateNewHabitViewControllerDelegate?

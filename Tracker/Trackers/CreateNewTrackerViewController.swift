@@ -7,7 +7,8 @@
 
 import UIKit
 
-final class CreateNewTrackerViewController: UIViewController, CreateNewHabitViewControllerDelegate {
+final class CreateNewTrackerViewController: UIViewController,
+                                            CreateNewHabitViewControllerDelegate {
 
     var categories: [String] = []
     weak var delegate: TrackersViewControllerDelegate?

@@ -7,7 +7,9 @@
 
 import UIKit
 
-final class CategoryViewController: UIViewController, CategoryViewControllerProtocol, CreateNewCategoryViewControllerDelegate {
+final class CategoryViewController: UIViewController, 
+                                    CategoryViewControllerProtocol,
+                                    CreateNewCategoryViewControllerDelegate {
 
     weak var delegate: CategoryViewControllerDelegate?
     private var categories: [String] = []
