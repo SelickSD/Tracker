@@ -18,14 +18,14 @@ final class TabBarController: UITabBarController {
 
     private func setupTabBarController() {
         let items: [TabBarItem] = [.trackers, .statistic]
-        self.viewControllers = items.map({tabBarItem in
+        self.viewControllers = items.map {tabBarItem in
             switch tabBarItem {
             case .trackers:
                 return createNavigationController(for: TrackersViewController(), index: .trackers)
             case .statistic:
                 return createNavigationController(for: StatisticViewController(), index: .statistic)
             }
-        })
+        }
     }
 
     private func createNavigationController(for rootViewController: UIViewController,
