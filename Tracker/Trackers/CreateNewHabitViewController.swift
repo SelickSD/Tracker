@@ -7,11 +7,10 @@
 
 import UIKit
 
-class CreateNewHabitViewController: UIViewController, CategoryViewControllerDelegate, ScheduleViewControllerDelegate {
+final class CreateNewHabitViewController: UIViewController, CategoryViewControllerDelegate, ScheduleViewControllerDelegate {
 
     var categories: [String] = []
     var isEvent = false
-
     weak var delegate: CreateNewHabitViewControllerDelegate?
 
     private let emojis = [
@@ -94,7 +93,6 @@ class CreateNewHabitViewController: UIViewController, CategoryViewControllerDele
         view.register(ColorViewCell.self, forCellWithReuseIdentifier: ColorViewCell.identifier)
         view.register(SupplementaryView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "header")
         view.allowsMultipleSelection = false
-
         return view
     }()
 
@@ -187,7 +185,6 @@ class CreateNewHabitViewController: UIViewController, CategoryViewControllerDele
 
     private func setupView() {
         view.backgroundColor = .ypWhite
-
         view.addSubview(backgroundScrollView)
         view.addSubview(pageNameLabel)
         backgroundScrollView.addSubview(contentView)
@@ -206,7 +203,6 @@ class CreateNewHabitViewController: UIViewController, CategoryViewControllerDele
         if isEvent {
             mainTableViewHeightAnchor = mainTableView.heightAnchor.constraint(equalToConstant: 110)
         }
-
 
         NSLayoutConstraint.activate([
             pageNameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),

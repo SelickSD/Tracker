@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CategoriesTableViewCell: UITableViewCell {
+final class CategoriesTableViewCell: UITableViewCell {
     static let identifier = "CategoriesTableViewCell"
 
     private lazy var titleLabel: UILabel = {
@@ -40,11 +40,10 @@ class CategoriesTableViewCell: UITableViewCell {
     }
 
     @objc private func didTapNextButton() {
-
+        //TODO
     }
 
     func configCell(rowOfCell: Int, maxCount: Int, category: String) {
-
         titleLabel.text = category
 
         if maxCount == 1 {
@@ -73,7 +72,6 @@ class CategoriesTableViewCell: UITableViewCell {
 
     private func setupView() {
         self.backgroundColor = .systemGray6
-
         self.addSubview(titleLabel)
         self.addSubview(doneButton)
 

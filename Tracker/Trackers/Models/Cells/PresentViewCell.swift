@@ -7,22 +7,20 @@
 
 import UIKit
 
-class PresentViewCell: UICollectionViewCell {
+final class PresentViewCell: UICollectionViewCell {
     static let identifier = "PresentViewCell"
 
     let titleLabel = UILabel()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-
         self.layer.cornerRadius = 12
         self.clipsToBounds = true
 
         contentView.addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
 
-
-       NSLayoutConstraint.activate([
+        NSLayoutConstraint.activate([
             titleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ])

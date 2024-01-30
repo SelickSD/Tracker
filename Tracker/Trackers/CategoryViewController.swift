@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CategoryViewController: UIViewController, CategoryViewControllerProtocol, CreateNewCategoryViewControllerDelegate {
+final class CategoryViewController: UIViewController, CategoryViewControllerProtocol, CreateNewCategoryViewControllerDelegate {
 
     weak var delegate: CategoryViewControllerDelegate?
     private var categories: [String] = []
@@ -116,7 +116,6 @@ class CategoryViewController: UIViewController, CategoryViewControllerProtocol, 
 
     private func setupBlankView() {
         view.backgroundColor = .ypWhite
-
         view.addSubview(emptyView)
         view.addSubview(pageNameLabel)
         view.addSubview(descriptionLabel)
@@ -141,7 +140,6 @@ class CategoryViewController: UIViewController, CategoryViewControllerProtocol, 
     }
 
     private func setupTargetView() {
-
         view.backgroundColor = .ypWhite
         view.addSubview(pageNameLabel)
         view.addSubview(categoriesTableView)
@@ -191,7 +189,6 @@ extension CategoryViewController: UITableViewDelegate {
 
 //MARK: -UITableViewDataSource
 extension CategoryViewController: UITableViewDataSource {
-
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return categories.count
     }

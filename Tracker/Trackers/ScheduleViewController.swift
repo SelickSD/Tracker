@@ -7,10 +7,10 @@
 
 import UIKit
 
-class ScheduleViewController: UIViewController {
+final class ScheduleViewController: UIViewController {
 
     weak var delegate: ScheduleViewControllerDelegate?
-
+    
     private let dayOfWeek: [DayOfWeek] = [.monday, .tuesday, .wednesday, .thursday, .friday, .saturday, .sunday]
     private var choseDay: [DayOfWeek] = []
     private var myCell: UITableViewCell?
@@ -62,7 +62,7 @@ class ScheduleViewController: UIViewController {
     }
 
     @objc private func didTapDoneButton() {
-            self.dismiss(animated: true)
+        self.dismiss(animated: true)
     }
 
     private func delegateChange() {

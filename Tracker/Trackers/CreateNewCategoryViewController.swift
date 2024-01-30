@@ -7,11 +7,11 @@
 
 import UIKit
 
-class CreateNewCategoryViewController: UIViewController {
+final class CreateNewCategoryViewController: UIViewController {
 
     weak var delegate: CreateNewCategoryViewControllerDelegate?
     private var newCategoryName: String?
-
+    
     private lazy var pageNameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false

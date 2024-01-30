@@ -7,10 +7,9 @@
 
 import UIKit
 
-class TrackersCell: UICollectionViewCell {
+final class TrackersCell: UICollectionViewCell {
     static let identifier = "TrackersCell"
     weak var delegate: TrackersCellDelegate?
-
     private var isCompleted: Bool = false
     private var id: UUID = UUID()
     private var currentDays: [DayOfWeek] = []
@@ -87,7 +86,6 @@ class TrackersCell: UICollectionViewCell {
         return label
     }()
 
-
     override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -142,12 +140,10 @@ class TrackersCell: UICollectionViewCell {
 
         self.layer.cornerRadius = 12
         self.clipsToBounds = true
-
         self.addSubview(whiteView)
         whiteView.addSubview(plusButtonBackView)
         plusButtonBackView.addSubview(plusButton)
         whiteView.addSubview(dateLabel)
-
         self.addSubview(colorView)
         colorView.addSubview(emojiBackView)
         emojiBackView.addSubview(emojiLabel)

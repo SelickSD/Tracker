@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ColorViewCell: UICollectionViewCell {
+final class ColorViewCell: UICollectionViewCell {
     static let identifier = "ColorViewCell"
 
     private lazy var colorView: UIView = {
@@ -46,14 +46,13 @@ class ColorViewCell: UICollectionViewCell {
     private func setupView() {
         self.layer.cornerRadius = 12
         self.clipsToBounds = true
-
         contentView.addSubview(colorView)
 
-       NSLayoutConstraint.activate([
-        colorView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 4),
-        colorView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -4),
-        colorView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 4),
-        colorView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4)
+        NSLayoutConstraint.activate([
+            colorView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 4),
+            colorView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -4),
+            colorView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 4),
+            colorView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4)
         ])
     }
 }

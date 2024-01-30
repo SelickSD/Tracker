@@ -6,6 +6,7 @@
 //
 
 import Foundation
+
 protocol ScheduleViewControllerDelegate: AnyObject {
     func fetchDayOfWeek(dayOfWeek: [DayOfWeek])
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ScheduleTableViewCell: UITableViewCell {
+final class ScheduleTableViewCell: UITableViewCell {
     static let identifier = "ScheduleTableViewCell"
 
     private lazy var titleLabel: UILabel = {
@@ -50,7 +50,6 @@ class ScheduleTableViewCell: UITableViewCell {
     }
 
     func configCell(rowOfCell: Int, maxCount: Int, dayName: String) {
-
         titleLabel.text = dayName
 
         switch rowOfCell {
@@ -69,7 +68,6 @@ class ScheduleTableViewCell: UITableViewCell {
 
     private func setupView() {
         self.backgroundColor = .systemGray6
-
         self.addSubview(titleLabel)
         self.addSubview(dayOfWeekSwitch)
 

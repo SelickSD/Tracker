@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TabBarController: UITabBarController {
+final class TabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,9 +17,7 @@ class TabBarController: UITabBarController {
     }
 
     private func setupTabBarController() {
-
         let items: [TabBarItem] = [.trackers, .statistic]
-
         self.viewControllers = items.map({tabBarItem in
             switch tabBarItem {
             case .trackers:
@@ -32,7 +30,6 @@ class TabBarController: UITabBarController {
 
     private func createNavigationController(for rootViewController: UIViewController,
                                             index: TabBarItem) -> UIViewController {
-
         let navigationController = UINavigationController(rootViewController: rootViewController)
         rootViewController.navigationItem.title = index.label
         navigationController.navigationBar.prefersLargeTitles = true
@@ -40,13 +37,10 @@ class TabBarController: UITabBarController {
         navigationController.tabBarItem.image = index.image
         return navigationController
     }
-
 }
 
 // MARK: - TabBarItem
-
 extension TabBarController {
-
     private enum TabBarItem {
         case trackers
         case statistic
@@ -69,5 +63,4 @@ extension TabBarController {
             }
         }
     }
-
 }

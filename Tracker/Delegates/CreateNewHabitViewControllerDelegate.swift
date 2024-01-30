@@ -6,6 +6,7 @@
 //
 
 import Foundation
+
 protocol CreateNewHabitViewControllerDelegate: AnyObject {
     func fetchHabit(newHabit: TrackerCategory)
 }

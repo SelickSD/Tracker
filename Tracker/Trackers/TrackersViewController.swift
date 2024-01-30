@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TrackersViewController: UIViewController, TrackersCellDelegate, TrackersViewControllerDelegate {
+final class TrackersViewController: UIViewController, TrackersCellDelegate, TrackersViewControllerDelegate {
 
     private lazy var emptyView: UIImageView = {
         let view = UIImageView()
@@ -117,7 +117,6 @@ class TrackersViewController: UIViewController, TrackersCellDelegate, TrackersVi
         let selectedDate = sender.date
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd.MM.yyyy"
-//        let formattedDate = dateFormatter.string(from: selectedDate)
         currentDate = selectedDate
         updateFilterCategories()
         checkView()

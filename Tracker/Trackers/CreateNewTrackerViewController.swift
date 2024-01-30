@@ -7,10 +7,9 @@
 
 import UIKit
 
-class CreateNewTrackerViewController: UIViewController, CreateNewHabitViewControllerDelegate {
+final class CreateNewTrackerViewController: UIViewController, CreateNewHabitViewControllerDelegate {
 
     var categories: [String] = []
-
     weak var delegate: TrackersViewControllerDelegate?
 
     private lazy var pageNameLabel: UILabel = {
@@ -56,7 +55,7 @@ class CreateNewTrackerViewController: UIViewController, CreateNewHabitViewContro
     func fetchHabit(newHabit: TrackerCategory) {
         var isNewName = true
         delegate?.fetchNewTrack(newHabit: newHabit)
-        
+
         for item in categories {
             if item == newHabit.name {
                 isNewName = false

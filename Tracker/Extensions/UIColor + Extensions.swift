@@ -39,7 +39,6 @@ extension UIColor {
         } else {
             return nil
         }
-
         self.init(red: red, green: green, blue: blue, alpha: alpha)
     }
 }

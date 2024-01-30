@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HeaderCellView: UICollectionReusableView {
+final class HeaderCellView: UICollectionReusableView {
     static let identifier = "TrackersCellHeader"
 
     private lazy var titleLabel: UILabel = {
@@ -28,13 +28,11 @@ class HeaderCellView: UICollectionReusableView {
     }
 
     func prepareView(name: String) {
-        
         titleLabel.text = name
         setupView()
     }
 
     private func setupView() {
-
         self.clipsToBounds = true
         addSubview(titleLabel)
 

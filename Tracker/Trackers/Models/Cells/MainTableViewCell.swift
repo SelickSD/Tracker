@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainTableViewCell: UITableViewCell {
+final class MainTableViewCell: UITableViewCell {
     static let identifier = "MainTableViewCell"
 
     private lazy var titleLabel: UILabel = {
@@ -47,7 +47,7 @@ class MainTableViewCell: UITableViewCell {
     }
 
     @objc private func didTapNextButton() {
-
+        // TODO
     }
 
     func configLabel(newLabelText: String) {
@@ -67,7 +67,6 @@ class MainTableViewCell: UITableViewCell {
     }
 
     func configCell(rowOfCell: Int, maxCount: Int) {
-
         if maxCount == 1 {
             self.layer.masksToBounds = true
             self.layer.cornerRadius = 10
@@ -93,7 +92,6 @@ class MainTableViewCell: UITableViewCell {
 
     private func setupView() {
         self.backgroundColor = .systemGray6
-
         self.addSubview(titleLabel)
         self.addSubview(nextButton)
 
@@ -109,8 +107,6 @@ class MainTableViewCell: UITableViewCell {
     private func updateView() {
         titleLabel.removeFromSuperview()
         nextButton.removeFromSuperview()
-
-
         self.addSubview(titleLabel)
         self.addSubview(categoryLabel)
         self.addSubview(nextButton)
