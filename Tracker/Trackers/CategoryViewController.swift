@@ -67,6 +67,8 @@ final class CategoryViewController: UIViewController,
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        view.backgroundColor = .ypWhite
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -117,7 +119,6 @@ final class CategoryViewController: UIViewController,
     }
 
     private func setupBlankView() {
-        view.backgroundColor = .ypWhite
         view.addSubview(emptyView)
         view.addSubview(pageNameLabel)
         view.addSubview(descriptionLabel)
@@ -142,7 +143,6 @@ final class CategoryViewController: UIViewController,
     }
 
     private func setupTargetView() {
-        view.backgroundColor = .ypWhite
         view.addSubview(pageNameLabel)
         view.addSubview(categoriesTableView)
         view.addSubview(doneButton)
