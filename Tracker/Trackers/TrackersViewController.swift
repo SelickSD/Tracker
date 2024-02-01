@@ -70,9 +70,17 @@ final class TrackersViewController: UIViewController,
         view.backgroundColor = .ypWhite
         return view
     }()
-    
-    private lazy var searchController = UISearchController(searchResultsController: nil)
-    
+
+    private lazy var searchBar: UISearchBar = {
+        let view = UISearchBar()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.clipsToBounds = true
+        view.barTintColor = UIColor.white
+        view.setBackgroundImage(UIImage.init(), for: UIBarPosition.any, barMetrics: UIBarMetrics.default)
+        view.placeholder = "Поиск"
+        return view
+    }()
+
     private var categories: [TrackerCategory] = []
     private var completedTrackers: [TrackerRecord] = []
     private var currentDate: Date = Date()
@@ -169,14 +177,10 @@ final class TrackersViewController: UIViewController,
     
     private func setupBlankView() {
         view.backgroundColor = .ypWhite
-        
-        backgroundScrollView.removeFromSuperview()
-        contentView.removeFromSuperview()
-        trackersCollectionView.removeFromSuperview()
-        
-        view.addSubview(emptyView)
-        view.addSubview(openingLabel)
-        
+
+        [backgroundScrollView, contentView, trackersCollectionView].forEach { $0.removeFromSuperview() }
+        [emptyView, openingLabel].forEach{ view.addSubview($0) }
+
         NSLayoutConstraint.activate([
             emptyView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             emptyView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
@@ -193,15 +197,21 @@ final class TrackersViewController: UIViewController,
                                                            target: self,
                                                            action: #selector(addTapped))
         navigationItem.leftBarButtonItem?.tintColor = .ypBlack
-        
-        searchController.searchBar.placeholder = "Поиск"
-        navigationItem.searchController = searchController
+
+        view.addSubview(searchBar)
+
+        NSLayoutConstraint.activate([
+            searchBar.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+        ])
+
     }
     
     private func setupView(){
         
-        emptyView.removeFromSuperview()
-        openingLabel.removeFromSuperview()
+        [emptyView, openingLabel].forEach { $0.removeFromSuperview() }
         
         view.addSubview(backgroundScrollView)
         backgroundScrollView.addSubview(contentView)
@@ -211,7 +221,7 @@ final class TrackersViewController: UIViewController,
         equalHeight.priority = UILayoutPriority(250)
         
         NSLayoutConstraint.activate([
-            backgroundScrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            backgroundScrollView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
             backgroundScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             backgroundScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             backgroundScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -223,7 +233,7 @@ final class TrackersViewController: UIViewController,
             contentView.widthAnchor.constraint(equalTo: view.widthAnchor),
             equalHeight,
             
-            trackersCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            trackersCollectionView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
             trackersCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             trackersCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             trackersCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
