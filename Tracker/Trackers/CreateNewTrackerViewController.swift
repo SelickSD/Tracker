@@ -17,6 +17,7 @@ final class CreateNewTrackerViewController: UIViewController,
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.clipsToBounds = true
+        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         label.text = "Создание трекера"
         return label
     }()
@@ -28,6 +29,7 @@ final class CreateNewTrackerViewController: UIViewController,
         button.backgroundColor = .ypBlack
         button.tintColor = .ypWhite
         button.setTitle("Привычка", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         button.layer.cornerRadius = 16
         button.addTarget(self, action: #selector(didTapCreateHabitButton), for: .touchUpInside)
         return button
@@ -40,6 +42,7 @@ final class CreateNewTrackerViewController: UIViewController,
         button.backgroundColor = .ypBlack
         button.tintColor = .ypWhite
         button.setTitle("Не регулярное событие", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         button.layer.cornerRadius = 16
         button.addTarget(self, action: #selector(didTapCreateEventButton), for: .touchUpInside)
         return button
