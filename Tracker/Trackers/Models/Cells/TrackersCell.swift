@@ -36,7 +36,7 @@ final class TrackersCell: UICollectionViewCell {
     private lazy var emojiBackView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.cornerRadius = 20
+        view.layer.cornerRadius = 12
         view.clipsToBounds = true
         view.backgroundColor = .white.withAlphaComponent(0.3)
         view.alpha = 1
@@ -47,13 +47,14 @@ final class TrackersCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.clipsToBounds = true
+        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         return label
     }()
 
     private lazy var plusButtonBackView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.cornerRadius = 20
+        view.layer.cornerRadius = 17
         view.clipsToBounds = true
         return view
     }()
@@ -63,6 +64,8 @@ final class TrackersCell: UICollectionViewCell {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.clipsToBounds = true
         button.setImage(UIImage(systemName: "plus"), for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.tintColor = .white
         button.addTarget(self, action: #selector(didTapPlusButton), for: .touchUpInside)
         return button
     }()
@@ -73,6 +76,7 @@ final class TrackersCell: UICollectionViewCell {
         label.clipsToBounds = true
         label.text = "0 дней"
         label.textColor = .ypBlack
+        label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
         return label
     }()
 
@@ -83,6 +87,7 @@ final class TrackersCell: UICollectionViewCell {
         label.textColor = .ypWhite
         label.numberOfLines = 0
         label.textAlignment = .left
+        label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
         return label
     }()
 
@@ -130,9 +135,9 @@ final class TrackersCell: UICollectionViewCell {
 
     private func checkStatus() {
         if isCompleted {
-            plusButton.setImage(UIImage(named: "Done"), for: .normal)
+            plusButton.setImage(UIImage(systemName: "checkmark"), for: .normal)
         } else {
-            plusButton.setImage(UIImage(named: "Plus"), for: .normal)
+            plusButton.setImage(UIImage(systemName: "plus"), for: .normal)
         }
     }
 
@@ -153,8 +158,8 @@ final class TrackersCell: UICollectionViewCell {
 
             plusButtonBackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20),
             plusButtonBackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
-            plusButtonBackView.heightAnchor.constraint(equalToConstant: 40),
-            plusButtonBackView.widthAnchor.constraint(equalToConstant: 40),
+            plusButtonBackView.heightAnchor.constraint(equalToConstant: 34),
+            plusButtonBackView.widthAnchor.constraint(equalToConstant: 34),
 
             whiteView.topAnchor.constraint(equalTo: plusButtonBackView.topAnchor, constant: -10),
             whiteView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
@@ -174,8 +179,8 @@ final class TrackersCell: UICollectionViewCell {
 
             emojiBackView.topAnchor.constraint(equalTo: colorView.topAnchor, constant: 10),
             emojiBackView.leadingAnchor.constraint(equalTo: colorView.leadingAnchor, constant: 10),
-            emojiBackView.heightAnchor.constraint(equalToConstant: 40),
-            emojiBackView.widthAnchor.constraint(equalToConstant: 40),
+            emojiBackView.heightAnchor.constraint(equalToConstant: 24),
+            emojiBackView.widthAnchor.constraint(equalToConstant: 24),
 
             emojiLabel.centerYAnchor.constraint(equalTo: emojiBackView.centerYAnchor),
             emojiLabel.centerXAnchor.constraint(equalTo: emojiBackView.centerXAnchor),

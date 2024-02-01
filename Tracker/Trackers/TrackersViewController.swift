@@ -319,7 +319,7 @@ extension TrackersViewController: UICollectionViewDelegateFlowLayout {
         let availableWidth = collectionView.frame.width - params.paddingWidth
         let cellWidth =  availableWidth / CGFloat(params.cellCount)
         return CGSize(width: cellWidth,
-                      height: cellWidth * 2 / 2)
+                      height: 148)
     }
 }
 
