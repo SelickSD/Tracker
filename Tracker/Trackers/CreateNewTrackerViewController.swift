@@ -71,7 +71,6 @@ final class CreateNewTrackerViewController: UIViewController,
         }
     }
 
-
     @objc private func didTapCreateHabitButton() {
         let newHabitViewController = CreateNewHabitViewController()
         newHabitViewController.delegate = self

@@ -37,6 +37,7 @@ final class CreateNewHabitViewController: UIViewController,
         label.translatesAutoresizingMaskIntoConstraints = false
         label.clipsToBounds = true
         label.text = "Новая привычка"
+        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         return label
     }()
 
@@ -64,11 +65,12 @@ final class CreateNewHabitViewController: UIViewController,
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.clipsToBounds = true
         textField.placeholder = "Введите название трекера"
+        textField.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         textField.autocapitalizationType = .none
         textField.backgroundColor = .systemGray6
         textField.textAlignment = NSTextAlignment.left
         textField.layer.cornerRadius = 16
-        textField.indent(size: 8)
+        textField.indent(size: 16)
         textField.delegate = self
         textField.addTarget(self, action: #selector(habitTextChanged), for: .editingChanged)
         return textField
@@ -108,6 +110,7 @@ final class CreateNewHabitViewController: UIViewController,
         button.layer.borderWidth = 0.5
         button.layer.cornerRadius = 16
         button.setTitle("Отменить", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         button.addTarget(self, action: #selector(didTapCancelButton), for: .touchUpInside)
         return button
     }()
@@ -120,6 +123,7 @@ final class CreateNewHabitViewController: UIViewController,
         button.backgroundColor = .gray
         button.layer.cornerRadius = 16
         button.setTitle("Создать", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         button.addTarget(self, action: #selector(didTapCreateButton), for: .touchUpInside)
         return button
     }()

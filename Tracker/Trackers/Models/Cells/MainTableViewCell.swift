@@ -14,6 +14,7 @@ final class MainTableViewCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.clipsToBounds = true
+        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         return label
     }()
 
@@ -22,6 +23,7 @@ final class MainTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.clipsToBounds = true
         label.textColor = .lightGray
+        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         return label
     }()
 
@@ -29,7 +31,7 @@ final class MainTableViewCell: UITableViewCell {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.clipsToBounds = true
-        button.setImage(UIImage(systemName: "greaterthan"), for: .normal)
+        button.setImage(UIImage(named: "Chevron"), for: .normal)
         button.tintColor = .ypBlack
         button.addTarget(self, action: #selector(didTapNextButton), for: .touchUpInside)
         return button
