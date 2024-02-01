@@ -24,6 +24,7 @@ final class TrackersViewController: UIViewController,
         label.translatesAutoresizingMaskIntoConstraints = false
         label.clipsToBounds = true
         label.text = "Что будем отслеживать?"
+        label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
         return label
     }()
     
@@ -180,7 +181,7 @@ final class TrackersViewController: UIViewController,
             emptyView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             emptyView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             
-            openingLabel.topAnchor.constraint(equalTo: emptyView.bottomAnchor),
+            openingLabel.topAnchor.constraint(equalTo: emptyView.bottomAnchor, constant: 8),
             openingLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
