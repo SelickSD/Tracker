@@ -31,6 +31,7 @@
 		4413248C2B2CB17300CE4CFF /* DayOfWeek.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4413248B2B2CB17300CE4CFF /* DayOfWeek.swift */; };
 		4413248E2B31F6F200CE4CFF /* Date + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4413248D2B31F6F200CE4CFF /* Date + Extensions.swift */; };
 		441324922B3206FA00CE4CFF /* TrackersCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441324912B3206FA00CE4CFF /* TrackersCellDelegate.swift */; };
+		441C46A52B6D379100BC079E /* UITableViewCell + Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441C46A42B6D379100BC079E /* UITableViewCell + Extention.swift */; };
 		44B3187D2B5BD61600CA1206 /* PresentViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B3187C2B5BD61600CA1206 /* PresentViewCell.swift */; };
 		44B3187F2B5BD95700CA1206 /* SupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B3187E2B5BD95700CA1206 /* SupplementaryView.swift */; };
 		44DE3A292B600921007F5B5E /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DE3A282B600921007F5B5E /* CategoryViewController.swift */; };
@@ -73,6 +74,7 @@
 		4413248B2B2CB17300CE4CFF /* DayOfWeek.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayOfWeek.swift; sourceTree = "<group>"; };
 		4413248D2B31F6F200CE4CFF /* Date + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date + Extensions.swift"; sourceTree = "<group>"; };
 		441324912B3206FA00CE4CFF /* TrackersCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackersCellDelegate.swift; sourceTree = "<group>"; };
+		441C46A42B6D379100BC079E /* UITableViewCell + Extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell + Extention.swift"; sourceTree = "<group>"; };
 		44B3187C2B5BD61600CA1206 /* PresentViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentViewCell.swift; sourceTree = "<group>"; };
 		44B3187E2B5BD95700CA1206 /* SupplementaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupplementaryView.swift; sourceTree = "<group>"; };
 		44DE3A282B600921007F5B5E /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 				441324822B28C44800CE4CFF /* UITextField + Extensions.swift */,
 				4413248D2B31F6F200CE4CFF /* Date + Extensions.swift */,
 				44DE3A3F2B62DC80007F5B5E /* Int + Extension.swift */,
+				441C46A42B6D379100BC079E /* UITableViewCell + Extention.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -316,6 +319,7 @@
 				441324832B28C44800CE4CFF /* UITextField + Extensions.swift in Sources */,
 				440289F22B18ED3A00A0BEBE /* StatisticViewController.swift in Sources */,
 				440289D92B17A04100A0BEBE /* AppDelegate.swift in Sources */,
+				441C46A52B6D379100BC079E /* UITableViewCell + Extention.swift in Sources */,
 				440289DB2B17A04100A0BEBE /* SceneDelegate.swift in Sources */,
 				4413248E2B31F6F200CE4CFF /* Date + Extensions.swift in Sources */,
 				44DE3A402B62DC80007F5B5E /* Int + Extension.swift in Sources */,

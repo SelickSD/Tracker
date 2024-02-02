@@ -20,6 +20,7 @@ final class ScheduleViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.clipsToBounds = true
         label.text = "Расписание"
+        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         return label
     }()
 
@@ -29,6 +30,7 @@ final class ScheduleViewController: UIViewController {
         tableView.delegate = self
         tableView.backgroundColor = .white
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.separatorStyle = .none
         tableView.register(ScheduleTableViewCell.self, forCellReuseIdentifier: ScheduleTableViewCell.identifier)
         return tableView
     }()
@@ -139,6 +141,12 @@ extension ScheduleViewController: UITableViewDataSource {
         cell.configCell(rowOfCell: indexPath.row, maxCount: dayOfWeek.count, dayName: dayOfWeek[indexPath.row].nameString)
         if choseDay.contains(dayOfWeek[indexPath.row]) {
             cell.setSwitchOn()
+        }
+
+        if dayOfWeek.count >= 2 {
+            if indexPath.row >= 0 && indexPath.row < dayOfWeek.count - 1 {
+                cell.setSeparatorView()
+            }
         }
         return cell
     }

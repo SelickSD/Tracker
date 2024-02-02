@@ -14,6 +14,7 @@ final class ScheduleTableViewCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.clipsToBounds = true
+        label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         return label
     }()
 
@@ -21,6 +22,7 @@ final class ScheduleTableViewCell: UITableViewCell {
         let button = UISwitch()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.clipsToBounds = true
+        button.onTintColor = .ypBlue
         button.addTarget(self, action: #selector(didTapDayOfWeekButton), for: .touchUpInside)
         return button
     }()
@@ -28,6 +30,7 @@ final class ScheduleTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.clipsToBounds = true
+        self.selectionStyle = .none
 
         setupView()
     }

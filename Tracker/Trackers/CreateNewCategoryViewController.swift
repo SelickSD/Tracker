@@ -17,6 +17,7 @@ final class CreateNewCategoryViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.clipsToBounds = true
         label.text = "Новая категория"
+        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         return label
     }()
 
@@ -29,7 +30,8 @@ final class CreateNewCategoryViewController: UIViewController {
         textField.backgroundColor = .systemGray6
         textField.textAlignment = NSTextAlignment.left
         textField.layer.cornerRadius = 16
-        textField.indent(size: 8)
+        textField.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        textField.indent(size: 16)
         textField.delegate = self
         textField.addTarget(self, action: #selector(categoryTextChanged), for: .editingChanged)
         return textField
@@ -40,9 +42,10 @@ final class CreateNewCategoryViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.clipsToBounds = true
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .ypBlack
+        button.backgroundColor = .lightGray
+        button.isEnabled = false
         button.layer.cornerRadius = 16
-        button.setTitle("Создать", for: .normal)
+        button.setTitle("Готово", for: .normal)
         button.addTarget(self, action: #selector(didTapCreateButton), for: .touchUpInside)
         return button
     }()
@@ -66,6 +69,13 @@ final class CreateNewCategoryViewController: UIViewController {
 
     @objc func categoryTextChanged(_ textField: UITextField) {
         newCategoryName = textField.text
+        if textField.hasText {
+            createButton.backgroundColor = .ypBlack
+            createButton.isEnabled = true
+        } else {
+            createButton.backgroundColor = .lightGray
+            createButton.isEnabled = false
+        }
     }
 
     private func setupGestures() {

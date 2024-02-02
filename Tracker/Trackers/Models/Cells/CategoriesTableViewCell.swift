@@ -14,6 +14,7 @@ final class CategoriesTableViewCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.clipsToBounds = true
+        label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         return label
     }()
 
@@ -31,6 +32,7 @@ final class CategoriesTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
+        self.selectionStyle = .none
         self.clipsToBounds = true
         setupView()
     }

@@ -30,6 +30,7 @@ final class CategoryViewController: UIViewController,
         label.translatesAutoresizingMaskIntoConstraints = false
         label.clipsToBounds = true
         label.text = "Категория"
+        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         return label
     }()
 
@@ -38,6 +39,7 @@ final class CategoryViewController: UIViewController,
         label.translatesAutoresizingMaskIntoConstraints = false
         label.clipsToBounds = true
         label.text = "Привычки и события можно объединять по смыслу"
+        label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
         label.numberOfLines = 0
         label.textAlignment = .center
         return label
@@ -50,6 +52,7 @@ final class CategoryViewController: UIViewController,
         tableView.backgroundColor = .white
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(CategoriesTableViewCell.self, forCellReuseIdentifier: CategoriesTableViewCell.identifier)
+        tableView.separatorStyle = .none
         return tableView
     }()
 
@@ -206,6 +209,13 @@ extension CategoryViewController: UITableViewDataSource {
             cell.makeDone()
             doneIndex = indexPath
         }
+
+        if categories.count >= 2 {
+            if indexPath.row >= 0 && indexPath.row < categories.count - 1 {
+                cell.setSeparatorView()
+            }
+        }
+
         return cell
     }
 
