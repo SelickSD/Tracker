@@ -8,8 +8,9 @@
 import UIKit
 
 final class TrackersViewController: UIViewController,
-                                        TrackersCellDelegate,
-                                    TrackersViewControllerDelegate {
+                                    TrackersCellDelegate,
+                                    TrackersViewControllerDelegate,
+                                    UIGestureRecognizerDelegate, UISearchBarDelegate {
 
     private lazy var emptyView: UIImageView = {
         let view = UIImageView()
@@ -78,6 +79,7 @@ final class TrackersViewController: UIViewController,
         view.barTintColor = UIColor.white
         view.setBackgroundImage(UIImage.init(), for: UIBarPosition.any, barMetrics: UIBarMetrics.default)
         view.placeholder = "Поиск"
+        view.delegate = self
         return view
     }()
 
@@ -86,12 +88,14 @@ final class TrackersViewController: UIViewController,
     private var currentDate: Date = Date()
     private var filterDateCategories: [TrackerCategory] = []
     private var isBlankView = false
+    private var currentTracker = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupUIBarButtonItem()
         updateFilterCategories()
+        setupGestures()
 
         if filterDateCategories.isEmpty {
             setupBlankView()
@@ -102,8 +106,28 @@ final class TrackersViewController: UIViewController,
         }
     }
 
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+
     func didTapPlusButton(id: UUID) {
         completedTrackers.append(TrackerRecord(id: id, date: currentDate))
+    }
+
+    func searchBarSearchButtonClicked( _ searchBar: UISearchBar) {
+        view.endEditing(true)
+        guard let selectedText = searchBar.text else { return }
+        currentTracker = selectedText
+        updateFilterCategories()
+        checkView()
+        trackersCollectionView.reloadData()
+    }
+
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+            currentTracker = searchText
+            updateFilterCategories()
+            checkView()
+            trackersCollectionView.reloadData()
     }
 
     func didUnTapPlusButton(id: UUID) {
@@ -125,6 +149,10 @@ final class TrackersViewController: UIViewController,
         trackersCollectionView.reloadData()
     }
 
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
+    }
+
     @objc private func datePickerValueChanged(_ sender: UIDatePicker) {
         let selectedDate = sender.date
         let dateFormatter = DateFormatter()
@@ -142,6 +170,12 @@ final class TrackersViewController: UIViewController,
             createNewTrackerViewController.categories.append(value.name)
         })
         self.present(createNewTrackerViewController, animated: true)
+    }
+
+    private func setupGestures() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapGesture.cancelsTouchesInView = true
+        view.addGestureRecognizer(tapGesture)
     }
 
     private func checkView() {
@@ -245,19 +279,37 @@ final class TrackersViewController: UIViewController,
         let weekday = Calendar.current.component(.weekday, from: currentDate)
         var tracks: [Tracker] = []
 
-        categories.forEach({ category in
-            category.trackers.forEach({ track in
-                track.schedule.forEach({ dayOfWeek in
-                    if weekday == dayOfWeek.rawValue {
-                        tracks.append(track)
-                    }
+        if currentTracker.isEmpty {
+            categories.forEach({ category in
+                category.trackers.forEach({ track in
+                    track.schedule.forEach({ dayOfWeek in
+                        if weekday == dayOfWeek.rawValue {
+                            tracks.append(track)
+                        }
+                    })
                 })
+                if !tracks.isEmpty {
+                    filterDateCategories.append(TrackerCategory(name: category.name, trackers: tracks))
+                }
+                tracks = []
             })
-            if !tracks.isEmpty {
-                filterDateCategories.append(TrackerCategory(name: category.name, trackers: tracks))
-            }
-            tracks = []
-        })
+        } else {
+            categories.forEach({ category in
+                    category.trackers.forEach({ track in
+                        if track.name == currentTracker {
+                            track.schedule.forEach({ dayOfWeek in
+                                if weekday == dayOfWeek.rawValue {
+                                    tracks.append(track)
+                                }
+                            })
+                        }
+                    })
+                if !tracks.isEmpty {
+                    filterDateCategories.append(TrackerCategory(name: category.name, trackers: tracks))
+                }
+                tracks = []
+            })
+        }
     }
 
     private func configCell(for cell: TrackersCell, with indexPath: IndexPath) {
