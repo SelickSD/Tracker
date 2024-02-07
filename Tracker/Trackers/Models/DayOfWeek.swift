@@ -38,19 +38,19 @@ enum DayOfWeek: Int {
     var shortName: String {
         switch self {
         case .monday:
-            return "Пн. "
+            return "Пн"
         case .tuesday:
-            return "Вт. "
+            return "Вт"
         case .wednesday:
-            return "Ср. "
+            return "Ср"
         case .thursday:
-            return "Чт. "
+            return "Чт"
         case .friday:
-            return "Пт. "
+            return "Пт"
         case .saturday:
-            return "Сб. "
+            return "Сб"
         case .sunday:
-            return "Вс. "
+            return "Вс"
         }
     }
 }

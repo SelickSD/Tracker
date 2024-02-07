@@ -80,10 +80,10 @@ final class ScheduleViewController: UIViewController {
         var text = ""
         dayOfWeek.forEach({ value in
             if choseDay.contains(value) {
-                text = text + value.shortName
+                text = text + value.shortName + ", "
             }
         })
-        return text
+        return String(text.dropLast(2))
     }
 
     private func setupView() {

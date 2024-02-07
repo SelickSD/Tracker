@@ -10,7 +10,6 @@ import UIKit
 final class CreateNewHabitViewController: UIViewController,
                                           CategoryViewControllerDelegate,
                                           ScheduleViewControllerDelegate {
-    
     var categories: [String] = []
     var isEvent = false
     weak var delegate: CreateNewHabitViewControllerDelegate?
@@ -82,6 +81,7 @@ final class CreateNewHabitViewController: UIViewController,
         tableView.delegate = self
         tableView.backgroundColor = .white
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.separatorStyle = .none
         tableView.register(MainTableViewCell.self, forCellReuseIdentifier: MainTableViewCell.identifier)
         return tableView
     }()
@@ -308,6 +308,11 @@ extension CreateNewHabitViewController: UITableViewDataSource {
         }
 
         cell.configCell(rowOfCell: indexPath.row, maxCount: maxRows)
+        if !isEvent{
+            if indexPath.row == 0 {
+                cell.setSeparatorView()
+            }
+        }
         return cell
     }
 
@@ -409,7 +414,7 @@ extension CreateNewHabitViewController: UICollectionViewDataSource {
 extension CreateNewHabitViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
+        view.endEditing(true)
         let tmpConfig = configCells
 
         switch indexPath.section {

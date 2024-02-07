@@ -136,8 +136,12 @@ final class TrackersCell: UICollectionViewCell {
     private func checkStatus() {
         if isCompleted {
             plusButton.setImage(UIImage(systemName: "checkmark"), for: .normal)
+            let backgroundColor = plusButtonBackView.backgroundColor
+            plusButtonBackView.backgroundColor = backgroundColor?.withAlphaComponent(0.3)
         } else {
             plusButton.setImage(UIImage(systemName: "plus"), for: .normal)
+            let backgroundColor = plusButtonBackView.backgroundColor
+            plusButtonBackView.backgroundColor = backgroundColor?.withAlphaComponent(1)
         }
     }
     
