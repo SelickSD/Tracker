@@ -12,6 +12,36 @@ final class TrackersViewController: UIViewController,
                                     TrackersViewControllerDelegate,
                                     UIGestureRecognizerDelegate, UISearchBarDelegate {
 
+    private lazy var trackerDataProvider: DataProviderProtocol? = {
+        do {
+            try trackerDataProvider = TrackerDataProvider(TrackerStore(), delegate: self)
+            return trackerDataProvider
+        } catch {
+            showError("Данные треков недоступны.")
+            return nil
+        }
+    }()
+
+    private lazy var categoryDataProvider: DataProviderProtocol? = {
+        do {
+            try categoryDataProvider = CategoryDataProvider(TrackerCategoryStore(), delegate: self)
+            return categoryDataProvider
+        } catch {
+            showError("Данные категорий недоступны.")
+            return nil
+        }
+    }()
+
+    private lazy var recordDataProvider: DataProviderProtocol? = {
+        do {
+            try recordDataProvider = RecordDataProvider(TrackerRecordStore(), delegate: self)
+            return recordDataProvider
+        } catch {
+            showError("Данные истории недоступны.")
+            return nil
+        }
+    }()
+
     private lazy var emptyView: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -336,6 +366,12 @@ final class TrackersViewController: UIViewController,
 
         cell.configCell(track: trackForCategory, isCompleted: isCompleted, count: count, isEnabled: isEnabled)
     }
+
+    private func showError(_ message: String) {
+        let alert = UIAlertController(title: "Ошибка!", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in }))
+        present(alert, animated: true, completion: nil)
+    }
 }
 
 //MARK: -UICollectionViewDelegateFlowLayout
@@ -403,5 +439,17 @@ extension TrackersViewController: UICollectionViewDataSource {
 
         view.prepareView(name: filterDateCategories[indexPath.section].name)
         return view
+    }
+}
+
+// MARK: - DataProviderDelegate
+extension TrackersViewController: DataProviderDelegate {
+    func didUpdate(_ update: TrackerStoreUpdate) {
+//        tableView.performBatchUpdates {
+//            let insertedIndexPaths = update.insertedIndexes.map { IndexPath(item: $0, section: 0) }
+//            let deletedIndexPaths = update.deletedIndexes.map { IndexPath(item: $0, section: 0) }
+//            tableView.insertRows(at: insertedIndexPaths, with: .automatic)
+//            tableView.deleteRows(at: deletedIndexPaths, with: .fade)
+//        }
     }
 }
