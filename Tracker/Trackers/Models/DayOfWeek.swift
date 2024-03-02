@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum DayOfWeek: Int {
+enum DayOfWeek: Int, Encodable, Decodable {
     case monday = 2
     case tuesday = 3
     case wednesday = 4

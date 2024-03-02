@@ -8,7 +8,7 @@
 import CoreData
 
 protocol TrackerDataStore {
-    var managedObjectContext: NSManagedObjectContext? { get }
     func add(_ record: Tracker) throws
     func delete(_ record: NSManagedObject) throws
+    func createNewTracker(tracker: Tracker) -> NSManagedObjectID
 }

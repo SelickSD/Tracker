@@ -9,23 +9,33 @@ import UIKit
 import CoreData
 
 final class TrackerCategoryStore: CategoryDataStore {
-    var managedObjectContext: NSManagedObjectContext? {
-        context
-    }
 
-    private let container: NSPersistentContainer
     private let context: NSManagedObjectContext
+    private let categoryEntityName = "TrackerCategoryCD"
 
-    init() {
-        container = (UIApplication.shared.delegate as! AppDelegate).persistentContainer
-        context = container.viewContext
+    init(context: NSManagedObjectContext) {
+        self.context = context
     }
 
-    func add(_ record: TrackerCategory) throws {
-        <#code#>
+    func createCategory(name: String) -> NSManagedObjectID {
+        let managedRecord = TrackerCategoryCD(context: context)
+        managedRecord.name = name
+        return managedRecord.objectID
+    }
+
+    func getObjects() -> [TrackerCategoryCD]? {
+        let request = NSFetchRequest<TrackerCategoryCD>(entityName: categoryEntityName)
+        guard let value = try? context.fetch(request) else { return nil }
+        return value
+    }
+
+    func addNewRecord(name: String) {
+        let managedRecord = TrackerCategoryCD(context: context)
+        managedRecord.name = name
     }
 
     func delete(_ record: NSManagedObject) throws {
-        <#code#>
+        context.delete(record)
+        try? context.save()
     }
 }

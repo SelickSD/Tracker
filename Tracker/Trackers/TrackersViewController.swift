@@ -12,35 +12,35 @@ final class TrackersViewController: UIViewController,
                                     TrackersViewControllerDelegate,
                                     UIGestureRecognizerDelegate, UISearchBarDelegate {
 
-    private lazy var trackerDataProvider: DataProviderProtocol? = {
+    private lazy var dataProvider: DataProviderProtocol? = {
         do {
-            try trackerDataProvider = TrackerDataProvider(TrackerStore(), delegate: self)
-            return trackerDataProvider
+            try dataProvider = DataProvider(delegate: self)
+            return dataProvider
         } catch {
-            showError("Данные треков недоступны.")
+            showError("Данные недоступны.")
             return nil
         }
     }()
 
-    private lazy var categoryDataProvider: DataProviderProtocol? = {
-        do {
-            try categoryDataProvider = CategoryDataProvider(TrackerCategoryStore(), delegate: self)
-            return categoryDataProvider
-        } catch {
-            showError("Данные категорий недоступны.")
-            return nil
-        }
-    }()
-
-    private lazy var recordDataProvider: DataProviderProtocol? = {
-        do {
-            try recordDataProvider = RecordDataProvider(TrackerRecordStore(), delegate: self)
-            return recordDataProvider
-        } catch {
-            showError("Данные истории недоступны.")
-            return nil
-        }
-    }()
+//    private lazy var categoryDataProvider: CategoryProviderProtocol? = {
+//        do {
+//            try categoryDataProvider = CategoryDataProvider(TrackerCategoryStore(), delegate: self)
+//            return categoryDataProvider
+//        } catch {
+//            showError("Данные категорий недоступны.")
+//            return nil
+//        }
+//    }()
+//
+//    private lazy var recordDataProvider: RecordProviderProtocol? = {
+//        do {
+//            try recordDataProvider = RecordDataProvider(TrackerRecordStore(), delegate: self)
+//            return recordDataProvider
+//        } catch {
+//            showError("Данные истории недоступны.")
+//            return nil
+//        }
+//    }()
 
     private lazy var emptyView: UIImageView = {
         let view = UIImageView()
@@ -122,6 +122,8 @@ final class TrackersViewController: UIViewController,
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        updateCategories()
 
         setupUIBarButtonItem()
         updateFilterCategories()
@@ -236,6 +238,7 @@ final class TrackersViewController: UIViewController,
 
         if !isChange {
             categories.append(newHabit)
+            dataProvider?.addNewCategory(category: newHabit)
         }
     }
 
@@ -371,6 +374,15 @@ final class TrackersViewController: UIViewController,
         let alert = UIAlertController(title: "Ошибка!", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in }))
         present(alert, animated: true, completion: nil)
+    }
+
+    private func updateCategories() {
+        guard let category = categoryDataProvider?.allObjects(),
+              let track = dataProvider?.allObjects() else {return}
+        try? dataProvider?.deleteRecord(at: IndexPath())
+
+
+//        categories.append(TrackerCategory(name: "Ура", trackers: track))
     }
 }
 

@@ -8,9 +8,12 @@
 import Foundation
 
 protocol DataProviderProtocol {
-    var numberOfSections: Int { get }
-    func numberOfRowsInSection(_ section: Int) -> Int
+    func addNewCategory(category: TrackerCategory)
+    func getObjects() -> [TrackerCategory]?
+//    var numberOfSections: Int { get }
+//    func numberOfRowsInSection(_ section: Int) -> Int
     func object(at: IndexPath) -> Tracker?
+
     func addRecord(_ record: Tracker) throws
     func deleteRecord(at indexPath: IndexPath) throws
 }

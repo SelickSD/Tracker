@@ -22,10 +22,13 @@ final class TrackerRecordStore: RecordDataStore {
     }
 
     func add(_ record: TrackerRecord) throws {
-        <#code#>
+        let managedRecord = TrackerRecordCD(context: context)
+        managedRecord.date = record.date
+        try? context.save()
     }
 
     func delete(_ record: NSManagedObject) throws {
-        <#code#>
+        context.delete(record)
+        try? context.save()
     }
 }
