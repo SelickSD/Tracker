@@ -39,7 +39,6 @@
 		44ABD2072B8F97AC00ADF2AA /* TrackerDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ABD2062B8F97AC00ADF2AA /* TrackerDataStore.swift */; };
 		44ABD20B2B8F9A1400ADF2AA /* DataProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ABD20A2B8F9A1400ADF2AA /* DataProviderProtocol.swift */; };
 		44ABD20D2B8FA7CD00ADF2AA /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ABD20C2B8FA7CD00ADF2AA /* DataProvider.swift */; };
-		44ABD20F2B8FA84E00ADF2AA /* DataProviderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ABD20E2B8FA84E00ADF2AA /* DataProviderDelegate.swift */; };
 		44ABD2112B8FA89500ADF2AA /* TrackerStoreUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ABD2102B8FA89500ADF2AA /* TrackerStoreUpdate.swift */; };
 		44ABD2172B8FBAAD00ADF2AA /* CategoryDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ABD2162B8FBAAC00ADF2AA /* CategoryDataStore.swift */; };
 		44ABD2192B8FBAEF00ADF2AA /* RecordDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ABD2182B8FBAEF00ADF2AA /* RecordDataStore.swift */; };
@@ -95,7 +94,6 @@
 		44ABD2062B8F97AC00ADF2AA /* TrackerDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerDataStore.swift; sourceTree = "<group>"; };
 		44ABD20A2B8F9A1400ADF2AA /* DataProviderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProviderProtocol.swift; sourceTree = "<group>"; };
 		44ABD20C2B8FA7CD00ADF2AA /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
-		44ABD20E2B8FA84E00ADF2AA /* DataProviderDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProviderDelegate.swift; sourceTree = "<group>"; };
 		44ABD2102B8FA89500ADF2AA /* TrackerStoreUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerStoreUpdate.swift; sourceTree = "<group>"; };
 		44ABD2162B8FBAAC00ADF2AA /* CategoryDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDataStore.swift; sourceTree = "<group>"; };
 		44ABD2182B8FBAEF00ADF2AA /* RecordDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordDataStore.swift; sourceTree = "<group>"; };
@@ -233,10 +231,10 @@
 			isa = PBXGroup;
 			children = (
 				44DE3A2E2B6019F0007F5B5E /* CategoryViewControllerProtocol.swift */,
-				44ABD20A2B8F9A1400ADF2AA /* DataProviderProtocol.swift */,
 				44ABD2062B8F97AC00ADF2AA /* TrackerDataStore.swift */,
 				44ABD2162B8FBAAC00ADF2AA /* CategoryDataStore.swift */,
 				44ABD2182B8FBAEF00ADF2AA /* RecordDataStore.swift */,
+				44ABD20A2B8F9A1400ADF2AA /* DataProviderProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -250,7 +248,6 @@
 				44DE3A392B60F3D6007F5B5E /* ScheduleViewControllerDelegate.swift */,
 				44DE3A3B2B61024B007F5B5E /* CreateNewHabitViewControllerDelegate.swift */,
 				44DE3A3D2B610EE9007F5B5E /* TrackersViewControllerDelegate.swift */,
-				44ABD20E2B8FA84E00ADF2AA /* DataProviderDelegate.swift */,
 			);
 			path = Delegates;
 			sourceTree = "<group>";
@@ -388,7 +385,6 @@
 				44ABD2172B8FBAAD00ADF2AA /* CategoryDataStore.swift in Sources */,
 				44ABD2032B8E37C600ADF2AA /* TrackerRecordStore.swift in Sources */,
 				4413248E2B31F6F200CE4CFF /* Date + Extensions.swift in Sources */,
-				44ABD20F2B8FA84E00ADF2AA /* DataProviderDelegate.swift in Sources */,
 				44DE3A402B62DC80007F5B5E /* Int + Extension.swift in Sources */,
 				44ABD20D2B8FA7CD00ADF2AA /* DataProvider.swift in Sources */,
 				44DE3A2F2B6019F0007F5B5E /* CategoryViewControllerProtocol.swift in Sources */,

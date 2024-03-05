@@ -7,6 +7,7 @@
 import CoreData
 
 protocol RecordDataStore {
-    func add(_ record: TrackerRecord) throws
-    func delete(_ record: NSManagedObject) throws
+    func add(record: TrackerRecord)
+    func delete(record: TrackerRecord)
+    func getObjects() -> [TrackerRecord]?
 }

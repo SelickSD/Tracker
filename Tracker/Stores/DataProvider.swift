@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import CoreData
 
 final class DataProvider: DataProviderProtocol {
 
@@ -14,116 +13,45 @@ final class DataProvider: DataProviderProtocol {
         case failedToInitializeContext
     }
 
-    weak var delegate: DataProviderDelegate?
-
-    private let context: NSManagedObjectContext
-    private let categoryDataStore: TrackerCategoryStore
+    private let categoryDataStore: CategoryDataStore
     private let trackerDataStore: TrackerDataStore
-    private let recordDataStore: TrackerRecordStore
+    private let recordDataStore: RecordDataStore
 
-    private let categoryEntityName = "TrackerCategoryCD"
-    private let trackerEntityName = "TrackerCD"
-    private let recordEntityName = "TrackerRecordCD"
-
-
-    init(delegate: DataProviderDelegate) throws {
-
-        let container = (UIApplication.shared.delegate as! AppDelegate).persistentContainer
-
-        self.delegate = delegate
-        self.context = container.viewContext
-        self.trackerDataStore = TrackerStore(context: context)
-        self.categoryDataStore = TrackerCategoryStore(context: context)
+    init() {
+        self.trackerDataStore = TrackerStore()
+        self.categoryDataStore = TrackerCategoryStore()
         self.recordDataStore = TrackerRecordStore()
     }
 
-
     func addNewCategory(category: TrackerCategory) {
         let categoryObjectID = categoryDataStore.createCategory(name: category.name)
-        let trackerObjectID = trackerDataStore.createNewTracker(tracker: category.trackers[0])
-        guard let newCategory = try? context.existingObject(with: categoryObjectID) as? TrackerCategoryCD,
-        let newTracker = try? context.existingObject(with: trackerObjectID) as? TrackerCD else {return}
-
-        newCategory.addToTrackers(newTracker)
-
-        saveContext()
+        trackerDataStore.createNewTracker(tracker: category.trackers[0], categoryID: categoryObjectID)
     }
 
-    func object(at: IndexPath) -> Tracker? {
-//        let request = NSFetchRequest<TrackerCD>(entityName: "TrackerCD")
-//        guard let value = try? context.fetch(request) else { return nil }
-//        guard let object = convertCD(cd: value[at.row]) else { return nil }
-//
-//        return object
-    }
+    func getObjects() -> ([TrackerCategory]?, [TrackerRecord]?) {
+        guard let categories = categoryDataStore.getObjects(),
+              let records = recordDataStore.getObjects() else { return (nil, nil) }
+        var newCategories:[TrackerCategory] = []
 
-    func getObjects() -> [TrackerCategory]? {
-        guard let categories = categoryDataStore.getObjects() else {return nil}
-        var trackerCategories: [TrackerCategory] = []
-
-        for items in categories {
-
-            if let name = items.name {
-                trackerCategories.append(TrackerCategory(name: name, trackers: <#T##[Tracker]#>))
+        categories.forEach{
+            if let name = $0.name {
+                newCategories.append(TrackerCategory(name: name, 
+                                                     trackers: trackerDataStore.getCategoryObjects(category: $0) ?? []))
             }
-
         }
-
-
-
-
-
-//        let request = NSFetchRequest<TrackerCD>(entityName: "TrackerCD")
-//        guard let value = try? context.fetch(request) else { return nil }
-//
-//        var object: [Tracker] = []
-//        for item in value {
-//            if let tempCD = convertCD(cd: item) {
-//                object.append(tempCD)
-//            }
-//        }
-
-        return nil
+        return (newCategories, records)
     }
 
-    func addRecord(_ record: Tracker) throws {
-        try? trackerDataStore.add(record)
+    func addNewTracker(tracker: Tracker, toCategoryName: String) {
+        guard let category = categoryDataStore.getCategoryName(name: toCategoryName)?.first else {return}
+        trackerDataStore.createNewTracker(tracker: tracker, category: category)
     }
 
-    func deleteRecord(at indexPath: IndexPath) throws {
-        let request = NSFetchRequest<TrackerCD>(entityName: "TrackerCD")
-        guard let value = try? context.fetch(request) else { return }
-        value.forEach{
-            context.delete($0)
-        }
-        try? context.save()
-
+    func addRecord(record: TrackerRecord) {
+        recordDataStore.add(record: record)
     }
 
-    private func convertCD(cd: [TrackerCD]) -> [Tracker]? {
-        guard let color = cd.color as? UIColor,
-              let name = cd.name,
-              let emoji = cd.emoji,
-              let schedule = cd.schedule as? [DayOfWeek]
-        else {return nil}
-
-        return Tracker(name: name,
-                       color: color,
-                       emoji: emoji,
-                       schedule: schedule)
+    func deleteRecord(record: TrackerRecord) {
+        recordDataStore.delete(record: record)
     }
-
-    private func saveContext() {
-         if context.hasChanges {
-             do {
-                 try context.save()
-                 try print(context.count(for: NSFetchRequest<TrackerCD>(entityName: "TrackerCD")))
-             } catch {
-                 let nserror = error as NSError
-                 context.rollback()
-                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-             }
-         }
-     }
-
 }

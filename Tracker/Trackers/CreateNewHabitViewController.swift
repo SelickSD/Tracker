@@ -163,7 +163,8 @@ final class CreateNewHabitViewController: UIViewController,
               let color = UIColor(hex: colours[colorIndex]),
               !choseDay.isEmpty else {return}
 
-        let newHabit = Tracker(name: name,
+        let newHabit = Tracker(id: UUID(),
+                                name: name,
                                color: color,
                                emoji: emojis[emojiIndex],
                                schedule: choseDay)

@@ -11,54 +11,83 @@ import CoreData
 final class TrackerStore: TrackerDataStore {
 
     private let context: NSManagedObjectContext
-    private let trackerEntityName = "TrackerCD"
+    private let entityName = "TrackerCD"
+
+    convenience init() {
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        self.init(context: context)
+    }
 
     init(context: NSManagedObjectContext) {
         self.context = context
     }
 
-    func createNewTracker(tracker: Tracker) -> NSManagedObjectID {
+    func createNewTracker(tracker: Tracker, categoryID: NSManagedObjectID) {
+        guard let category = try? context.existingObject(with: categoryID) as? TrackerCategoryCD else { return }
         let managedRecord = TrackerCD(context: context)
-        managedRecord.id = tracker.id
+        managedRecord.trackerId = tracker.id
         managedRecord.name = tracker.name
         managedRecord.color = tracker.color
         managedRecord.emoji = tracker.emoji
         managedRecord.schedule = tracker.schedule as NSObject
-        return managedRecord.objectID
+        managedRecord.category = category
+
+        saveContext()
     }
 
-    
+    func createNewTracker(tracker: Tracker, category: TrackerCategoryCD) {
+        let managedRecord = TrackerCD(context: context)
+        managedRecord.trackerId = tracker.id
+        managedRecord.name = tracker.name
+        managedRecord.color = tracker.color
+        managedRecord.emoji = tracker.emoji
+        managedRecord.schedule = tracker.schedule as NSObject
+        managedRecord.category = category
 
-    private func convertCD(cd: TrackerCD) -> Tracker? {
-        guard let color = cd.color as? UIColor,
-              let name = cd.name,
-              let emoji = cd.emoji,
-              let schedule = cd.schedule as? [DayOfWeek]
+        saveContext()
+    }
+
+    func getCategoryObjects(category: TrackerCategoryCD) -> [Tracker]? {
+        let request = NSFetchRequest<TrackerCD>(entityName: entityName)
+        guard let value = try? context.fetch(request) else { return nil }
+        var trackers: [Tracker] = []
+
+        value.forEach{
+            if $0.category == category {
+                if let tracker = convertCD(cd: $0) {
+                    trackers.append(tracker)
+                }
+            }
+        }
+        return trackers
+    }
+
+    private func convertCD(cd: TrackerCD?) -> Tracker? {
+        guard let tracker = cd,
+              let id = tracker.trackerId,
+              let color = tracker.color as? UIColor,
+              let name = tracker.name,
+              let emoji = tracker.emoji,
+              let schedule = tracker.schedule as? [DayOfWeek]
         else {return nil}
 
-        return Tracker(name: name,
+        return Tracker(id: id,
+                       name: name,
                        color: color,
                        emoji: emoji,
                        schedule: schedule)
     }
 
-
-    func add(category: NSManagedObject, record: Tracker) {
-        let managedRecord = TrackerCD(context: context)
-        managedRecord.id = record.id
-        managedRecord.name = record.name
-        managedRecord.color = record.color
-        managedRecord.emoji = record.emoji
-        managedRecord.schedule = record.schedule as NSObject
-    }
-
-    func delete(_ record: NSManagedObject) throws {
-        let value = TrackerCD(context: context)
-    }
-
-
-
-    func add(_ record: Tracker) throws {
-
+    private func saveContext() {
+        if context.hasChanges {
+            do {
+                try context.save()
+                try print(context.count(for: NSFetchRequest<TrackerCD>(entityName: "TrackerCD")))
+            } catch {
+                let nserror = error as NSError
+                context.rollback()
+                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+            }
+        }
     }
 }

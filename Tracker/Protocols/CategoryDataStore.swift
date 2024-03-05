@@ -8,8 +8,7 @@
 import CoreData
 
 protocol CategoryDataStore {
-    func addNewRecord(name: String)
-    func getObjects() -> [TrackerCategoryCD]?
-    func delete(_ record: NSManagedObject) throws
     func createCategory(name: String) -> NSManagedObjectID
+    func getObjects() -> [TrackerCategoryCD]?
+    func getCategoryName(name: String) -> [TrackerCategoryCD]?
 }

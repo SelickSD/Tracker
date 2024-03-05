@@ -12,35 +12,7 @@ final class TrackersViewController: UIViewController,
                                     TrackersViewControllerDelegate,
                                     UIGestureRecognizerDelegate, UISearchBarDelegate {
 
-    private lazy var dataProvider: DataProviderProtocol? = {
-        do {
-            try dataProvider = DataProvider(delegate: self)
-            return dataProvider
-        } catch {
-            showError("Данные недоступны.")
-            return nil
-        }
-    }()
-
-//    private lazy var categoryDataProvider: CategoryProviderProtocol? = {
-//        do {
-//            try categoryDataProvider = CategoryDataProvider(TrackerCategoryStore(), delegate: self)
-//            return categoryDataProvider
-//        } catch {
-//            showError("Данные категорий недоступны.")
-//            return nil
-//        }
-//    }()
-//
-//    private lazy var recordDataProvider: RecordProviderProtocol? = {
-//        do {
-//            try recordDataProvider = RecordDataProvider(TrackerRecordStore(), delegate: self)
-//            return recordDataProvider
-//        } catch {
-//            showError("Данные истории недоступны.")
-//            return nil
-//        }
-//    }()
+    private lazy var dataProvider: DataProviderProtocol? = DataProvider()
 
     private lazy var emptyView: UIImageView = {
         let view = UIImageView()
@@ -123,8 +95,7 @@ final class TrackersViewController: UIViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        updateCategories()
-
+        updateCategoriesFromCoreData()
         setupUIBarButtonItem()
         updateFilterCategories()
         setupGestures()
@@ -144,6 +115,7 @@ final class TrackersViewController: UIViewController,
 
     func didTapPlusButton(id: UUID) {
         completedTrackers.append(TrackerRecord(id: id, date: currentDate))
+        dataProvider?.addRecord(record: TrackerRecord(id: id, date: currentDate))
     }
 
     func searchBarSearchButtonClicked( _ searchBar: UISearchBar) {
@@ -156,10 +128,10 @@ final class TrackersViewController: UIViewController,
     }
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-            currentTracker = searchText
-            updateFilterCategories()
-            checkView()
-            trackersCollectionView.reloadData()
+        currentTracker = searchText
+        updateFilterCategories()
+        checkView()
+        trackersCollectionView.reloadData()
     }
 
     func didUnTapPlusButton(id: UUID) {
@@ -168,6 +140,7 @@ final class TrackersViewController: UIViewController,
 
         for items in oldTracks {
             if items.id == id && Calendar.current.component(.day, from: items.date) == Calendar.current.component(.day, from: currentDate) {
+                dataProvider?.deleteRecord(record: completedTrackers[index])
                 completedTrackers.remove(at: index)
             }
             index += 1
@@ -231,6 +204,7 @@ final class TrackersViewController: UIViewController,
                 trackers.append(newHabit.trackers[0])
                 categories.remove(at: index)
                 categories.insert(TrackerCategory(name: value.name, trackers: trackers), at: index)
+                dataProvider?.addNewTracker(tracker: newHabit.trackers[0], toCategoryName: value.name)
                 isChange.toggle()
             }
             index += 1
@@ -328,15 +302,15 @@ final class TrackersViewController: UIViewController,
             })
         } else {
             categories.forEach({ category in
-                    category.trackers.forEach({ track in
-                        if track.name == currentTracker {
-                            track.schedule.forEach({ dayOfWeek in
-                                if weekday == dayOfWeek.rawValue {
-                                    tracks.append(track)
-                                }
-                            })
-                        }
-                    })
+                category.trackers.forEach({ track in
+                    if track.name == currentTracker {
+                        track.schedule.forEach({ dayOfWeek in
+                            if weekday == dayOfWeek.rawValue {
+                                tracks.append(track)
+                            }
+                        })
+                    }
+                })
                 if !tracks.isEmpty {
                     filterDateCategories.append(TrackerCategory(name: category.name, trackers: tracks))
                 }
@@ -376,13 +350,12 @@ final class TrackersViewController: UIViewController,
         present(alert, animated: true, completion: nil)
     }
 
-    private func updateCategories() {
-        guard let category = categoryDataProvider?.allObjects(),
-              let track = dataProvider?.allObjects() else {return}
-        try? dataProvider?.deleteRecord(at: IndexPath())
-
-
-//        categories.append(TrackerCategory(name: "Ура", trackers: track))
+    private func updateCategoriesFromCoreData() {
+        guard let objects = dataProvider?.getObjects(),
+              let category = objects.0,
+              let records = objects.1 else {return}
+        categories = category
+        completedTrackers = records
     }
 }
 
@@ -451,17 +424,5 @@ extension TrackersViewController: UICollectionViewDataSource {
 
         view.prepareView(name: filterDateCategories[indexPath.section].name)
         return view
-    }
-}
-
-// MARK: - DataProviderDelegate
-extension TrackersViewController: DataProviderDelegate {
-    func didUpdate(_ update: TrackerStoreUpdate) {
-//        tableView.performBatchUpdates {
-//            let insertedIndexPaths = update.insertedIndexes.map { IndexPath(item: $0, section: 0) }
-//            let deletedIndexPaths = update.deletedIndexes.map { IndexPath(item: $0, section: 0) }
-//            tableView.insertRows(at: insertedIndexPaths, with: .automatic)
-//            tableView.deleteRows(at: deletedIndexPaths, with: .fade)
-//        }
     }
 }
