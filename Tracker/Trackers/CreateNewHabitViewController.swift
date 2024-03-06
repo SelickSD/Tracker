@@ -371,7 +371,7 @@ extension CreateNewHabitViewController: UICollectionViewDataSource {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PresentViewCell.identifier, for: indexPath) as? PresentViewCell else {
                 return UICollectionViewCell()
             }
-            cell.titleLabel.text = emojis[indexPath.row]
+            cell.configLabel(text: emojis[indexPath.row])
             return cell
         case 1:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ColorViewCell.identifier, for: indexPath) as? ColorViewCell else {

@@ -10,7 +10,12 @@ import UIKit
 final class PresentViewCell: UICollectionViewCell {
     static let identifier = "PresentViewCell"
 
-    let titleLabel = UILabel()
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 32, weight: .regular)
+        return label
+    }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -18,7 +23,6 @@ final class PresentViewCell: UICollectionViewCell {
         self.clipsToBounds = true
 
         contentView.addSubview(titleLabel)
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
             titleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
@@ -28,5 +32,9 @@ final class PresentViewCell: UICollectionViewCell {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    func configLabel(text: String) {
+        titleLabel.text = text
     }
 }
