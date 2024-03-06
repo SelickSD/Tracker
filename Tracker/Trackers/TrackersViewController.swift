@@ -335,7 +335,7 @@ final class TrackersViewController: UIViewController,
         var isEnabled = true
 
         completedTrackers.forEach({ track in
-            if track.id == trackForCategory.id && Calendar.current.component(.day, from: track.date) == Calendar.current.component(.day, from: currentDate) {
+            if track.id == trackForCategory.id && Calendar.current.dateComponents([.year, .month, .day], from: track.date) == Calendar.current.dateComponents([.year, .month, .day], from: currentDate) {
                 isCompleted = true
             }
         })
@@ -346,8 +346,12 @@ final class TrackersViewController: UIViewController,
             }
         })
 
-        if Calendar.current.component(.day, from: currentDate) > Calendar.current.component(.day, from: Date()) {
-            isEnabled = false
+        if let date1 = currentDate.ignoringTime {
+            if let date2 = Date().ignoringTime {
+                if Calendar.current.compare(date1, to: date2, toGranularity: .day) == .orderedDescending {
+                    isEnabled = false
+                }
+            }
         }
 
         cell.configCell(track: trackForCategory, isCompleted: isCompleted, count: count, isEnabled: isEnabled)
