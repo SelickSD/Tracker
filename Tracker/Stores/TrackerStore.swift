@@ -82,7 +82,6 @@ final class TrackerStore: TrackerDataStore {
         if context.hasChanges {
             do {
                 try context.save()
-                try print(context.count(for: NSFetchRequest<TrackerCD>(entityName: "TrackerCD")))
             } catch {
                 let nserror = error as NSError
                 context.rollback()

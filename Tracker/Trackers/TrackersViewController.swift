@@ -169,6 +169,7 @@ final class TrackersViewController: UIViewController,
     }
 
     @objc private func addTapped() {
+        resetCurrentDate()
         let createNewTrackerViewController = CreateNewTrackerViewController()
         createNewTrackerViewController.delegate = self
         categories.forEach({ value in
@@ -191,6 +192,12 @@ final class TrackersViewController: UIViewController,
             setupView()
             isBlankView = false
         }
+    }
+
+    private func resetCurrentDate() {
+        datePicker.date = Date()
+        currentDate = Date()
+        trackersCollectionView.reloadData()
     }
 
     private func updateCategory(newHabit: TrackerCategory) {

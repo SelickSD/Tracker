@@ -49,7 +49,6 @@ final class ScheduleTableViewCell: UITableViewCell {
 
     @objc private func didTapDayOfWeekButton() {
         dayOfWeekSwitch.setOn(true, animated: true)
-        print("true")
     }
 
     func configCell(rowOfCell: Int, maxCount: Int, dayName: String) {
