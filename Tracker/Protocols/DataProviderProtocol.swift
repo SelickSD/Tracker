@@ -6,7 +6,6 @@
 //
 
 import Foundation
-
 protocol DataProviderProtocol {
     func addNewCategory(category: TrackerCategory)
     func getObjects() -> ([TrackerCategory]?, [TrackerRecord]?)

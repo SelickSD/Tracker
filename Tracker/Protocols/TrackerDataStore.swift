@@ -5,10 +5,8 @@
 //  Created by Сергей Денисенко on 28.02.2024.
 //
 
-import CoreData
-
+import Foundation
 protocol TrackerDataStore {
-    func createNewTracker(tracker: Tracker, categoryID: NSManagedObjectID)
     func getCategoryObjects(category: TrackerCategoryCD) -> [Tracker]?
     func createNewTracker(tracker: Tracker, category: TrackerCategoryCD)
 }

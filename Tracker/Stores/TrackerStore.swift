@@ -22,19 +22,6 @@ final class TrackerStore: TrackerDataStore {
         self.context = context
     }
 
-    func createNewTracker(tracker: Tracker, categoryID: NSManagedObjectID) {
-        guard let category = try? context.existingObject(with: categoryID) as? TrackerCategoryCD else { return }
-        let managedRecord = TrackerCD(context: context)
-        managedRecord.trackerId = tracker.id
-        managedRecord.name = tracker.name
-        managedRecord.color = tracker.color
-        managedRecord.emoji = tracker.emoji
-        managedRecord.schedule = tracker.schedule as NSObject
-        managedRecord.category = category
-
-        saveContext()
-    }
-
     func createNewTracker(tracker: Tracker, category: TrackerCategoryCD) {
         let managedRecord = TrackerCD(context: context)
         managedRecord.trackerId = tracker.id

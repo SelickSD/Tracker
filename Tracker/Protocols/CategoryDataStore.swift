@@ -5,9 +5,9 @@
 //  Created by Сергей Денисенко on 28.02.2024.
 //
 
-import CoreData
+import Foundation
 protocol CategoryDataStore {
-    func createCategory(name: String) -> NSManagedObjectID
+    func createCategory(name: String) -> TrackerCategoryCD
     func getObjects() -> [TrackerCategoryCD]?
     func getCategoryName(name: String) -> [TrackerCategoryCD]?
 }

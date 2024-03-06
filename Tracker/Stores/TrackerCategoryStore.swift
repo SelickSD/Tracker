@@ -22,10 +22,10 @@ final class TrackerCategoryStore: CategoryDataStore {
         self.context = context
     }
 
-    func createCategory(name: String) -> NSManagedObjectID {
+    func createCategory(name: String) -> TrackerCategoryCD {
         let managedRecord = TrackerCategoryCD(context: context)
         managedRecord.name = name
-        return managedRecord.objectID
+        return managedRecord
     }
 
     func getObjects() -> [TrackerCategoryCD]? {

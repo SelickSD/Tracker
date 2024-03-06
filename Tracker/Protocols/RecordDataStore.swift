@@ -4,8 +4,7 @@
 //
 //  Created by Сергей Денисенко on 28.02.2024.
 //
-import CoreData
-
+import Foundation
 protocol RecordDataStore {
     func add(record: TrackerRecord)
     func delete(record: TrackerRecord)

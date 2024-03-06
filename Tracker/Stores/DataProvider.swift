@@ -26,8 +26,8 @@ final class DataProvider: DataProviderProtocol {
     init() {}
 
     func addNewCategory(category: TrackerCategory) {
-        guard let categoryObjectID = categoryDataStore?.createCategory(name: category.name) else { return }
-        trackerDataStore?.createNewTracker(tracker: category.trackers[0], categoryID: categoryObjectID)
+        guard let categoryObject = categoryDataStore?.createCategory(name: category.name) else { return }
+        trackerDataStore?.createNewTracker(tracker: category.trackers[0], category: categoryObject)
     }
 
     func getObjects() -> ([TrackerCategory]?, [TrackerRecord]?) {
