@@ -6,7 +6,6 @@
 //
 
 import CoreData
-
 protocol CategoryDataStore {
     func createCategory(name: String) -> NSManagedObjectID
     func getObjects() -> [TrackerCategoryCD]?

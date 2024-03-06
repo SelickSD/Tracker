@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let container = NSPersistentContainer(name: "TrackerDB")
         container.loadPersistentStores { description, error in
             if let error = error {
-                fatalError("Unable to load persistent stores: \(error)")
+                assertionFailure("Unresolved error \(error)")
             }
         }
         return container

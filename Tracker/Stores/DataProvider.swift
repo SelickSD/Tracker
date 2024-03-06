@@ -6,52 +6,54 @@
 //
 
 import UIKit
-
 final class DataProvider: DataProviderProtocol {
 
     enum DataProviderError: Error {
         case failedToInitializeContext
     }
 
-    private let categoryDataStore: CategoryDataStore
-    private let trackerDataStore: TrackerDataStore
-    private let recordDataStore: RecordDataStore
+    private lazy var categoryDataStore: CategoryDataStore? = {
+        return TrackerCategoryStore()
+    }()
 
-    init() {
-        self.trackerDataStore = TrackerStore()
-        self.categoryDataStore = TrackerCategoryStore()
-        self.recordDataStore = TrackerRecordStore()
-    }
+    private lazy var trackerDataStore: TrackerDataStore? = {
+        return TrackerStore()
+    }()
+    private let recordDataStore: RecordDataStore? = {
+        return TrackerRecordStore()
+    }()
+
+    init() {}
 
     func addNewCategory(category: TrackerCategory) {
-        let categoryObjectID = categoryDataStore.createCategory(name: category.name)
-        trackerDataStore.createNewTracker(tracker: category.trackers[0], categoryID: categoryObjectID)
+        guard let categoryObjectID = categoryDataStore?.createCategory(name: category.name) else { return }
+        trackerDataStore?.createNewTracker(tracker: category.trackers[0], categoryID: categoryObjectID)
     }
 
     func getObjects() -> ([TrackerCategory]?, [TrackerRecord]?) {
-        guard let categories = categoryDataStore.getObjects(),
-              let records = recordDataStore.getObjects() else { return (nil, nil) }
+        guard let categories = categoryDataStore?.getObjects(),
+              let records = recordDataStore?.getObjects() else { return (nil, nil) }
         var newCategories:[TrackerCategory] = []
 
         categories.forEach{
             if let name = $0.name {
                 newCategories.append(TrackerCategory(name: name, 
-                                                     trackers: trackerDataStore.getCategoryObjects(category: $0) ?? []))
+                                                     trackers: trackerDataStore?.getCategoryObjects(category: $0) ?? []))
             }
         }
         return (newCategories, records)
     }
 
     func addNewTracker(tracker: Tracker, toCategoryName: String) {
-        guard let category = categoryDataStore.getCategoryName(name: toCategoryName)?.first else {return}
-        trackerDataStore.createNewTracker(tracker: tracker, category: category)
+        guard let category = categoryDataStore?.getCategoryName(name: toCategoryName)?.first else {return}
+        trackerDataStore?.createNewTracker(tracker: tracker, category: category)
     }
 
     func addRecord(record: TrackerRecord) {
-        recordDataStore.add(record: record)
+        recordDataStore?.add(record: record)
     }
 
     func deleteRecord(record: TrackerRecord) {
-        recordDataStore.delete(record: record)
+        recordDataStore?.delete(record: record)
     }
 }

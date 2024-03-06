@@ -12,7 +12,9 @@ final class TrackersViewController: UIViewController,
                                     TrackersViewControllerDelegate,
                                     UIGestureRecognizerDelegate, UISearchBarDelegate {
 
-    private lazy var dataProvider: DataProviderProtocol? = DataProvider()
+    private lazy var dataProvider: DataProviderProtocol? = {
+        return DataProvider()
+    }()
 
     private lazy var emptyView: UIImageView = {
         let view = UIImageView()

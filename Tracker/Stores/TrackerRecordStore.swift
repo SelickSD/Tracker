@@ -71,8 +71,7 @@ final class TrackerRecordStore: RecordDataStore {
                 try context.save()
             } catch {
                 let nserror = error as NSError
-                context.rollback()
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+                assertionFailure("Unresolved error \(nserror), \(nserror.userInfo)")
             }
         }
     }
