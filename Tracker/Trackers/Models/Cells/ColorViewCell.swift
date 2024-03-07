@@ -15,7 +15,7 @@ final class ColorViewCell: UICollectionViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.clipsToBounds = true
         view.layer.cornerRadius = 12
-        view.layer.borderWidth = 5
+        view.layer.borderWidth = 3
         return view
     }()
 
@@ -49,10 +49,10 @@ final class ColorViewCell: UICollectionViewCell {
         contentView.addSubview(colorView)
 
         NSLayoutConstraint.activate([
-            colorView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 4),
-            colorView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -4),
-            colorView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 4),
-            colorView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4)
+            colorView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 2),
+            colorView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -2),
+            colorView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 2),
+            colorView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -2)
         ])
     }
 }

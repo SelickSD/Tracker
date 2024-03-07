@@ -6,9 +6,23 @@
 //
 
 import UIKit
+import CoreData
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
+
+    lazy var persistentContainer: NSPersistentContainer = {
+        let container = NSPersistentContainer(name: "TrackerDB")
+        container.loadPersistentStores { description, error in
+            if let error = error {
+                assertionFailure("Unresolved error \(error)")
+            }
+        }
+        return container
+    }()
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        DaysValueTransformer.register()
+        UIColorValueTransformer.register()
         return true
     }
 

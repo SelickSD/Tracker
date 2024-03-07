@@ -6,7 +6,6 @@
 //
 
 import UIKit
-
 public protocol CategoryViewControllerProtocol: AnyObject {
     func setupView(category: [String], targetCell: UITableViewCell, index: Int?)
 }

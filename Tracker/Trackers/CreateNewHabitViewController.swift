@@ -120,7 +120,8 @@ final class CreateNewHabitViewController: UIViewController,
         button.translatesAutoresizingMaskIntoConstraints = false
         button.clipsToBounds = true
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .gray
+        button.backgroundColor = .lightGray
+        button.isEnabled = false
         button.layer.cornerRadius = 16
         button.setTitle("Создать", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .regular)
@@ -138,10 +139,12 @@ final class CreateNewHabitViewController: UIViewController,
     func fetchCategory(index: Int?, categories: [String]) {
         self.categories = categories
         category = index
+        checkWellDone()
     }
 
     func fetchDayOfWeek(dayOfWeek: [DayOfWeek]) {
         self.choseDay = dayOfWeek
+        checkWellDone()
     }
 
     @objc private func didTapCancelButton() {
@@ -149,13 +152,6 @@ final class CreateNewHabitViewController: UIViewController,
     }
 
     @objc private func didTapCreateButton() {
-
-        if isEvent {
-            choseDay = [
-                .monday, .tuesday, .wednesday,
-                .thursday, .friday, .saturday, .sunday]
-        }
-
         guard let name = newTrackerName,
               let colorIndex = configCells["Цвет"]?.row,
               let emojiIndex = configCells["Emoji"]?.row,
@@ -163,7 +159,8 @@ final class CreateNewHabitViewController: UIViewController,
               let color = UIColor(hex: colours[colorIndex]),
               !choseDay.isEmpty else {return}
 
-        let newHabit = Tracker(name: name,
+        let newHabit = Tracker(id: UUID(),
+                                name: name,
                                color: color,
                                emoji: emojis[emojiIndex],
                                schedule: choseDay)
@@ -181,12 +178,25 @@ final class CreateNewHabitViewController: UIViewController,
 
     @objc func habitTextChanged(_ textField: UITextField) {
         newTrackerName = textField.text
+        checkWellDone()
     }
 
     private func setupGestures() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         tapGesture.cancelsTouchesInView = true
         tapGestureView.addGestureRecognizer(tapGesture)
+    }
+
+    private func checkWellDone() {
+        guard let name = newTrackerName,
+              let colorIndex = configCells["Цвет"]?.row,
+              let emojiIndex = configCells["Emoji"]?.row,
+              let categoryIndex = category,
+              let color = UIColor(hex: colours[colorIndex]),
+              !choseDay.isEmpty else {return}
+
+        createButton.backgroundColor = .ypBlack
+        createButton.isEnabled = true
     }
 
     private func setupView() {
@@ -208,6 +218,9 @@ final class CreateNewHabitViewController: UIViewController,
 
         if isEvent {
             mainTableViewHeightAnchor = mainTableView.heightAnchor.constraint(equalToConstant: 110)
+            choseDay = [
+                .monday, .tuesday, .wednesday,
+                .thursday, .friday, .saturday, .sunday]
         }
 
         NSLayoutConstraint.activate([
@@ -370,7 +383,7 @@ extension CreateNewHabitViewController: UICollectionViewDataSource {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PresentViewCell.identifier, for: indexPath) as? PresentViewCell else {
                 return UICollectionViewCell()
             }
-            cell.titleLabel.text = emojis[indexPath.row]
+            cell.configLabel(text: emojis[indexPath.row])
             return cell
         case 1:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ColorViewCell.identifier, for: indexPath) as? ColorViewCell else {
@@ -425,6 +438,8 @@ extension CreateNewHabitViewController: UICollectionViewDelegate {
         default:
             break
         }
+
+        checkWellDone()
 
         for (key, value) in configCells {
             if tmpConfig[key] != value && key == "Emoji" {

@@ -12,6 +12,10 @@ final class TrackersViewController: UIViewController,
                                     TrackersViewControllerDelegate,
                                     UIGestureRecognizerDelegate, UISearchBarDelegate {
 
+    private lazy var dataProvider: DataProviderProtocol? = {
+        return DataProvider()
+    }()
+
     private lazy var emptyView: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -93,6 +97,7 @@ final class TrackersViewController: UIViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        updateCategoriesFromCoreData()
         setupUIBarButtonItem()
         updateFilterCategories()
         setupGestures()
@@ -112,6 +117,7 @@ final class TrackersViewController: UIViewController,
 
     func didTapPlusButton(id: UUID) {
         completedTrackers.append(TrackerRecord(id: id, date: currentDate))
+        dataProvider?.addRecord(record: TrackerRecord(id: id, date: currentDate))
     }
 
     func searchBarSearchButtonClicked( _ searchBar: UISearchBar) {
@@ -124,10 +130,10 @@ final class TrackersViewController: UIViewController,
     }
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-            currentTracker = searchText
-            updateFilterCategories()
-            checkView()
-            trackersCollectionView.reloadData()
+        currentTracker = searchText
+        updateFilterCategories()
+        checkView()
+        trackersCollectionView.reloadData()
     }
 
     func didUnTapPlusButton(id: UUID) {
@@ -136,6 +142,7 @@ final class TrackersViewController: UIViewController,
 
         for items in oldTracks {
             if items.id == id && Calendar.current.component(.day, from: items.date) == Calendar.current.component(.day, from: currentDate) {
+                dataProvider?.deleteRecord(record: completedTrackers[index])
                 completedTrackers.remove(at: index)
             }
             index += 1
@@ -164,6 +171,7 @@ final class TrackersViewController: UIViewController,
     }
 
     @objc private func addTapped() {
+        resetCurrentDate()
         let createNewTrackerViewController = CreateNewTrackerViewController()
         createNewTrackerViewController.delegate = self
         categories.forEach({ value in
@@ -188,6 +196,12 @@ final class TrackersViewController: UIViewController,
         }
     }
 
+    private func resetCurrentDate() {
+        datePicker.date = Date()
+        currentDate = Date()
+        trackersCollectionView.reloadData()
+    }
+
     private func updateCategory(newHabit: TrackerCategory) {
         let oldCategory = categories
         var isChange = false
@@ -199,6 +213,7 @@ final class TrackersViewController: UIViewController,
                 trackers.append(newHabit.trackers[0])
                 categories.remove(at: index)
                 categories.insert(TrackerCategory(name: value.name, trackers: trackers), at: index)
+                dataProvider?.addNewTracker(tracker: newHabit.trackers[0], toCategoryName: value.name)
                 isChange.toggle()
             }
             index += 1
@@ -206,6 +221,7 @@ final class TrackersViewController: UIViewController,
 
         if !isChange {
             categories.append(newHabit)
+            dataProvider?.addNewCategory(category: newHabit)
         }
     }
 
@@ -295,15 +311,15 @@ final class TrackersViewController: UIViewController,
             })
         } else {
             categories.forEach({ category in
-                    category.trackers.forEach({ track in
-                        if track.name == currentTracker {
-                            track.schedule.forEach({ dayOfWeek in
-                                if weekday == dayOfWeek.rawValue {
-                                    tracks.append(track)
-                                }
-                            })
-                        }
-                    })
+                category.trackers.forEach({ track in
+                    if track.name == currentTracker {
+                        track.schedule.forEach({ dayOfWeek in
+                            if weekday == dayOfWeek.rawValue {
+                                tracks.append(track)
+                            }
+                        })
+                    }
+                })
                 if !tracks.isEmpty {
                     filterDateCategories.append(TrackerCategory(name: category.name, trackers: tracks))
                 }
@@ -319,7 +335,7 @@ final class TrackersViewController: UIViewController,
         var isEnabled = true
 
         completedTrackers.forEach({ track in
-            if track.id == trackForCategory.id && Calendar.current.component(.day, from: track.date) == Calendar.current.component(.day, from: currentDate) {
+            if track.id == trackForCategory.id && Calendar.current.dateComponents([.year, .month, .day], from: track.date) == Calendar.current.dateComponents([.year, .month, .day], from: currentDate) {
                 isCompleted = true
             }
         })
@@ -330,11 +346,29 @@ final class TrackersViewController: UIViewController,
             }
         })
 
-        if Calendar.current.component(.day, from: currentDate) > Calendar.current.component(.day, from: Date()) {
-            isEnabled = false
+        if let date1 = currentDate.ignoringTime {
+            if let date2 = Date().ignoringTime {
+                if Calendar.current.compare(date1, to: date2, toGranularity: .day) == .orderedDescending {
+                    isEnabled = false
+                }
+            }
         }
 
         cell.configCell(track: trackForCategory, isCompleted: isCompleted, count: count, isEnabled: isEnabled)
+    }
+
+    private func showError(_ message: String) {
+        let alert = UIAlertController(title: "Ошибка!", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in }))
+        present(alert, animated: true, completion: nil)
+    }
+
+    private func updateCategoriesFromCoreData() {
+        guard let objects = dataProvider?.getObjects(),
+              let category = objects.0,
+              let records = objects.1 else {return}
+        categories = category
+        completedTrackers = records
     }
 }
 
