@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class MainTableViewCell: UITableViewCell {
+final class MainTableViewCell: UITableViewCell, MainTableViewCellProtocol {
     static let identifier = "MainTableViewCell"
 
     private lazy var titleLabel: UILabel = {

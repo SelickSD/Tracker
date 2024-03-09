@@ -10,6 +10,7 @@ import CoreData
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    lazy var categoryModel = CategoryModel()
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "TrackerDB")
         container.loadPersistentStores { description, error in

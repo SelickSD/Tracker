@@ -160,7 +160,7 @@ final class CreateNewHabitViewController: UIViewController,
               !choseDay.isEmpty else {return}
 
         let newHabit = Tracker(id: UUID(),
-                                name: name,
+                               name: name,
                                color: color,
                                emoji: emojis[emojiIndex],
                                schedule: choseDay)
@@ -188,11 +188,11 @@ final class CreateNewHabitViewController: UIViewController,
     }
 
     private func checkWellDone() {
-        guard let name = newTrackerName,
+        guard newTrackerName != nil,
               let colorIndex = configCells["Цвет"]?.row,
-              let emojiIndex = configCells["Emoji"]?.row,
-              let categoryIndex = category,
-              let color = UIColor(hex: colours[colorIndex]),
+              configCells["Emoji"]?.row != nil,
+              category != nil,
+              UIColor(hex: colours[colorIndex]) != nil,
               !choseDay.isEmpty else {return}
 
         createButton.backgroundColor = .ypBlack
@@ -288,8 +288,11 @@ extension CreateNewHabitViewController: UITableViewDelegate {
         switch indexPath.row {
         case 0:
             let categoryViewController = CategoryViewController()
-            categoryViewController.delegate = self
-            categoryViewController.setupView(category: categories, targetCell: tableViewCell, index: category)
+            let categoryModel = (UIApplication.shared.delegate as! AppDelegate).categoryModel
+            let viewModel = CategoryViewModel(for: categoryModel)
+            categoryModel.delegate = self
+            categoryModel.setProperties(categories: categories, cell: tableViewCell, index: category)
+            categoryViewController.initialize(viewModel: viewModel)
             self.present(categoryViewController, animated: true)
         case 1:
             let scheduleViewController = ScheduleViewController()
