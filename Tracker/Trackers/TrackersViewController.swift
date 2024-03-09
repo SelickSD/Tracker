@@ -182,7 +182,7 @@ final class TrackersViewController: UIViewController,
     }
 
     private func showOnboardingView() {
-        let onboardingPages = OnboardingViewController()
+        let onboardingPages = OnboardingViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
         self.navigationController?.pushViewController(onboardingPages, animated: false)
     }
 
