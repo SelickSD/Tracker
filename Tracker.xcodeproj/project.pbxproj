@@ -36,9 +36,7 @@
 		447D803B2B9B6A7B00A06D3F /* PagesSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447D803A2B9B6A7B00A06D3F /* PagesSettings.swift */; };
 		447D803F2B9B82CC00A06D3F /* OnboardingViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447D803E2B9B82CC00A06D3F /* OnboardingViewDelegate.swift */; };
 		447D80442B9B99AC00A06D3F /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447D80432B9B99AC00A06D3F /* CategoryViewModel.swift */; };
-		447D80462B9B99D300A06D3F /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447D80452B9B99D300A06D3F /* CategoryModel.swift */; };
 		447D80482B9BA9AD00A06D3F /* MainTableViewCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447D80472B9BA9AD00A06D3F /* MainTableViewCellProtocol.swift */; };
-		447D804A2B9C804800A06D3F /* CategoryStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447D80492B9C804800A06D3F /* CategoryStatus.swift */; };
 		44ABD1BC2B8663C400ADF2AA /* TrackerDB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 44ABD1BA2B8663C400ADF2AA /* TrackerDB.xcdatamodeld */; };
 		44ABD1FF2B8E37A700ADF2AA /* TrackerStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ABD1FE2B8E37A700ADF2AA /* TrackerStore.swift */; };
 		44ABD2012B8E37B600ADF2AA /* TrackerCategoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ABD2002B8E37B600ADF2AA /* TrackerCategoryStore.swift */; };
@@ -97,9 +95,7 @@
 		447D803A2B9B6A7B00A06D3F /* PagesSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagesSettings.swift; sourceTree = "<group>"; };
 		447D803E2B9B82CC00A06D3F /* OnboardingViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewDelegate.swift; sourceTree = "<group>"; };
 		447D80432B9B99AC00A06D3F /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
-		447D80452B9B99D300A06D3F /* CategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
 		447D80472B9BA9AD00A06D3F /* MainTableViewCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCellProtocol.swift; sourceTree = "<group>"; };
-		447D80492B9C804800A06D3F /* CategoryStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryStatus.swift; sourceTree = "<group>"; };
 		44ABD1BB2B8663C400ADF2AA /* TrackerDB.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TrackerDB.xcdatamodel; sourceTree = "<group>"; };
 		44ABD1FE2B8E37A700ADF2AA /* TrackerStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerStore.swift; sourceTree = "<group>"; };
 		44ABD2002B8E37B600ADF2AA /* TrackerCategoryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerCategoryStore.swift; sourceTree = "<group>"; };
@@ -278,8 +274,6 @@
 			children = (
 				44DE3A282B600921007F5B5E /* CategoryViewController.swift */,
 				447D80432B9B99AC00A06D3F /* CategoryViewModel.swift */,
-				447D80452B9B99D300A06D3F /* CategoryModel.swift */,
-				447D80492B9C804800A06D3F /* CategoryStatus.swift */,
 			);
 			path = CategoryViewController;
 			sourceTree = "<group>";
@@ -398,7 +392,6 @@
 				441324922B3206FA00CE4CFF /* TrackersCellDelegate.swift in Sources */,
 				44DE3A292B600921007F5B5E /* CategoryViewController.swift in Sources */,
 				44DE3A3C2B61024B007F5B5E /* CreateNewHabitViewControllerDelegate.swift in Sources */,
-				447D804A2B9C804800A06D3F /* CategoryStatus.swift in Sources */,
 				4413247B2B25FF6C00CE4CFF /* GeometricParams.swift in Sources */,
 				440289F02B18ED2100A0BEBE /* TrackersViewController.swift in Sources */,
 				441324852B28C89300CE4CFF /* MainTableViewCell.swift in Sources */,
@@ -421,7 +414,6 @@
 				441C46A52B6D379100BC079E /* UITableViewCell + Extention.swift in Sources */,
 				440289DB2B17A04100A0BEBE /* SceneDelegate.swift in Sources */,
 				44ABD2172B8FBAAD00ADF2AA /* CategoryDataStore.swift in Sources */,
-				447D80462B9B99D300A06D3F /* CategoryModel.swift in Sources */,
 				44ABD2032B8E37C600ADF2AA /* TrackerRecordStore.swift in Sources */,
 				4413248E2B31F6F200CE4CFF /* Date + Extensions.swift in Sources */,
 				44DE3A402B62DC80007F5B5E /* Int + Extension.swift in Sources */,

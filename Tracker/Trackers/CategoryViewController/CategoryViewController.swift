@@ -10,7 +10,7 @@ final class CategoryViewController: UIViewController,
                                     CreateNewCategoryViewControllerDelegate {
 
     weak var delegate: CategoryViewControllerDelegate?
-    private var isDone = false
+    private var isCategorySelected = false
     private var viewModel: CategoryViewModel?
 
     private lazy var emptyView: UIImageView = {
@@ -71,23 +71,21 @@ final class CategoryViewController: UIViewController,
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        delegateChange()
+        viewModel?.delegateChange()
     }
 
     func initialize(viewModel: CategoryViewModel) {
         self.viewModel = viewModel
         bind()
-        viewModel.didCheck(status: .isEmpty)
+        viewModel.checkInitialStatus()
     }
 
     func fetchCategoryName(name: String) {
         viewModel?.updateCategory(name: name)
-        viewModel?.didCheck(status: .isChanged)
-        viewModel?.didCheck(status: .isEmpty)
     }
 
     @objc private func didTapDoneButton() {
-        if isDone {
+        if isCategorySelected {
             viewModel?.delegateChange()
             self.dismiss(animated: true)
         } else {
@@ -110,17 +108,13 @@ final class CategoryViewController: UIViewController,
             }
         }
 
-        viewModel.isDone = { [weak self] isDone in
-            self?.isDone = isDone
+        viewModel.isCategorySelected = { [weak self] isSelected in
+            self?.isCategorySelected = isSelected
         }
     }
 
     private func setupView(isEmpty: Bool) {
         isEmpty ? setupBlankView() : setupTargetView()
-    }
-
-    private func delegateChange() {
-        viewModel?.delegateChange()
     }
 
     private func setupBlankView() {
@@ -177,7 +171,6 @@ extension CategoryViewController: UITableViewDelegate {
             let cell = tableView.cellForRow(at: indexPath) as? CategoriesTableViewCell
             cell?.makeDone()
             viewModel.setDoneIndexPath(indexPath: indexPath)
-            viewModel.didCheck(status: .isDone)
             return
         }
 
@@ -185,14 +178,12 @@ extension CategoryViewController: UITableViewDelegate {
             let cell = tableView.cellForRow(at: indexPath) as? CategoriesTableViewCell
             cell?.makeDone()
             viewModel.setDoneIndexPath(indexPath: nil)
-            viewModel.didCheck(status: .isDone)
         } else {
             let oldCell = tableView.cellForRow(at: oldDone) as? CategoriesTableViewCell
             let cell = tableView.cellForRow(at: indexPath) as? CategoriesTableViewCell
             cell?.makeDone()
             oldCell?.makeDone()
             viewModel.setDoneIndexPath(indexPath: indexPath)
-            viewModel.didCheck(status: .isDone)
         }
     }
 }
@@ -219,7 +210,6 @@ extension CategoryViewController: UITableViewDataSource {
         if startIndex != nil && indexPath.row == startIndex {
             cell.makeDone()
             viewModel.setDoneIndexPath(indexPath: indexPath)
-            viewModel.didCheck(status: .isDone)
         }
 
         if numberOfRowsInSection >= 2 {

@@ -288,10 +288,9 @@ extension CreateNewHabitViewController: UITableViewDelegate {
         switch indexPath.row {
         case 0:
             let categoryViewController = CategoryViewController()
-            let categoryModel = (UIApplication.shared.delegate as! AppDelegate).categoryModel
-            let viewModel = CategoryViewModel(for: categoryModel)
-            categoryModel.delegate = self
-            categoryModel.setProperties(categories: categories, cell: tableViewCell, index: category)
+            let categoryModel = TrackerCategoryStore()
+            let viewModel = CategoryViewModel(for: categoryModel, myCell: tableViewCell, index: category)
+            viewModel.delegate = self
             categoryViewController.initialize(viewModel: viewModel)
             self.present(categoryViewController, animated: true)
         case 1:
