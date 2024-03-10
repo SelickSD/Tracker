@@ -97,7 +97,6 @@ final class TrackersViewController: UIViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        showOnboardingView()
         updateCategoriesFromCoreData()
         setupUIBarButtonItem()
         updateFilterCategories()
@@ -179,11 +178,6 @@ final class TrackersViewController: UIViewController,
             createNewTrackerViewController.categories.append(value.name)
         })
         self.present(createNewTrackerViewController, animated: true)
-    }
-
-    private func showOnboardingView() {
-        let onboardingPages = OnboardingViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
-        self.navigationController?.pushViewController(onboardingPages, animated: false)
     }
 
     private func setupGestures() {

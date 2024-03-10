@@ -69,6 +69,7 @@ final class PagesViewController: UIViewController {
     }
 
     @objc private func didTapCancelButton() {
+        UserDefaults.standard.set(true, forKey: "isHide")
         delegate?.dismissOnboardingView()
     }
 
