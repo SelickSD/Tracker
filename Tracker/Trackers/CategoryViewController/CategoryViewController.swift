@@ -11,7 +11,7 @@ final class CategoryViewController: UIViewController,
 
     weak var delegate: CategoryViewControllerDelegate?
     private var isCategorySelected = false
-    private var viewModel: CategoryViewModel?
+    private var viewModel: CategoryViewModelProtocol?
 
     private lazy var emptyView: UIImageView = {
         let view = UIImageView()
@@ -96,7 +96,7 @@ final class CategoryViewController: UIViewController,
     }
 
     private func bind() {
-        guard let viewModel = viewModel else { return }
+        guard var viewModel = viewModel else { return }
 
         viewModel.isCategoryEmpty = { [weak self] isEmpty in
             self?.setupView(isEmpty: isEmpty)

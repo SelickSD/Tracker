@@ -8,7 +8,7 @@
 import Foundation
 typealias Binding<T> = (T) -> Void
 
-final class CategoryViewModel {
+final class CategoryViewModel: CategoryViewModelProtocol {
 
     var isCategoryEmpty: Binding<Bool>?
     var isCategoryUpdated: Binding<Bool>?

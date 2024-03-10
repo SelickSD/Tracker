@@ -37,6 +37,7 @@
 		447D803F2B9B82CC00A06D3F /* OnboardingViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447D803E2B9B82CC00A06D3F /* OnboardingViewDelegate.swift */; };
 		447D80442B9B99AC00A06D3F /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447D80432B9B99AC00A06D3F /* CategoryViewModel.swift */; };
 		447D80482B9BA9AD00A06D3F /* MainTableViewCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447D80472B9BA9AD00A06D3F /* MainTableViewCellProtocol.swift */; };
+		447D804C2B9E040700A06D3F /* CategoryViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447D804B2B9E040700A06D3F /* CategoryViewModelProtocol.swift */; };
 		44ABD1BC2B8663C400ADF2AA /* TrackerDB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 44ABD1BA2B8663C400ADF2AA /* TrackerDB.xcdatamodeld */; };
 		44ABD1FF2B8E37A700ADF2AA /* TrackerStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ABD1FE2B8E37A700ADF2AA /* TrackerStore.swift */; };
 		44ABD2012B8E37B600ADF2AA /* TrackerCategoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ABD2002B8E37B600ADF2AA /* TrackerCategoryStore.swift */; };
@@ -96,6 +97,7 @@
 		447D803E2B9B82CC00A06D3F /* OnboardingViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewDelegate.swift; sourceTree = "<group>"; };
 		447D80432B9B99AC00A06D3F /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
 		447D80472B9BA9AD00A06D3F /* MainTableViewCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCellProtocol.swift; sourceTree = "<group>"; };
+		447D804B2B9E040700A06D3F /* CategoryViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModelProtocol.swift; sourceTree = "<group>"; };
 		44ABD1BB2B8663C400ADF2AA /* TrackerDB.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TrackerDB.xcdatamodel; sourceTree = "<group>"; };
 		44ABD1FE2B8E37A700ADF2AA /* TrackerStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerStore.swift; sourceTree = "<group>"; };
 		44ABD2002B8E37B600ADF2AA /* TrackerCategoryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerCategoryStore.swift; sourceTree = "<group>"; };
@@ -241,6 +243,7 @@
 				44ABD2182B8FBAEF00ADF2AA /* RecordDataStore.swift */,
 				44ABD20A2B8F9A1400ADF2AA /* DataProviderProtocol.swift */,
 				447D80472B9BA9AD00A06D3F /* MainTableViewCellProtocol.swift */,
+				447D804B2B9E040700A06D3F /* CategoryViewModelProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -409,6 +412,7 @@
 				44ABD2112B8FA89500ADF2AA /* TrackerStoreUpdate.swift in Sources */,
 				440289F22B18ED3A00A0BEBE /* StatisticViewController.swift in Sources */,
 				440289D92B17A04100A0BEBE /* AppDelegate.swift in Sources */,
+				447D804C2B9E040700A06D3F /* CategoryViewModelProtocol.swift in Sources */,
 				447D80372B9B5D8100A06D3F /* OnboardingViewController.swift in Sources */,
 				447D803B2B9B6A7B00A06D3F /* PagesSettings.swift in Sources */,
 				441C46A52B6D379100BC079E /* UITableViewCell + Extention.swift in Sources */,
