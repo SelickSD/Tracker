@@ -13,7 +13,6 @@ final class ScheduleViewController: UIViewController {
     
     private let dayOfWeek: [DayOfWeek] = [.monday, .tuesday, .wednesday, .thursday, .friday, .saturday, .sunday]
     private var choseDay: [DayOfWeek] = []
-    private var myCell: UITableViewCell?
 
     private lazy var pageNameLabel: UILabel = {
         let label = UILabel()
@@ -47,8 +46,7 @@ final class ScheduleViewController: UIViewController {
         return button
     }()
 
-    func setupTableView(choseDay: [DayOfWeek], targetCell: UITableViewCell) {
-        myCell = targetCell
+    func setupTableView(choseDay: [DayOfWeek]) {
         self.choseDay = choseDay
     }
 
@@ -68,22 +66,7 @@ final class ScheduleViewController: UIViewController {
     }
 
     private func delegateChange() {
-        guard let targetCell = myCell as? MainTableViewCell else {return}
         delegate?.fetchDayOfWeek(dayOfWeek: choseDay)
-        targetCell.discardChanges()
-        if !choseDay.isEmpty {
-            targetCell.configLabel(newLabelText: createTextLabel())
-        }
-    }
-
-    private func createTextLabel() -> String {
-        var text = ""
-        dayOfWeek.forEach({ value in
-            if choseDay.contains(value) {
-                text = text + value.shortName + ", "
-            }
-        })
-        return String(text.dropLast(2))
     }
 
     private func setupView() {

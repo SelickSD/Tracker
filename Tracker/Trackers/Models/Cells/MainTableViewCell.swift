@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class MainTableViewCell: UITableViewCell, MainTableViewCellProtocol {
+final class MainTableViewCell: UITableViewCell {
     static let identifier = "MainTableViewCell"
 
     private lazy var titleLabel: UILabel = {
@@ -33,7 +33,6 @@ final class MainTableViewCell: UITableViewCell, MainTableViewCellProtocol {
         button.clipsToBounds = true
         button.setImage(UIImage(named: "Chevron"), for: .normal)
         button.tintColor = .ypBlack
-        button.addTarget(self, action: #selector(didTapNextButton), for: .touchUpInside)
         return button
     }()
 
@@ -47,10 +46,6 @@ final class MainTableViewCell: UITableViewCell, MainTableViewCellProtocol {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    @objc private func didTapNextButton() {
-        // TODO
     }
 
     func configLabel(newLabelText: String) {

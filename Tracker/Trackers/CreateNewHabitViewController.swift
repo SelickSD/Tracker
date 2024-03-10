@@ -25,6 +25,7 @@ final class CreateNewHabitViewController: UIViewController,
         "F9D4D4", "34A7FE", "46E69D", "35347C", "FF674D", "FF99CC",
         "F6C48B", "7994F5", "832CF1", "AD56DA", "8D72E6", "2FD058"
     ]
+    private let dayOfWeek: [DayOfWeek] = [.monday, .tuesday, .wednesday, .thursday, .friday, .saturday, .sunday]
 
     private var configCells: [String: IndexPath] = [:]
     private var newTrackerName: String?
@@ -140,11 +141,13 @@ final class CreateNewHabitViewController: UIViewController,
     func fetchCategory(index: Int?, categories: [String]) {
         self.categories = categories
         category = index
+        mainTableView.reloadData()
         checkWellDone()
     }
 
     func fetchDayOfWeek(dayOfWeek: [DayOfWeek]) {
         self.choseDay = dayOfWeek
+        mainTableView.reloadData()
         checkWellDone()
     }
 
@@ -271,6 +274,16 @@ final class CreateNewHabitViewController: UIViewController,
             createButton.leadingAnchor.constraint(equalTo: contentView.centerXAnchor, constant: 8)
         ])
     }
+
+    private func createTextLabel() -> String {
+        var text = ""
+        dayOfWeek.forEach({ value in
+            if choseDay.contains(value) {
+                text = text + value.shortName + ", "
+            }
+        })
+        return String(text.dropLast(2))
+    }
 }
 
 //MARK: -UITextFieldDelegate
@@ -285,19 +298,18 @@ extension CreateNewHabitViewController: UITextFieldDelegate {
 extension CreateNewHabitViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         view.endEditing(true)
-        guard let tableViewCell = tableView.cellForRow(at: indexPath) as? MainTableViewCell else {return}
         switch indexPath.row {
         case 0:
             let categoryViewController = CategoryViewController()
             let categoryModel = TrackerCategoryStore()
-            let viewModel = CategoryViewModel(for: categoryModel, myCell: tableViewCell, index: category)
+            let viewModel = CategoryViewModel(for: categoryModel, index: category)
             viewModel.delegate = self
             categoryViewController.initialize(viewModel: viewModel)
             self.present(categoryViewController, animated: true)
         case 1:
             let scheduleViewController = ScheduleViewController()
             scheduleViewController.delegate = self
-            scheduleViewController.setupTableView(choseDay: choseDay, targetCell: tableViewCell)
+            scheduleViewController.setupTableView(choseDay: choseDay)
             self.present(scheduleViewController, animated: true)
         default:
             break
@@ -321,6 +333,23 @@ extension CreateNewHabitViewController: UITableViewDataSource {
 
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MainTableViewCell.identifier, for: indexPath) as? MainTableViewCell else {
             return UITableViewCell()
+        }
+
+        switch indexPath.row {
+        case 0:
+            if let index = category {
+                cell.configLabel(newLabelText: categories[index])
+            } else {
+                cell.discardChanges()
+            }
+        case 1:
+            if choseDay.isEmpty {
+                cell.discardChanges()
+            } else {
+                cell.configLabel(newLabelText: createTextLabel())
+            }
+        default:
+            break
         }
 
         cell.configCell(rowOfCell: indexPath.row, maxCount: maxRows)
