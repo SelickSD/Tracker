@@ -24,7 +24,7 @@ final class PagesViewController: UIViewController {
         label.clipsToBounds = true
         label.numberOfLines = 0
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 32, weight: .regular)
+        label.font = UIFont.systemFont(ofSize: 32, weight: .bold)
         return label
     }()
 
