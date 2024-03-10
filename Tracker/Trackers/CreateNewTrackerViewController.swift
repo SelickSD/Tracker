@@ -10,7 +10,6 @@ import UIKit
 final class CreateNewTrackerViewController: UIViewController,
                                             CreateNewHabitViewControllerDelegate {
 
-    var categories: [String] = []
     weak var delegate: TrackersViewControllerDelegate?
 
     private lazy var pageNameLabel: UILabel = {
@@ -57,31 +56,18 @@ final class CreateNewTrackerViewController: UIViewController,
     }
 
     func fetchHabit(newHabit: TrackerCategory) {
-        var isNewName = true
         delegate?.fetchNewTrack(newHabit: newHabit)
-
-        for item in categories {
-            if item == newHabit.name {
-                isNewName = false
-            }
-        }
-
-        if isNewName {
-            categories.append(newHabit.name)
-        }
     }
 
     @objc private func didTapCreateHabitButton() {
         let newHabitViewController = CreateNewHabitViewController()
         newHabitViewController.delegate = self
-        newHabitViewController.categories = categories
         self.present(newHabitViewController, animated: true)
     }
 
     @objc private func didTapCreateEventButton() {
         let newHabitViewController = CreateNewHabitViewController()
         newHabitViewController.delegate = self
-        newHabitViewController.categories = categories
         newHabitViewController.isEvent = true
         self.present(newHabitViewController, animated: true)
     }

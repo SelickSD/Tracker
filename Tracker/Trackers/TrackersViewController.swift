@@ -174,9 +174,6 @@ final class TrackersViewController: UIViewController,
         resetCurrentDate()
         let createNewTrackerViewController = CreateNewTrackerViewController()
         createNewTrackerViewController.delegate = self
-        categories.forEach({ value in
-            createNewTrackerViewController.categories.append(value.name)
-        })
         self.present(createNewTrackerViewController, animated: true)
     }
 

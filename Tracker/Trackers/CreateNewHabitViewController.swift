@@ -10,7 +10,7 @@ import UIKit
 final class CreateNewHabitViewController: UIViewController,
                                           CategoryViewControllerDelegate,
                                           ScheduleViewControllerDelegate {
-    var categories: [String] = []
+    
     var isEvent = false
     weak var delegate: CreateNewHabitViewControllerDelegate?
 
@@ -30,6 +30,7 @@ final class CreateNewHabitViewController: UIViewController,
     private var newTrackerName: String?
     private var category: Int?
     private var choseDay: [DayOfWeek] = []
+    private var categories: [String] = []
 
     private lazy var pageNameLabel: UILabel = {
         let label = UILabel()
