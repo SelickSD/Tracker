@@ -36,7 +36,7 @@ final class PagesViewController: UIViewController {
         button.backgroundColor = UIColor.init(hex: "#1A1B22")
         button.layer.cornerRadius = 16
         button.setTitle("Вот это технологии!", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         button.addTarget(self, action: #selector(didTapCancelButton), for: .touchUpInside)
         return button
     }()
