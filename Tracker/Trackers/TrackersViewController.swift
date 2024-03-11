@@ -95,6 +95,7 @@ final class TrackersViewController: UIViewController,
     private var filterDateCategories: [TrackerCategory] = []
     private var isBlankView = false
     private var currentTracker = ""
+    private var fixedTrackers: [Tracker] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -102,6 +103,7 @@ final class TrackersViewController: UIViewController,
         updateCategoriesFromCoreData()
         setupUIBarButtonItem()
         updateFilterCategories()
+        configFilterCategoriesWithFixedTrackers()
         setupGestures()
 
         if filterDateCategories.isEmpty {
@@ -127,6 +129,7 @@ final class TrackersViewController: UIViewController,
         guard let selectedText = searchBar.text else { return }
         currentTracker = selectedText
         updateFilterCategories()
+        configFilterCategoriesWithFixedTrackers()
         checkView()
         trackersCollectionView.reloadData()
     }
@@ -134,6 +137,7 @@ final class TrackersViewController: UIViewController,
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         currentTracker = searchText
         updateFilterCategories()
+        configFilterCategoriesWithFixedTrackers()
         checkView()
         trackersCollectionView.reloadData()
     }
@@ -154,6 +158,7 @@ final class TrackersViewController: UIViewController,
     func fetchNewTrack(newHabit: TrackerCategory) {
         updateCategory(newHabit: newHabit)
         updateFilterCategories()
+        configFilterCategoriesWithFixedTrackers()
         checkView()
         trackersCollectionView.reloadData()
     }
@@ -168,6 +173,7 @@ final class TrackersViewController: UIViewController,
         dateFormatter.dateFormat = "dd.MM.yyyy"
         currentDate = selectedDate
         updateFilterCategories()
+        configFilterCategoriesWithFixedTrackers()
         checkView()
         trackersCollectionView.reloadData()
     }
@@ -327,6 +333,29 @@ final class TrackersViewController: UIViewController,
         }
     }
 
+    private func configFilterCategoriesWithFixedTrackers() {
+        guard !fixedTrackers.isEmpty else {return}
+        let fixCategoryName = NSLocalizedString("trackerView.fixedCategoryName", comment: "Fixed Category name")
+        let oldFilterCategories = filterDateCategories
+        var tempTrackers: [Tracker] = []
+        var trackerUUIDs: [UUID] = []
+        fixedTrackers.forEach{trackerUUIDs.append($0.id)}
+        filterDateCategories = []
+        filterDateCategories.append(TrackerCategory(name: fixCategoryName, trackers: fixedTrackers))
+
+        for category in oldFilterCategories {
+            for tracker in category.trackers {
+                if !trackerUUIDs.contains(tracker.id) {
+                    tempTrackers.append(tracker)
+                }
+            }
+            if !tempTrackers.isEmpty {
+                filterDateCategories.append(TrackerCategory(name: category.name, trackers: tempTrackers))
+                tempTrackers = []
+            }
+        }
+    }
+
     private func configCell(for cell: TrackersCell, with indexPath: IndexPath) {
         var isCompleted = false
         let trackForCategory = filterDateCategories[indexPath.section].trackers[indexPath.row]
@@ -365,9 +394,59 @@ final class TrackersViewController: UIViewController,
     private func updateCategoriesFromCoreData() {
         guard let objects = dataProvider?.getObjects(),
               let category = objects.0,
-              let records = objects.1 else {return}
+              let records = objects.1,
+              let fixed = objects.2 else {return}
         categories = category
         completedTrackers = records
+        fixedTrackers = fixed
+    }
+
+    private func fixTracker(indexPath: IndexPath) {
+        let tracker = filterDateCategories[indexPath.section].trackers[indexPath.row]
+        dataProvider?.fixTracker(tracker: tracker)
+        fixedTrackers.append(tracker)
+        updateFilterCategories()
+        configFilterCategoriesWithFixedTrackers()
+        checkView()
+        trackersCollectionView.reloadData()
+    }
+
+    private func editTracker(indexPath: IndexPath) {
+        print(#function)
+    }
+
+    private func deleteTracker(indexPath: IndexPath) {
+//        let tracker = filterDateCategories[indexPath.section].trackers[indexPath.row]
+//        var index = 0
+//        fixedTrackers.forEach({ value in
+//            if value.id == tracker.id {
+//                fixedTrackers.remove(at: index)
+//            } else {
+//                index += 1
+//            }
+//        })
+//        dataProvider?.unFixTracker(tracker: tracker)
+//        updateFilterCategories()
+//        configFilterCategoriesWithFixedTrackers()
+//        checkView()
+//        trackersCollectionView.reloadData()
+    }
+
+    private func unFixTracker(indexPath: IndexPath) {
+        let tracker = filterDateCategories[indexPath.section].trackers[indexPath.row]
+        var index = 0
+        fixedTrackers.forEach({ value in
+            if value.id == tracker.id {
+                fixedTrackers.remove(at: index)
+            } else {
+                index += 1
+            }
+        })
+        dataProvider?.unFixTracker(tracker: tracker)
+        updateFilterCategories()
+        configFilterCategoriesWithFixedTrackers()
+        checkView()
+        trackersCollectionView.reloadData()
     }
 }
 
@@ -436,5 +515,55 @@ extension TrackersViewController: UICollectionViewDataSource {
 
         view.prepareView(name: filterDateCategories[indexPath.section].name)
         return view
+    }
+}
+
+//MARK: - UICollectionViewDelegate
+
+extension TrackersViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemsAt indexPaths: [IndexPath], point: CGPoint) -> UIContextMenuConfiguration? {
+        guard indexPaths.count > 0 else {
+            return nil
+        }
+
+        let fix = NSLocalizedString("trackerView.uiMenu.fix", comment: "Text displayed context menu settings")
+        let unFix = NSLocalizedString("trackerView.uiMenu.unFix", comment: "Text displayed context menu settings")
+        let edit = NSLocalizedString("trackerView.uiMenu.edit", comment: "Text displayed context menu settings")
+        let delete = NSLocalizedString("trackerView.uiMenu.delete", comment: "Text displayed context menu settings")
+
+        let indexPath = indexPaths[0]
+
+        var trackerUUIDs: [UUID] = []
+        fixedTrackers.forEach{trackerUUIDs.append($0.id)}
+
+        if trackerUUIDs.contains(filterDateCategories[indexPath.section].trackers[indexPath.row].id) {
+            return UIContextMenuConfiguration(actionProvider: { actions in
+                return UIMenu(children: [
+                    UIAction(title: unFix) { [weak self] _ in
+                        self?.unFixTracker(indexPath: indexPath)
+                    },
+                    UIAction(title: edit) { [weak self] _ in
+                        self?.editTracker(indexPath: indexPath)
+                    },
+                    UIAction(title: delete, attributes: .destructive) { [weak self] _ in
+                        self?.deleteTracker(indexPath: indexPath)
+                    },
+                ])
+            })
+        } else {
+            return UIContextMenuConfiguration(actionProvider: { actions in
+                return UIMenu(children: [
+                    UIAction(title: fix) { [weak self] _ in
+                        self?.fixTracker(indexPath: indexPath)
+                    },
+                    UIAction(title: edit) { [weak self] _ in
+                        self?.editTracker(indexPath: indexPath)
+                    },
+                    UIAction(title: delete, attributes: .destructive) { [weak self] _ in
+                        self?.deleteTracker(indexPath: indexPath)
+                    },
+                ])
+            })
+        }
     }
 }

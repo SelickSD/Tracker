@@ -5,21 +5,26 @@
   Created by Сергей Денисенко on 11.03.2024.
   
 */
-///MARK: CategoryViewController
+//MARK: CategoryViewController
 "categoryView.pageName" = "Категория";
 "categoryView.description" = "Привычки и события можно объединять по смыслу";
 "categoryView.doneButtonName" = "Добавить категорию";
 
-///MARK: TrackersViewController
+//MARK: TrackersViewController
 "trackerView.openingLabelText" = "Что будем отслеживать?";
 "trackerView.searchBar.placeholder" = "Поиск";
+"trackerView.fixedCategoryName" = "Закрепленные";
+"trackerView.uiMenu.fix" = "Закрепить";
+"trackerView.uiMenu.unFix" = "Открепить";
+"trackerView.uiMenu.edit" = "Редактировать";
+"trackerView.uiMenu.delete" = "Удалить";
 
-///MARK: CreateNewTrackerViewController
+//MARK: CreateNewTrackerViewController
 "createNewTrackerView.pageName" = "Создание трекера";
 "createNewTrackerView.createHabitButtonName" = "Привычка";
 "createNewTrackerView.createEventButtonName" = "Не регулярное событие";
 
-///MARK: CreateNewHabitViewController
+//MARK: CreateNewHabitViewController
 "createNewHabitView.pageName" = "Новая привычка";
 "createNewHabitView.cellEmojiName" = "Emoji";
 "createNewHabitView.cellColorName" = "Цвет";
@@ -27,30 +32,30 @@
 "createNewHabitView.cancelButtonName" = "Отменить";
 "createNewHabitView.createButtonName" = "Создать";
 
-///MARK: ScheduleViewController
+//MARK: ScheduleViewController
 "scheduleView.pageName" = "Расписание";
 "scheduleView.doneButtonName" = "Готово";
 
-///MARK: CreateNewCategoryViewController
+//MARK: CreateNewCategoryViewController
 "createNewCategory.pageName" = "Новая категория";
 "createNewCategory.categoryTextField.placeholder" = "Введите название категории";
 "createNewCategory.doneButtonName" = "Готово";
 
-///MARK: TrackersCell
+//MARK: TrackersCell
 "trackersCell.cellDateName" = "0 дней";
 
-///MARK: MainTableViewCell
+//MARK: MainTableViewCell
 "mainTableViewCell.categoryCellName" = "Категория";
 "mainTableViewCell.scheduleCellName" = "Расписание";
 
-///MARK: PagesViewController
+//MARK: PagesViewController
 "pagesView.cancelButtonName" = "Вот это технологии!";
 
-///MARK: PagesSettings
+//MARK: PagesSettings
 "pagesSettings.fistPage" = "Отслеживайте только то, что хотите";
 "pagesSettings.secondPage" = "Даже если это не литры воды и йога";
 
-///MARK: DayOfWeek
+//MARK: DayOfWeek
 "dayOfWeek.monday" = "Понедельник";
 "dayOfWeek.tuesday" = "Вторник";
 "dayOfWeek.wednesday" = "Cреда";

@@ -49,6 +49,13 @@ final class TrackerStore: TrackerDataStore {
         return trackers
     }
 
+    func getTracker(trackerId: UUID) -> Tracker? {
+        let request = NSFetchRequest<TrackerCD>(entityName: entityName)
+        request.predicate = NSPredicate(format: "%K == %@", #keyPath(TrackerCD.trackerId), trackerId as CVarArg)
+        guard let tracker = try? context.fetch(request) else { return nil }
+        return convertCD(cd: tracker.first)
+    }
+
     private func convertCD(cd: TrackerCD?) -> Tracker? {
         guard let tracker = cd,
               let id = tracker.trackerId,

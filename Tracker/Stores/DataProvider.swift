@@ -19,8 +19,13 @@ final class DataProvider: DataProviderProtocol {
     private lazy var trackerDataStore: TrackerDataStore? = {
         return TrackerStore()
     }()
+
     private let recordDataStore: RecordDataStore? = {
         return TrackerRecordStore()
+    }()
+
+    private let fixedRecordDataStore: FixedTrackersStoreProtocol? = {
+        return FixedTrackersStore()
     }()
 
     init() {}
@@ -34,18 +39,26 @@ final class DataProvider: DataProviderProtocol {
         trackerDataStore?.createNewTracker(tracker: category.trackers[0], category: categories)
     }
 
-    func getObjects() -> ([TrackerCategory]?, [TrackerRecord]?) {
+    func getObjects() -> ([TrackerCategory]?, [TrackerRecord]?, [Tracker]?) {
         guard let categories = categoryDataStore?.getObjects(),
-              let records = recordDataStore?.getObjects() else { return (nil, nil) }
+              let records = recordDataStore?.getObjects(),
+              let trackerID = fixedRecordDataStore?.getObjects() as? [UUID] else { return (nil, nil, nil) }
         var newCategories:[TrackerCategory] = []
+        var newTrackers:[Tracker] = []
 
         categories.forEach{
             if let name = $0.name {
-                newCategories.append(TrackerCategory(name: name, 
+                newCategories.append(TrackerCategory(name: name,
                                                      trackers: trackerDataStore?.getCategoryObjects(category: $0) ?? []))
             }
         }
-        return (newCategories, records)
+
+        trackerID.forEach{
+            if let tracker = trackerDataStore?.getTracker(trackerId: $0) {
+                newTrackers.append(tracker)
+            }
+        }
+        return (newCategories, records, newTrackers)
     }
 
     func addNewTracker(tracker: Tracker, toCategoryName: String) {
@@ -59,5 +72,13 @@ final class DataProvider: DataProviderProtocol {
 
     func deleteRecord(record: TrackerRecord) {
         recordDataStore?.delete(record: record)
+    }
+
+    func fixTracker(tracker: Tracker) {
+        fixedRecordDataStore?.addTracker(tracker: tracker)
+    }
+
+    func unFixTracker(tracker: Tracker) {
+        fixedRecordDataStore?.delete(trackerId: tracker.id)
     }
 }
