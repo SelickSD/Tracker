@@ -1,0 +1,71 @@
+/* 
+  Localizable.strings
+  Tracker
+
+  Created by Сергей Денисенко on 11.03.2024.
+  
+*/
+///MARK: CategoryViewController
+"categoryView.pageName" = "Категория";
+"categoryView.description" = "Привычки и события можно объединять по смыслу";
+"categoryView.doneButtonName" = "Добавить категорию";
+
+///MARK: TrackersViewController
+"trackerView.openingLabelText" = "Что будем отслеживать?";
+"trackerView.searchBar.placeholder" = "Поиск";
+
+///MARK: CreateNewTrackerViewController
+"createNewTrackerView.pageName" = "Создание трекера";
+"createNewTrackerView.createHabitButtonName" = "Привычка";
+"createNewTrackerView.createEventButtonName" = "Не регулярное событие";
+
+///MARK: CreateNewHabitViewController
+"createNewHabitView.pageName" = "Новая привычка";
+"createNewHabitView.cellEmojiName" = "Emoji";
+"createNewHabitView.cellColorName" = "Цвет";
+"createNewHabitView.textField.placeholder" = "Введите название трекера";
+"createNewHabitView.cancelButtonName" = "Отменить";
+"createNewHabitView.createButtonName" = "Создать";
+
+///MARK: ScheduleViewController
+"scheduleView.pageName" = "Расписание";
+"scheduleView.doneButtonName" = "Готово";
+
+///MARK: CreateNewCategoryViewController
+"createNewCategory.pageName" = "Новая категория";
+"createNewCategory.categoryTextField.placeholder" = "Введите название категории";
+"createNewCategory.doneButtonName" = "Готово";
+
+///MARK: TrackersCell
+"trackersCell.cellDateName" = "0 дней";
+
+///MARK: MainTableViewCell
+"mainTableViewCell.categoryCellName" = "Категория";
+"mainTableViewCell.scheduleCellName" = "Расписание";
+
+///MARK: PagesViewController
+"pagesView.cancelButtonName" = "Вот это технологии!";
+
+///MARK: PagesSettings
+"pagesSettings.fistPage" = "Отслеживайте только то, что хотите";
+"pagesSettings.secondPage" = "Даже если это не литры воды и йога";
+
+///MARK: DayOfWeek
+"dayOfWeek.monday" = "Понедельник";
+"dayOfWeek.tuesday" = "Вторник";
+"dayOfWeek.wednesday" = "Cреда";
+"dayOfWeek.thursday" = "Четверг";
+"dayOfWeek.friday" = "Пятница";
+"dayOfWeek.saturday" = "Суббота";
+"dayOfWeek.sunday" = "Воскресенье";
+
+"dayOfWeek.short.monday" = "Пн";
+"dayOfWeek.short.tuesday" = "Вт";
+"dayOfWeek.short.wednesday" = "Cр";
+"dayOfWeek.short.thursday" = "Чт";
+"dayOfWeek.short.friday" = "Пт";
+"dayOfWeek.short.saturday" = "Сб";
+"dayOfWeek.short.sunday" = "Вс";
+
+
+

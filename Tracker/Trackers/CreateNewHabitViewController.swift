@@ -34,10 +34,11 @@ final class CreateNewHabitViewController: UIViewController,
     private var categories: [String] = []
 
     private lazy var pageNameLabel: UILabel = {
+        let pageName = NSLocalizedString("createNewHabitView.pageName", comment: "Text displayed like page name")
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.clipsToBounds = true
-        label.text = "Новая привычка"
+        label.text = pageName
         label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         return label
     }()
@@ -62,10 +63,11 @@ final class CreateNewHabitViewController: UIViewController,
     }()
 
     private lazy var habitTextField: UITextField = {
+        let textFieldPlaceholder = NSLocalizedString("createNewHabitView.textField.placeholder", comment: "Text displayed like placeholder")
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.clipsToBounds = true
-        textField.placeholder = "Введите название трекера"
+        textField.placeholder = textFieldPlaceholder
         textField.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         textField.autocapitalizationType = .none
         textField.backgroundColor = .systemGray6
@@ -103,6 +105,7 @@ final class CreateNewHabitViewController: UIViewController,
     }()
 
     private lazy var cancelButton: UIButton = {
+        let cancelButtonName = NSLocalizedString("createNewHabitView.cancelButtonName", comment: "Text displayed like name of cance button")
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.clipsToBounds = true
@@ -111,13 +114,14 @@ final class CreateNewHabitViewController: UIViewController,
         button.layer.borderColor = UIColor.red.cgColor
         button.layer.borderWidth = 0.5
         button.layer.cornerRadius = 16
-        button.setTitle("Отменить", for: .normal)
+        button.setTitle(cancelButtonName, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         button.addTarget(self, action: #selector(didTapCancelButton), for: .touchUpInside)
         return button
     }()
 
     private lazy var createButton: UIButton = {
+        let createButtonName = NSLocalizedString("createNewHabitView.createButtonName", comment: "Text displayed like name of create button")
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.clipsToBounds = true
@@ -125,7 +129,7 @@ final class CreateNewHabitViewController: UIViewController,
         button.backgroundColor = .lightGray
         button.isEnabled = false
         button.layer.cornerRadius = 16
-        button.setTitle("Создать", for: .normal)
+        button.setTitle(createButtonName, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         button.addTarget(self, action: #selector(didTapCreateButton), for: .touchUpInside)
         return button
@@ -442,12 +446,14 @@ extension CreateNewHabitViewController: UICollectionViewDataSource {
         }
 
         let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: id, for: indexPath) as! SupplementaryView
+        let cellEmojiName = NSLocalizedString("createNewHabitView.cellEmojiName", comment: "Text displayed like cell name")
+        let cellColorName = NSLocalizedString("createNewHabitView.cellColorName", comment: "Text displayed like cell name")
 
         switch indexPath.section {
         case 0:
-            view.titleLabel.text = "Emoji"
+            view.titleLabel.text = cellEmojiName
         case 1:
-            view.titleLabel.text = "Цвет"
+            view.titleLabel.text = cellColorName
         default:
             break
         }

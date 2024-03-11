@@ -19,38 +19,38 @@ enum DayOfWeek: Int, Encodable, Decodable {
     var nameString: String {
         switch self {
         case .monday:
-            return "Понедельник"
+            return NSLocalizedString("dayOfWeek.monday", comment: "Text displayed day of week name")
         case .tuesday:
-            return "Вторник"
+            return NSLocalizedString("dayOfWeek.tuesday", comment: "Text displayed day of week name")
         case .wednesday:
-            return "Cреда"
+            return NSLocalizedString("dayOfWeek.wednesday", comment: "Text displayed day of week name")
         case .thursday:
-            return "Четверг"
+            return NSLocalizedString("dayOfWeek.thursday", comment: "Text displayed day of week name")
         case .friday:
-            return "Пятница"
+            return NSLocalizedString("dayOfWeek.friday", comment: "Text displayed day of week name")
         case .saturday:
-            return "Суббота"
+            return NSLocalizedString("dayOfWeek.saturday", comment: "Text displayed day of week name")
         case .sunday:
-            return "Воскресенье"
+            return NSLocalizedString("dayOfWeek.sunday", comment: "Text displayed day of week name")
         }
     }
 
     var shortName: String {
         switch self {
         case .monday:
-            return "Пн"
+            return NSLocalizedString("dayOfWeek.short.monday", comment: "Text displayed day of week short name")
         case .tuesday:
-            return "Вт"
+            return NSLocalizedString("dayOfWeek.short.tuesday", comment: "Text displayed day of week short name")
         case .wednesday:
-            return "Ср"
+            return NSLocalizedString("dayOfWeek.short.wednesday", comment: "Text displayed day of week short name")
         case .thursday:
-            return "Чт"
+            return NSLocalizedString("dayOfWeek.short.thursday", comment: "Text displayed day of week short name")
         case .friday:
-            return "Пт"
+            return NSLocalizedString("dayOfWeek.short.friday", comment: "Text displayed day of week short name")
         case .saturday:
-            return "Сб"
+            return NSLocalizedString("dayOfWeek.short.saturday", comment: "Text displayed day of week short name")
         case .sunday:
-            return "Вс"
+            return NSLocalizedString("dayOfWeek.short.sunday", comment: "Text displayed day of week short name")
         }
     }
 }

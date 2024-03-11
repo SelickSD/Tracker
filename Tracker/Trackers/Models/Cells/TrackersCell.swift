@@ -71,10 +71,11 @@ final class TrackersCell: UICollectionViewCell {
     }()
     
     private lazy var dateLabel: UILabel = {
+        let cellDateName = NSLocalizedString("trackersCell.cellDateName", comment: "Text displayed like cell name")
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.clipsToBounds = true
-        label.text = "0 дней"
+        label.text = cellDateName
         label.textColor = .ypBlack
         label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
         return label

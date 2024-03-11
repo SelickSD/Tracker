@@ -29,13 +29,14 @@ final class PagesViewController: UIViewController {
     }()
 
     private lazy var cancelButton: UIButton = {
+        let cancelButtonName = NSLocalizedString("pagesView.cancelButtonName", comment: "Text displayed like name of cancel button")
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.clipsToBounds = true
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = UIColor.init(hex: "#1A1B22")
         button.layer.cornerRadius = 16
-        button.setTitle("Вот это технологии!", for: .normal)
+        button.setTitle(cancelButtonName, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         button.addTarget(self, action: #selector(didTapCancelButton), for: .touchUpInside)
         return button

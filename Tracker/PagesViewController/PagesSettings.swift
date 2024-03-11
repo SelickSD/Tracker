@@ -13,9 +13,9 @@ enum PagesSettings {
     var label: String {
         switch self {
         case .blue:
-            return "Отслеживайте только то, что хотите"
+            return NSLocalizedString("pagesSettings.fistPage", comment: "Text displayed like page description")
         case .red:
-            return "Даже если это не литры воды и йога"
+            return NSLocalizedString("pagesSettings.secondPage", comment: "Text displayed like page description")
         }
     }
 

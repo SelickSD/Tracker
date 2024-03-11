@@ -22,19 +22,21 @@ final class CategoryViewController: UIViewController,
     }()
 
     private lazy var pageNameLabel: UILabel = {
+        let pageName = NSLocalizedString("categoryView.pageName", comment: "Text displayed like page name")
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.clipsToBounds = true
-        label.text = "Категория"
+        label.text = pageName
         label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         return label
     }()
 
     private lazy var descriptionLabel: UILabel = {
+        let description = NSLocalizedString("categoryView.description", comment: "Text displayed like page description")
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.clipsToBounds = true
-        label.text = "Привычки и события можно объединять по смыслу"
+        label.text = description
         label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
         label.numberOfLines = 0
         label.textAlignment = .center
@@ -53,12 +55,13 @@ final class CategoryViewController: UIViewController,
     }()
 
     private lazy var doneButton: UIButton = {
+        let doneButtonName = NSLocalizedString("categoryView.doneButtonName", comment: "Text displayed like name of Done button")
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.clipsToBounds = true
         button.backgroundColor = .ypBlack
         button.tintColor = .ypWhite
-        button.setTitle("Добавить категорию", for: .normal)
+        button.setTitle(doneButtonName, for: .normal)
         button.layer.cornerRadius = 16
         button.addTarget(self, action: #selector(didTapDoneButton), for: .touchUpInside)
         return button

@@ -65,10 +65,13 @@ final class MainTableViewCell: UITableViewCell {
     }
 
     func configCell(rowOfCell: Int, maxCount: Int) {
+        let categoryCellName = NSLocalizedString("mainTableViewCell.categoryCellName", comment: "Text displayed like cell name")
+        let scheduleCellName = NSLocalizedString("mainTableViewCell.scheduleCellName", comment: "Text displayed like cell name")
+        
         if maxCount == 1 {
             self.layer.masksToBounds = true
             self.layer.cornerRadius = 10
-            titleLabel.text = "Категория"
+            titleLabel.text = categoryCellName
             self.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner, .layerMaxXMaxYCorner, .layerMinXMaxYCorner]
         } else {
             switch rowOfCell {
@@ -76,12 +79,12 @@ final class MainTableViewCell: UITableViewCell {
                 self.layer.masksToBounds = true
                 self.layer.cornerRadius = 10
                 self.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-                titleLabel.text = "Категория"
+                titleLabel.text = categoryCellName
             case maxCount - 1:
                 self.layer.masksToBounds = true
                 self.layer.cornerRadius = 10
                 self.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
-                titleLabel.text = "Расписание"
+                titleLabel.text = scheduleCellName
             default:
                 break
             }

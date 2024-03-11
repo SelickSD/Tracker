@@ -25,10 +25,11 @@ final class TrackersViewController: UIViewController,
     }()
 
     private lazy var openingLabel: UILabel = {
+        let openingLabelText = NSLocalizedString("trackerView.openingLabelText", comment: "Text displayed like page description")
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.clipsToBounds = true
-        label.text = "Что будем отслеживать?"
+        label.text = openingLabelText
         label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
         return label
     }()
@@ -77,12 +78,13 @@ final class TrackersViewController: UIViewController,
     }()
 
     private lazy var searchBar: UISearchBar = {
+        let searchBarPlaceholder = NSLocalizedString("trackerView.searchBar.placeholder", comment: "Text displayed like placeholder")
         let view = UISearchBar()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.clipsToBounds = true
         view.barTintColor = UIColor.white
         view.setBackgroundImage(UIImage.init(), for: UIBarPosition.any, barMetrics: UIBarMetrics.default)
-        view.placeholder = "Поиск"
+        view.placeholder = searchBarPlaceholder
         view.delegate = self
         return view
     }()

@@ -13,19 +13,21 @@ final class CreateNewCategoryViewController: UIViewController {
     private var newCategoryName: String?
     
     private lazy var pageNameLabel: UILabel = {
+        let pageName = NSLocalizedString("createNewCategory.pageName", comment: "Text displayed like page name")
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.clipsToBounds = true
-        label.text = "Новая категория"
+        label.text = pageName
         label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         return label
     }()
 
     private lazy var categoryTextField: UITextField = {
+        let categoryTextFieldPlaceholder = NSLocalizedString("createNewCategory.categoryTextField.placeholder", comment: "Text displayed like placeholder")
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.clipsToBounds = true
-        textField.placeholder = "Введите название категории"
+        textField.placeholder = categoryTextFieldPlaceholder
         textField.autocapitalizationType = .none
         textField.backgroundColor = .systemGray6
         textField.textAlignment = NSTextAlignment.left
@@ -38,6 +40,7 @@ final class CreateNewCategoryViewController: UIViewController {
     }()
 
     private lazy var createButton: UIButton = {
+        let doneButtonName = NSLocalizedString("createNewCategory.doneButtonName", comment: "Text displayed like name of Done button")
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.clipsToBounds = true
@@ -45,7 +48,7 @@ final class CreateNewCategoryViewController: UIViewController {
         button.backgroundColor = .lightGray
         button.isEnabled = false
         button.layer.cornerRadius = 16
-        button.setTitle("Готово", for: .normal)
+        button.setTitle(doneButtonName, for: .normal)
         button.addTarget(self, action: #selector(didTapCreateButton), for: .touchUpInside)
         return button
     }()

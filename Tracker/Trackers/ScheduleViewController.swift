@@ -15,10 +15,11 @@ final class ScheduleViewController: UIViewController {
     private var choseDay: [DayOfWeek] = []
 
     private lazy var pageNameLabel: UILabel = {
+        let pageName = NSLocalizedString("scheduleView.pageName", comment: "Text displayed like page name")
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.clipsToBounds = true
-        label.text = "Расписание"
+        label.text = pageName
         label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         return label
     }()
@@ -35,12 +36,13 @@ final class ScheduleViewController: UIViewController {
     }()
 
     private lazy var doneButton: UIButton = {
+        let doneButtonName = NSLocalizedString("scheduleView.doneButtonName", comment: "Text displayed like name of Done button")
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.clipsToBounds = true
         button.backgroundColor = .ypBlack
         button.tintColor = .ypWhite
-        button.setTitle("Готово", for: .normal)
+        button.setTitle(doneButtonName, for: .normal)
         button.layer.cornerRadius = 16
         button.addTarget(self, action: #selector(didTapDoneButton), for: .touchUpInside)
         return button

@@ -13,21 +13,23 @@ final class CreateNewTrackerViewController: UIViewController,
     weak var delegate: TrackersViewControllerDelegate?
 
     private lazy var pageNameLabel: UILabel = {
+        let pageName = NSLocalizedString("createNewTrackerView.pageName", comment: "Text displayed like page name")
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.clipsToBounds = true
         label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        label.text = "Создание трекера"
+        label.text = pageName
         return label
     }()
 
     private lazy var createHabitButton: UIButton = {
+        let createHabitButtonName = NSLocalizedString("createNewTrackerView.createHabitButtonName", comment: "Text displayed like name of create habit button")
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.clipsToBounds = true
         button.backgroundColor = .ypBlack
         button.tintColor = .ypWhite
-        button.setTitle("Привычка", for: .normal)
+        button.setTitle(createHabitButtonName, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         button.layer.cornerRadius = 16
         button.addTarget(self, action: #selector(didTapCreateHabitButton), for: .touchUpInside)
@@ -35,12 +37,13 @@ final class CreateNewTrackerViewController: UIViewController,
     }()
 
     private lazy var createEventButton: UIButton = {
+        let createEventButtonName = NSLocalizedString("createNewTrackerView.createEventButtonName", comment: "Text displayed like name of create event button")
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.clipsToBounds = true
         button.backgroundColor = .ypBlack
         button.tintColor = .ypWhite
-        button.setTitle("Не регулярное событие", for: .normal)
+        button.setTitle(createEventButtonName, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         button.layer.cornerRadius = 16
         button.addTarget(self, action: #selector(didTapCreateEventButton), for: .touchUpInside)
