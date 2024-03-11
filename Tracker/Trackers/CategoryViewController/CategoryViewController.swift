@@ -6,16 +6,12 @@
 //
 
 import UIKit
-
-final class CategoryViewController: UIViewController, 
-                                    CategoryViewControllerProtocol,
+final class CategoryViewController: UIViewController,
                                     CreateNewCategoryViewControllerDelegate {
 
     weak var delegate: CategoryViewControllerDelegate?
-    private var categories: [String] = []
-    private var doneIndex: IndexPath?
-    private var myCell: UITableViewCell?
-    private var index: Int?
+    private var isCategorySelected = false
+    private var viewModel: CategoryViewModelProtocol?
 
     private lazy var emptyView: UIImageView = {
         let view = UIImageView()
@@ -70,38 +66,27 @@ final class CategoryViewController: UIViewController,
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         view.backgroundColor = .ypWhite
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        delegateChange()
+        viewModel?.delegateChange()
     }
 
-    func setupView(category: [String], targetCell: UITableViewCell, index: Int? = nil) {
-        myCell = targetCell
-        categories = category
-        self.index = index
-
-        if categories.isEmpty {
-            setupBlankView()
-        } else {
-            setupTargetView()
-        }
+    func initialize(viewModel: CategoryViewModel) {
+        self.viewModel = viewModel
+        bind()
+        viewModel.checkInitialStatus()
     }
 
     func fetchCategoryName(name: String) {
-        categories.append(name)
-        if !categories.isEmpty {
-            categoriesTableView.reloadData()
-            setupTargetView()
-        }
+        viewModel?.updateCategory(name: name)
     }
 
     @objc private func didTapDoneButton() {
-        if doneIndex != nil {
-            delegateChange()
+        if isCategorySelected {
+            viewModel?.delegateChange()
             self.dismiss(animated: true)
         } else {
             let newCategoryViewController = CreateNewCategoryViewController()
@@ -110,15 +95,26 @@ final class CategoryViewController: UIViewController,
         }
     }
 
-    private func delegateChange() {
-        guard let targetCell = myCell as? MainTableViewCell else {return}
-        guard let done = doneIndex else {
-            targetCell.discardChanges()
-            delegate?.fetchCategory(index: nil, categories: categories)
-            return
+    private func bind() {
+        guard var viewModel = viewModel else { return }
+
+        viewModel.isCategoryEmpty = { [weak self] isEmpty in
+            self?.setupView(isEmpty: isEmpty)
         }
-        targetCell.configLabel(newLabelText: categories[done.row])
-        delegate?.fetchCategory(index: done.row, categories: categories)
+
+        viewModel.isCategoryUpdated = { [weak self] isCategoryUpdated in
+            if isCategoryUpdated {
+                self?.categoriesTableView.reloadData()
+            }
+        }
+
+        viewModel.isCategorySelected = { [weak self] isSelected in
+            self?.isCategorySelected = isSelected
+        }
+    }
+
+    private func setupView(isEmpty: Bool) {
+        isEmpty ? setupBlankView() : setupTargetView()
     }
 
     private func setupBlankView() {
@@ -170,24 +166,24 @@ final class CategoryViewController: UIViewController,
 //MARK: -UITableViewDelegate
 extension CategoryViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let oldDone = doneIndex else {
+        guard let viewModel = viewModel else { return }
+        guard let oldDone = viewModel.getDoneIndexPath() else {
             let cell = tableView.cellForRow(at: indexPath) as? CategoriesTableViewCell
             cell?.makeDone()
-            doneIndex = indexPath
+            viewModel.setDoneIndexPath(indexPath: indexPath)
             return
         }
 
         if oldDone == indexPath {
             let cell = tableView.cellForRow(at: indexPath) as? CategoriesTableViewCell
             cell?.makeDone()
-            doneIndex = nil
-            index = nil
+            viewModel.setDoneIndexPath(indexPath: nil)
         } else {
             let oldCell = tableView.cellForRow(at: oldDone) as? CategoriesTableViewCell
             let cell = tableView.cellForRow(at: indexPath) as? CategoriesTableViewCell
             cell?.makeDone()
             oldCell?.makeDone()
-            doneIndex = indexPath
+            viewModel.setDoneIndexPath(indexPath: indexPath)
         }
     }
 }
@@ -195,23 +191,29 @@ extension CategoryViewController: UITableViewDelegate {
 //MARK: -UITableViewDataSource
 extension CategoryViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categories.count
+        guard let viewModel = viewModel else { return 0 }
+        return viewModel.numberOfRowsInSection()
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CategoriesTableViewCell.identifier, for: indexPath) as? CategoriesTableViewCell else {
+        guard let viewModel = viewModel,
+              let cell = tableView.dequeueReusableCell(withIdentifier: CategoriesTableViewCell.identifier, for: indexPath) as? CategoriesTableViewCell else {
             return UITableViewCell()
         }
-        cell.configCell(rowOfCell: indexPath.row, maxCount: categories.count, category: categories[indexPath.row])
 
-        if index != nil && indexPath.row == index {
+        let numberOfRowsInSection = viewModel.numberOfRowsInSection()
+        let category = viewModel.categoryOfIndex(index: indexPath.row)
+
+        cell.configCell(rowOfCell: indexPath.row, maxCount: numberOfRowsInSection, category: category)
+        let startIndex = viewModel.getStartIndex()
+
+        if startIndex != nil && indexPath.row == startIndex {
             cell.makeDone()
-            doneIndex = indexPath
+            viewModel.setDoneIndexPath(indexPath: indexPath)
         }
 
-        if categories.count >= 2 {
-            if indexPath.row >= 0 && indexPath.row < categories.count - 1 {
+        if numberOfRowsInSection >= 2 {
+            if indexPath.row >= 0 && indexPath.row < numberOfRowsInSection - 1 {
                 cell.setSeparatorView()
             }
         }

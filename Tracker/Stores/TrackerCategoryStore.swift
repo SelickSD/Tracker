@@ -28,6 +28,12 @@ final class TrackerCategoryStore: CategoryDataStore {
         return managedRecord
     }
 
+    func createNewCategory(name: String) {
+        let managedRecord = TrackerCategoryCD(context: context)
+        managedRecord.name = name
+        saveContext()
+    }
+
     func getObjects() -> [TrackerCategoryCD]? {
         let request = NSFetchRequest<TrackerCategoryCD>(entityName: entityName)
         guard let value = try? context.fetch(request) else { return nil }
@@ -39,5 +45,28 @@ final class TrackerCategoryStore: CategoryDataStore {
         request.predicate = NSPredicate(format: "%K == %@", #keyPath(TrackerCategoryCD.name), name)
         guard let category = try? context.fetch(request) else {return nil}
         return category
+    }
+
+    func getCategoriesStringName() -> [String]? {
+        var categories: [String] = []
+        let objects = getObjects()
+
+        objects?.forEach{
+            if let name = $0.name {
+                categories.append(name)
+            }
+        }
+        return categories
+    }
+
+    private func saveContext() {
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch {
+                let nserror = error as NSError
+                assertionFailure("Unresolved error \(nserror), \(nserror.userInfo)")
+            }
+        }
     }
 }

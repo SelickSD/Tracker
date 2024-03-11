@@ -12,6 +12,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
+        
+        guard UserDefaults.standard.bool(forKey: "isHide") else {
+            let onboardingPages = OnboardingViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
+            window?.rootViewController = onboardingPages
+            window?.makeKeyAndVisible()
+            return
+        }
+        
         window?.rootViewController = TabBarController()
         window?.makeKeyAndVisible()
     }
