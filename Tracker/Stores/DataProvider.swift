@@ -87,4 +87,8 @@ final class DataProvider: DataProviderProtocol {
         recordDataStore?.deleteID(trackerId: tracker.id)
         trackerDataStore?.deleteID(trackerId: tracker.id)
     }
+
+    func editTrackerID(tracker: Tracker) {
+        trackerDataStore?.deleteID(trackerId: tracker.id)
+    }
 }

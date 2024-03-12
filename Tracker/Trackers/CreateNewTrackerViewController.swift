@@ -58,7 +58,7 @@ final class CreateNewTrackerViewController: UIViewController,
         setupView()
     }
 
-    func fetchHabit(newHabit: TrackerCategory) {
+    func fetchNewTrack(newHabit: TrackerCategory) {
         delegate?.fetchNewTrack(newHabit: newHabit)
     }
 

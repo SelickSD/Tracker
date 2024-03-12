@@ -15,4 +15,5 @@ protocol DataProviderProtocol {
     func fixTracker(tracker: Tracker)
     func unFixTracker(tracker: Tracker)
     func deleteTracker(tracker: Tracker)
+    func editTrackerID(tracker: Tracker)
 }

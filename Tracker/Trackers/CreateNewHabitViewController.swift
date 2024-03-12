@@ -10,7 +10,7 @@ import UIKit
 final class CreateNewHabitViewController: UIViewController,
                                           CategoryViewControllerDelegate,
                                           ScheduleViewControllerDelegate {
-    
+
     var isEvent = false
     weak var delegate: CreateNewHabitViewControllerDelegate?
 
@@ -32,6 +32,7 @@ final class CreateNewHabitViewController: UIViewController,
     private var category: Int?
     private var choseDay: [DayOfWeek] = []
     private var categories: [String] = []
+    private var trackerID: UUID?
 
     private lazy var pageNameLabel: UILabel = {
         let pageName = NSLocalizedString("createNewHabitView.pageName", comment: "Text displayed like page name")
@@ -142,6 +143,45 @@ final class CreateNewHabitViewController: UIViewController,
         setupGestures()
     }
 
+    func configViewForEdit(trackerCategory: TrackerCategory, categories: [String]) {
+        habitTextField.text = trackerCategory.trackers[0].name
+        newTrackerName = trackerCategory.trackers[0].name
+        self.categories = categories
+        trackerID = trackerCategory.trackers[0].id
+        choseDay = trackerCategory.trackers[0].schedule
+
+        var colorIndex = 0
+        var emojiIndex = 0
+        var categoryIndex = 0
+
+        for (index, value) in emojis.enumerated() {
+            if trackerCategory.trackers[0].emoji == value {
+                emojiIndex = index
+            }
+        }
+
+        for (index, value) in colours.enumerated() {
+            let color = UIColor(hex: value)
+            if trackerCategory.trackers[0].color == color {
+                colorIndex = index
+            }
+        }
+
+        for value in categories {
+            if trackerCategory.name == value {
+                category = categoryIndex
+            }
+            categoryIndex += 1
+        }
+
+        configCells.updateValue(IndexPath(row: emojiIndex, section: 0), forKey: "Emoji")
+        configCells.updateValue(IndexPath(row: colorIndex, section: 1), forKey: "Цвет")
+
+        checkWellDone()
+        presentCollectionView.reloadData()
+        mainTableView.reloadData()
+    }
+
     func fetchCategory(index: Int?, categories: [String]) {
         self.categories = categories
         category = index
@@ -167,7 +207,7 @@ final class CreateNewHabitViewController: UIViewController,
               let color = UIColor(hex: colours[colorIndex]),
               !choseDay.isEmpty else {return}
 
-        let newHabit = Tracker(id: UUID(),
+        let newHabit = Tracker(id: trackerID ?? UUID(),
                                name: name,
                                color: color,
                                emoji: emojis[emojiIndex],
@@ -176,7 +216,7 @@ final class CreateNewHabitViewController: UIViewController,
         let trackerCategory = TrackerCategory(name: categories[categoryIndex],
                                               trackers: [newHabit])
 
-        delegate?.fetchHabit(newHabit: trackerCategory)
+        delegate?.fetchNewTrack(newHabit: trackerCategory)
         self.dismiss(animated: true)
     }
 
@@ -419,11 +459,23 @@ extension CreateNewHabitViewController: UICollectionViewDataSource {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PresentViewCell.identifier, for: indexPath) as? PresentViewCell else {
                 return UICollectionViewCell()
             }
+            if !configCells.isEmpty {
+                if indexPath.row == configCells["Emoji"]?.row {
+                    cell.backgroundColor = .ypBackgroundGrey
+                }
+            }
+
             cell.configLabel(text: emojis[indexPath.row])
             return cell
         case 1:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ColorViewCell.identifier, for: indexPath) as? ColorViewCell else {
                 return UICollectionViewCell()
+            }
+            if !configCells.isEmpty {
+                if indexPath.row == configCells["Цвет"]?.row {
+                    cell.setColorOn(color: colours[indexPath.row])
+                    return cell
+                }
             }
             cell.setColorOff(color: colours[indexPath.row])
             return cell

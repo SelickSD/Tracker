@@ -8,5 +8,5 @@
 import Foundation
 
 protocol CreateNewHabitViewControllerDelegate: AnyObject {
-    func fetchHabit(newHabit: TrackerCategory)
+    func fetchNewTrack(newHabit: TrackerCategory)
 }

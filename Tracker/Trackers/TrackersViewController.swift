@@ -10,7 +10,10 @@ import UIKit
 final class TrackersViewController: UIViewController,
                                     TrackersCellDelegate,
                                     TrackersViewControllerDelegate,
-                                    UIGestureRecognizerDelegate, UISearchBarDelegate {
+                                    UIGestureRecognizerDelegate,
+                                    UISearchBarDelegate,
+                                    CreateNewHabitViewControllerDelegate
+{
 
     private lazy var dataProvider: DataProviderProtocol? = {
         return DataProvider()
@@ -156,7 +159,9 @@ final class TrackersViewController: UIViewController,
     }
 
     func fetchNewTrack(newHabit: TrackerCategory) {
+        dataProvider?.editTrackerID(tracker: newHabit.trackers[0])
         updateCategory(newHabit: newHabit)
+        updateCategoriesFromCoreData()
         updateFilterCategories()
         configFilterCategoriesWithFixedTrackers()
         checkView()
@@ -419,7 +424,16 @@ final class TrackersViewController: UIViewController,
     }
 
     private func editTracker(indexPath: IndexPath) {
-        print(#function)
+        let tracker = filterDateCategories[indexPath.section].trackers[indexPath.row]
+        let newHabitViewController = CreateNewHabitViewController()
+        newHabitViewController.delegate = self
+        var categoryNames: [String] = []
+        categories.forEach{
+            categoryNames.append($0.name)
+        }
+        guard let editCategory = getCategory(tracker: tracker) else {return}
+        newHabitViewController.configViewForEdit(trackerCategory: TrackerCategory(name: editCategory, trackers: [tracker]), categories: categoryNames)
+        self.present(newHabitViewController, animated: true)
     }
 
     private func deleteTracker(indexPath: IndexPath) {
@@ -448,6 +462,17 @@ final class TrackersViewController: UIViewController,
         configFilterCategoriesWithFixedTrackers()
         checkView()
         trackersCollectionView.reloadData()
+    }
+
+    private func getCategory(tracker: Tracker) -> String? {
+        for (index, value) in categories.enumerated() {
+            for tracks in value.trackers {
+                if tracks.id == tracker.id {
+                    return categories[index].name
+                }
+            }
+        }
+        return nil
     }
 }
 
