@@ -297,51 +297,28 @@ final class TrackersViewController: UIViewController,
 
     private func updateFilterCategories() {
         filterDateCategories = []
-        let weekday = Calendar.current.component(.weekday, from: currentDate)
         var tracks: [Tracker] = []
 
-        if currentTracker.isEmpty {
-            categories.forEach({ category in
-                category.trackers.forEach({ track in
-                    track.schedule.forEach({ dayOfWeek in
-                        if weekday == dayOfWeek.rawValue {
-                            tracks.append(track)
-                        }
-                    })
-                })
-                if !tracks.isEmpty {
-                    filterDateCategories.append(TrackerCategory(name: category.name, trackers: tracks))
-                }
+        categories.forEach({ category in
+            tracks = checkTrackers(trackers: category.trackers)
+            if !tracks.isEmpty {
+                filterDateCategories.append(TrackerCategory(name: category.name, trackers: tracks))
                 tracks = []
-            })
-        } else {
-            categories.forEach({ category in
-                category.trackers.forEach({ track in
-                    if track.name == currentTracker {
-                        track.schedule.forEach({ dayOfWeek in
-                            if weekday == dayOfWeek.rawValue {
-                                tracks.append(track)
-                            }
-                        })
-                    }
-                })
-                if !tracks.isEmpty {
-                    filterDateCategories.append(TrackerCategory(name: category.name, trackers: tracks))
-                }
-                tracks = []
-            })
-        }
+            }
+        })
     }
 
     private func configFilterCategoriesWithFixedTrackers() {
         guard !fixedTrackers.isEmpty else {return}
+        var tracks = checkTrackers(trackers: fixedTrackers)
+        guard !tracks.isEmpty else {return}
         let fixCategoryName = NSLocalizedString("trackerView.fixedCategoryName", comment: "Fixed Category name")
         let oldFilterCategories = filterDateCategories
         var tempTrackers: [Tracker] = []
         var trackerUUIDs: [UUID] = []
-        fixedTrackers.forEach{trackerUUIDs.append($0.id)}
+        tracks.forEach{trackerUUIDs.append($0.id)}
         filterDateCategories = []
-        filterDateCategories.append(TrackerCategory(name: fixCategoryName, trackers: fixedTrackers))
+        filterDateCategories.append(TrackerCategory(name: fixCategoryName, trackers: tracks))
 
         for category in oldFilterCategories {
             for tracker in category.trackers {
@@ -354,6 +331,35 @@ final class TrackersViewController: UIViewController,
                 tempTrackers = []
             }
         }
+    }
+
+    private func checkTrackers(trackers: [Tracker]) -> [Tracker] {
+        var tracks: [Tracker] = []
+        let weekday = Calendar.current.component(.weekday, from: currentDate)
+
+        if currentTracker.isEmpty {
+            trackers.forEach({ track in
+                track.schedule.forEach({ dayOfWeek in
+                    if weekday == dayOfWeek.rawValue {
+                        tracks.append(track)
+                    }
+                })
+            })
+        } else {
+            trackers.forEach({ track in
+                if track.name == currentTracker {
+                    print(track.name)
+                    track.schedule.forEach({ dayOfWeek in
+                        print(track.name)
+                        if weekday == dayOfWeek.rawValue {
+                            print(track.name)
+                            tracks.append(track)
+                        }
+                    })
+                }
+            })
+        }
+        return tracks
     }
 
     private func configCell(for cell: TrackersCell, with indexPath: IndexPath) {
@@ -416,20 +422,20 @@ final class TrackersViewController: UIViewController,
     }
 
     private func deleteTracker(indexPath: IndexPath) {
-//        let tracker = filterDateCategories[indexPath.section].trackers[indexPath.row]
-//        var index = 0
-//        fixedTrackers.forEach({ value in
-//            if value.id == tracker.id {
-//                fixedTrackers.remove(at: index)
-//            } else {
-//                index += 1
-//            }
-//        })
-//        dataProvider?.unFixTracker(tracker: tracker)
-//        updateFilterCategories()
-//        configFilterCategoriesWithFixedTrackers()
-//        checkView()
-//        trackersCollectionView.reloadData()
+        //        let tracker = filterDateCategories[indexPath.section].trackers[indexPath.row]
+        //        var index = 0
+        //        fixedTrackers.forEach({ value in
+        //            if value.id == tracker.id {
+        //                fixedTrackers.remove(at: index)
+        //            } else {
+        //                index += 1
+        //            }
+        //        })
+        //        dataProvider?.unFixTracker(tracker: tracker)
+        //        updateFilterCategories()
+        //        configFilterCategoriesWithFixedTrackers()
+        //        checkView()
+        //        trackersCollectionView.reloadData()
     }
 
     private func unFixTracker(indexPath: IndexPath) {
