@@ -14,7 +14,8 @@ final class TrackersCell: UICollectionViewCell {
     private var id: UUID = UUID()
     private var currentDays: [DayOfWeek] = []
     private var count = 0
-    
+    private var isFix = true
+
     private lazy var colorView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -91,15 +92,23 @@ final class TrackersCell: UICollectionViewCell {
         label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
         return label
     }()
-    
+
+    private lazy var fixView: UIImageView = {
+        let view = UIImageView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.clipsToBounds = true
+        view.image = UIImage(named: "Pin")
+        return view
+    }()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         setupView()
     }
     
-    func configCell(track: Tracker, isCompleted: Bool, count: Int, isEnabled: Bool) {
-        
+    func configCell(track: Tracker, isCompleted: Bool, count: Int, isEnabled: Bool, isFix: Bool) {
+
         plusButtonBackView.backgroundColor = track.color
         plusButton.isEnabled = isEnabled
         colorView.backgroundColor = track.color
@@ -108,6 +117,7 @@ final class TrackersCell: UICollectionViewCell {
         descriptionLabel.text = track.name
         currentDays = track.schedule
         id = track.id
+        self.isFix = isFix
         self.isCompleted = isCompleted
         dateLabel.text = count.days()
         self.count = count
@@ -144,6 +154,8 @@ final class TrackersCell: UICollectionViewCell {
             let backgroundColor = plusButtonBackView.backgroundColor
             plusButtonBackView.backgroundColor = backgroundColor?.withAlphaComponent(1)
         }
+
+        fixView.isHidden = !isFix
     }
     
     private func setupView() {
@@ -158,7 +170,8 @@ final class TrackersCell: UICollectionViewCell {
         colorView.addSubview(emojiBackView)
         emojiBackView.addSubview(emojiLabel)
         colorView.addSubview(descriptionLabel)
-        
+        colorView.addSubview(fixView)
+
         NSLayoutConstraint.activate([
             
             plusButtonBackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20),
@@ -192,7 +205,12 @@ final class TrackersCell: UICollectionViewCell {
             
             descriptionLabel.leadingAnchor.constraint(equalTo: colorView.leadingAnchor, constant: 10),
             descriptionLabel.bottomAnchor.constraint(equalTo: colorView.bottomAnchor, constant: -10),
-            descriptionLabel.trailingAnchor.constraint(equalTo: colorView.trailingAnchor, constant: -10)
+            descriptionLabel.trailingAnchor.constraint(equalTo: colorView.trailingAnchor, constant: -10),
+
+            fixView.topAnchor.constraint(equalTo: colorView.topAnchor, constant: 12),
+            fixView.trailingAnchor.constraint(equalTo: colorView.trailingAnchor, constant: -8),
+            fixView.heightAnchor.constraint(equalToConstant: 24),
+            fixView.widthAnchor.constraint(equalToConstant: 24)
         ])
     }
 }

@@ -372,6 +372,16 @@ final class TrackersViewController: UIViewController,
         let trackForCategory = filterDateCategories[indexPath.section].trackers[indexPath.row]
         var count = 0
         var isEnabled = true
+        var isFix = false
+        var fixId: [UUID] = []
+
+        fixedTrackers.forEach{
+            fixId.append($0.id)
+        }
+
+        if fixId.contains(trackForCategory.id) {
+            isFix = true
+        }
 
         completedTrackers.forEach({ track in
             if track.id == trackForCategory.id && Calendar.current.dateComponents([.year, .month, .day], from: track.date) == Calendar.current.dateComponents([.year, .month, .day], from: currentDate) {
@@ -393,7 +403,7 @@ final class TrackersViewController: UIViewController,
             }
         }
 
-        cell.configCell(track: trackForCategory, isCompleted: isCompleted, count: count, isEnabled: isEnabled)
+        cell.configCell(track: trackForCategory, isCompleted: isCompleted, count: count, isEnabled: isEnabled, isFix: isFix)
     }
 
     private func showMessage(title: String, message: String, buttonName: String) {
