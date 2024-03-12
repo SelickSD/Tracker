@@ -56,6 +56,15 @@ final class TrackerStore: TrackerDataStore {
         return convertCD(cd: tracker.first)
     }
 
+    func deleteID(trackerId: UUID) {
+        let request = NSFetchRequest<TrackerCD>(entityName: entityName)
+        request.predicate = NSPredicate(format: "%K == %@", #keyPath(TrackerCD.trackerId), trackerId as CVarArg)
+        guard let trackerCD = try? context.fetch(request) else { return }
+
+        trackerCD.forEach{ context.delete($0) }
+        saveContext()
+    }
+
     private func convertCD(cd: TrackerCD?) -> Tracker? {
         guard let tracker = cd,
               let id = tracker.trackerId,

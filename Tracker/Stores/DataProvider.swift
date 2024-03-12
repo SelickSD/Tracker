@@ -81,4 +81,10 @@ final class DataProvider: DataProviderProtocol {
     func unFixTracker(tracker: Tracker) {
         fixedRecordDataStore?.delete(trackerId: tracker.id)
     }
+
+    func deleteTracker(tracker: Tracker) {
+        fixedRecordDataStore?.delete(trackerId: tracker.id)
+        recordDataStore?.deleteID(trackerId: tracker.id)
+        trackerDataStore?.deleteID(trackerId: tracker.id)
+    }
 }

@@ -9,4 +9,5 @@ protocol RecordDataStore {
     func add(record: TrackerRecord)
     func delete(record: TrackerRecord)
     func getObjects() -> [TrackerRecord]?
+    func deleteID(trackerId: UUID)
 }

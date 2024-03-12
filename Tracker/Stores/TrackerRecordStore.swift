@@ -44,6 +44,15 @@ final class TrackerRecordStore: RecordDataStore {
         saveContext()
     }
 
+    func deleteID(trackerId: UUID) {
+        let request = NSFetchRequest<TrackerRecordCD>(entityName: entityName)
+        request.predicate = NSPredicate(format: "%K == %@", #keyPath(TrackerRecordCD.trackerId), trackerId as CVarArg)
+        guard let trackerRecordCD = try? context.fetch(request) else { return }
+
+        trackerRecordCD.forEach{ context.delete($0) }
+        saveContext()
+    }
+
     func getObjects() -> [TrackerRecord]? {
         let request = NSFetchRequest<TrackerRecordCD>(entityName: entityName)
         guard let value = try? context.fetch(request) else { return nil }

@@ -10,4 +10,5 @@ protocol TrackerDataStore {
     func getCategoryObjects(category: TrackerCategoryCD) -> [Tracker]?
     func createNewTracker(tracker: Tracker, category: TrackerCategoryCD)
     func getTracker(trackerId: UUID) -> Tracker?
+    func deleteID(trackerId: UUID)
 }

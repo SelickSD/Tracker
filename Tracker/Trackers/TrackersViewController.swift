@@ -310,7 +310,7 @@ final class TrackersViewController: UIViewController,
 
     private func configFilterCategoriesWithFixedTrackers() {
         guard !fixedTrackers.isEmpty else {return}
-        var tracks = checkTrackers(trackers: fixedTrackers)
+        let tracks = checkTrackers(trackers: fixedTrackers)
         guard !tracks.isEmpty else {return}
         let fixCategoryName = NSLocalizedString("trackerView.fixedCategoryName", comment: "Fixed Category name")
         let oldFilterCategories = filterDateCategories
@@ -391,9 +391,10 @@ final class TrackersViewController: UIViewController,
         cell.configCell(track: trackForCategory, isCompleted: isCompleted, count: count, isEnabled: isEnabled)
     }
 
-    private func showError(_ message: String) {
-        let alert = UIAlertController(title: "Ошибка!", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in }))
+    private func showMessage(title: String, message: String, buttonName: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: buttonName, style: .destructive, handler: { _ in
+        }))
         present(alert, animated: true, completion: nil)
     }
 
@@ -422,20 +423,14 @@ final class TrackersViewController: UIViewController,
     }
 
     private func deleteTracker(indexPath: IndexPath) {
-        //        let tracker = filterDateCategories[indexPath.section].trackers[indexPath.row]
-        //        var index = 0
-        //        fixedTrackers.forEach({ value in
-        //            if value.id == tracker.id {
-        //                fixedTrackers.remove(at: index)
-        //            } else {
-        //                index += 1
-        //            }
-        //        })
-        //        dataProvider?.unFixTracker(tracker: tracker)
-        //        updateFilterCategories()
-        //        configFilterCategoriesWithFixedTrackers()
-        //        checkView()
-        //        trackersCollectionView.reloadData()
+        let tracker = filterDateCategories[indexPath.section].trackers[indexPath.row]
+
+        dataProvider?.deleteTracker(tracker: tracker)
+        updateCategoriesFromCoreData()
+        updateFilterCategories()
+        configFilterCategoriesWithFixedTrackers()
+        checkView()
+        trackersCollectionView.reloadData()
     }
 
     private func unFixTracker(indexPath: IndexPath) {
@@ -536,6 +531,8 @@ extension TrackersViewController: UICollectionViewDelegate {
         let unFix = NSLocalizedString("trackerView.uiMenu.unFix", comment: "Text displayed context menu settings")
         let edit = NSLocalizedString("trackerView.uiMenu.edit", comment: "Text displayed context menu settings")
         let delete = NSLocalizedString("trackerView.uiMenu.delete", comment: "Text displayed context menu settings")
+        let deleteMassage = NSLocalizedString("trackerView.uiMenu.deleteMessage", comment: "Text displayed in alarm")
+        let cancelButtonName = NSLocalizedString("createNewHabitView.cancelButtonName", comment: "Text displayed like name of cance button")
 
         let indexPath = indexPaths[0]
 
@@ -552,7 +549,14 @@ extension TrackersViewController: UICollectionViewDelegate {
                         self?.editTracker(indexPath: indexPath)
                     },
                     UIAction(title: delete, attributes: .destructive) { [weak self] _ in
-                        self?.deleteTracker(indexPath: indexPath)
+                        let alert = UIAlertController(title: "", message: deleteMassage, preferredStyle: .actionSheet)
+                        let deleteButton = UIAlertAction(title: delete, style: .destructive, handler: { _ in
+                            self?.deleteTracker(indexPath: indexPath)
+                        })
+                        let canselButton = UIAlertAction(title: cancelButtonName, style: .cancel, handler: { _ in })
+                        alert.addAction(deleteButton)
+                        alert.addAction(canselButton)
+                        self?.present(alert, animated: true, completion: nil)
                     },
                 ])
             })
@@ -566,7 +570,14 @@ extension TrackersViewController: UICollectionViewDelegate {
                         self?.editTracker(indexPath: indexPath)
                     },
                     UIAction(title: delete, attributes: .destructive) { [weak self] _ in
-                        self?.deleteTracker(indexPath: indexPath)
+                        let alert = UIAlertController(title: "", message: deleteMassage, preferredStyle: .actionSheet)
+                        let deleteButton = UIAlertAction(title: delete, style: .destructive, handler: { _ in
+                            self?.deleteTracker(indexPath: indexPath)
+                        })
+                        let canselButton = UIAlertAction(title: cancelButtonName, style: .cancel, handler: { _ in })
+                        alert.addAction(deleteButton)
+                        alert.addAction(canselButton)
+                        self?.present(alert, animated: true, completion: nil)
                     },
                 ])
             })

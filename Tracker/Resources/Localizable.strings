@@ -18,6 +18,7 @@
 "trackerView.uiMenu.unFix" = "Открепить";
 "trackerView.uiMenu.edit" = "Редактировать";
 "trackerView.uiMenu.delete" = "Удалить";
+"trackerView.uiMenu.deleteMessage" = "Уверены что хотите удалить трекер?";
 
 //MARK: CreateNewTrackerViewController
 "createNewTrackerView.pageName" = "Создание трекера";
