@@ -18,6 +18,10 @@
 		44028A3C2B23798100A0BEBE /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44028A3B2B23798100A0BEBE /* Tracker.swift */; };
 		44028A3E2B23798F00A0BEBE /* TrackerCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44028A3D2B23798F00A0BEBE /* TrackerCategory.swift */; };
 		44028A402B23799C00A0BEBE /* TrackerRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44028A3F2B23799C00A0BEBE /* TrackerRecord.swift */; };
+		440B400E2BA0EFCE00B02BC4 /* FiltersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440B400D2BA0EFCE00B02BC4 /* FiltersViewController.swift */; };
+		440B40102BA0F17E00B02BC4 /* Filters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440B400F2BA0F17E00B02BC4 /* Filters.swift */; };
+		440B40122BA0F75400B02BC4 /* FilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440B40112BA0F75400B02BC4 /* FilterCell.swift */; };
+		440B40142BA0FBE400B02BC4 /* FilterViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440B40132BA0FBE400B02BC4 /* FilterViewDelegate.swift */; };
 		441324772B25EE4E00CE4CFF /* TrackersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441324762B25EE4E00CE4CFF /* TrackersCell.swift */; };
 		4413247B2B25FF6C00CE4CFF /* GeometricParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4413247A2B25FF6C00CE4CFF /* GeometricParams.swift */; };
 		4413247D2B26225300CE4CFF /* HeaderCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4413247C2B26225300CE4CFF /* HeaderCellView.swift */; };
@@ -81,6 +85,10 @@
 		44028A3B2B23798100A0BEBE /* Tracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tracker.swift; sourceTree = "<group>"; };
 		44028A3D2B23798F00A0BEBE /* TrackerCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerCategory.swift; sourceTree = "<group>"; };
 		44028A3F2B23799C00A0BEBE /* TrackerRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerRecord.swift; sourceTree = "<group>"; };
+		440B400D2BA0EFCE00B02BC4 /* FiltersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersViewController.swift; sourceTree = "<group>"; };
+		440B400F2BA0F17E00B02BC4 /* Filters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filters.swift; sourceTree = "<group>"; };
+		440B40112BA0F75400B02BC4 /* FilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCell.swift; sourceTree = "<group>"; };
+		440B40132BA0FBE400B02BC4 /* FilterViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewDelegate.swift; sourceTree = "<group>"; };
 		441324762B25EE4E00CE4CFF /* TrackersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackersCell.swift; sourceTree = "<group>"; };
 		4413247A2B25FF6C00CE4CFF /* GeometricParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometricParams.swift; sourceTree = "<group>"; };
 		4413247C2B26225300CE4CFF /* HeaderCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCellView.swift; sourceTree = "<group>"; };
@@ -207,6 +215,7 @@
 				441324802B277B3900CE4CFF /* CreateNewHabitViewController.swift */,
 				441324872B2B661B00CE4CFF /* ScheduleViewController.swift */,
 				44DE3A352B60E3BA007F5B5E /* CreateNewCategoryViewController.swift */,
+				440B400D2BA0EFCE00B02BC4 /* FiltersViewController.swift */,
 				441324792B25F40F00CE4CFF /* Models */,
 			);
 			path = Trackers;
@@ -223,6 +232,7 @@
 				4413247A2B25FF6C00CE4CFF /* GeometricParams.swift */,
 				4413248B2B2CB17300CE4CFF /* DayOfWeek.swift */,
 				44ABD2102B8FA89500ADF2AA /* TrackerStoreUpdate.swift */,
+				440B400F2BA0F17E00B02BC4 /* Filters.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -238,6 +248,7 @@
 				44B3187E2B5BD95700CA1206 /* SupplementaryView.swift */,
 				44E440A12B5D9A1C00AC2F4F /* ColorViewCell.swift */,
 				44DE3A312B6025AD007F5B5E /* CategoriesTableViewCell.swift */,
+				440B40112BA0F75400B02BC4 /* FilterCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -265,6 +276,7 @@
 				44DE3A3B2B61024B007F5B5E /* CreateNewHabitViewControllerDelegate.swift */,
 				44DE3A3D2B610EE9007F5B5E /* TrackersViewControllerDelegate.swift */,
 				447D803E2B9B82CC00A06D3F /* OnboardingViewDelegate.swift */,
+				440B40132BA0FBE400B02BC4 /* FilterViewDelegate.swift */,
 			);
 			path = Delegates;
 			sourceTree = "<group>";
@@ -400,6 +412,7 @@
 				4413248A2B2B6B5E00CE4CFF /* ScheduleTableViewCell.swift in Sources */,
 				44E440A22B5D9A1C00AC2F4F /* ColorViewCell.swift in Sources */,
 				44ABD1BC2B8663C400ADF2AA /* TrackerDB.xcdatamodeld in Sources */,
+				440B400E2BA0EFCE00B02BC4 /* FiltersViewController.swift in Sources */,
 				44DE3A322B6025AD007F5B5E /* CategoriesTableViewCell.swift in Sources */,
 				44ABD2012B8E37B600ADF2AA /* TrackerCategoryStore.swift in Sources */,
 				44DE3A3A2B60F3D6007F5B5E /* ScheduleViewControllerDelegate.swift in Sources */,
@@ -409,6 +422,7 @@
 				44DE3A382B60E841007F5B5E /* CreateNewCategoryViewControllerDelegate.swift in Sources */,
 				441324882B2B661B00CE4CFF /* ScheduleViewController.swift in Sources */,
 				44ABD21D2B90DB0300ADF2AA /* UIColorValueTransformer.swift in Sources */,
+				440B40122BA0F75400B02BC4 /* FilterCell.swift in Sources */,
 				44B3187F2B5BD95700CA1206 /* SupplementaryView.swift in Sources */,
 				440289ED2B18EA0600A0BEBE /* TabBarController.swift in Sources */,
 				44ABD20B2B8F9A1400ADF2AA /* DataProviderProtocol.swift in Sources */,
@@ -432,6 +446,7 @@
 				440289F22B18ED3A00A0BEBE /* StatisticViewController.swift in Sources */,
 				440289D92B17A04100A0BEBE /* AppDelegate.swift in Sources */,
 				447D804C2B9E040700A06D3F /* CategoryViewModelProtocol.swift in Sources */,
+				440B40142BA0FBE400B02BC4 /* FilterViewDelegate.swift in Sources */,
 				447D80372B9B5D8100A06D3F /* OnboardingViewController.swift in Sources */,
 				447D803B2B9B6A7B00A06D3F /* PagesSettings.swift in Sources */,
 				441C46A52B6D379100BC079E /* UITableViewCell + Extention.swift in Sources */,
@@ -439,6 +454,7 @@
 				44ABD2172B8FBAAD00ADF2AA /* CategoryDataStore.swift in Sources */,
 				44ABD2032B8E37C600ADF2AA /* TrackerRecordStore.swift in Sources */,
 				4413248E2B31F6F200CE4CFF /* Date + Extensions.swift in Sources */,
+				440B40102BA0F17E00B02BC4 /* Filters.swift in Sources */,
 				44DE3A402B62DC80007F5B5E /* Int + Extension.swift in Sources */,
 				447D805A2B9F926C00A06D3F /* FixedTrackersStore.swift in Sources */,
 				44ABD20D2B8FA7CD00ADF2AA /* DataProvider.swift in Sources */,

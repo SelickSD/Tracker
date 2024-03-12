@@ -48,9 +48,6 @@ final class ScheduleViewController: UIViewController {
         return button
     }()
 
-    func setupTableView(choseDay: [DayOfWeek]) {
-        self.choseDay = choseDay
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +59,11 @@ final class ScheduleViewController: UIViewController {
         super.viewWillDisappear(animated)
         delegateChange()
     }
+
+    func setupTableView(choseDay: [DayOfWeek]) {
+        self.choseDay = choseDay
+    }
+
 
     @objc private func didTapDoneButton() {
         self.dismiss(animated: true)

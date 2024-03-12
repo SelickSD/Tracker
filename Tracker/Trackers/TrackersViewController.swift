@@ -12,7 +12,8 @@ final class TrackersViewController: UIViewController,
                                     TrackersViewControllerDelegate,
                                     UIGestureRecognizerDelegate,
                                     UISearchBarDelegate,
-                                    CreateNewHabitViewControllerDelegate
+                                    CreateNewHabitViewControllerDelegate,
+                                    FilterViewDelegate
 {
 
     private lazy var dataProvider: DataProviderProtocol? = {
@@ -92,6 +93,20 @@ final class TrackersViewController: UIViewController,
         return view
     }()
 
+    private lazy var filtersButton: UIButton = {
+        let createHabitButtonName = NSLocalizedString("trackerView.filterButtonName", comment: "Text displayed like name of filter button")
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.clipsToBounds = true
+        button.backgroundColor = .ypBlue
+        button.tintColor = .ypWhite
+        button.setTitle(createHabitButtonName, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+        button.layer.cornerRadius = 16
+        button.addTarget(self, action: #selector(didTapFiltersButton), for: .touchUpInside)
+        return button
+    }()
+
     private var categories: [TrackerCategory] = []
     private var completedTrackers: [TrackerRecord] = []
     private var currentDate: Date = Date()
@@ -99,6 +114,7 @@ final class TrackersViewController: UIViewController,
     private var isBlankView = false
     private var currentTracker = ""
     private var fixedTrackers: [Tracker] = []
+    private var chooseFilter: Filters = .allTrackers
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -168,6 +184,13 @@ final class TrackersViewController: UIViewController,
         trackersCollectionView.reloadData()
     }
 
+    @objc private func didTapFiltersButton() {
+        let filterView = FiltersViewController()
+        filterView.delegate = self
+        filterView.setupTableView(chooseFilter: chooseFilter)
+        self.present(filterView, animated: true)
+    }
+
     @objc private func dismissKeyboard() {
         view.endEditing(true)
     }
@@ -188,6 +211,14 @@ final class TrackersViewController: UIViewController,
         let createNewTrackerViewController = CreateNewTrackerViewController()
         createNewTrackerViewController.delegate = self
         self.present(createNewTrackerViewController, animated: true)
+    }
+
+    func fetchFilter(chooseFilter: Filters) {
+        self.chooseFilter = chooseFilter
+        updateFilterCategories()
+        configFilterCategoriesWithFixedTrackers()
+        checkView()
+        trackersCollectionView.reloadData()
     }
 
     private func setupGestures() {
@@ -238,7 +269,7 @@ final class TrackersViewController: UIViewController,
     private func setupBlankView() {
         view.backgroundColor = .ypWhite
 
-        [backgroundScrollView, contentView, trackersCollectionView].forEach { $0.removeFromSuperview() }
+        [backgroundScrollView, contentView, trackersCollectionView, filtersButton].forEach { $0.removeFromSuperview() }
         [emptyView, openingLabel].forEach{ view.addSubview($0) }
 
         NSLayoutConstraint.activate([
@@ -274,6 +305,7 @@ final class TrackersViewController: UIViewController,
         [emptyView, openingLabel].forEach { $0.removeFromSuperview() }
 
         view.addSubview(backgroundScrollView)
+        view.addSubview(filtersButton)
         backgroundScrollView.addSubview(contentView)
         contentView.addSubview(trackersCollectionView)
 
@@ -281,6 +313,11 @@ final class TrackersViewController: UIViewController,
         equalHeight.priority = UILayoutPriority(250)
 
         NSLayoutConstraint.activate([
+            filtersButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            filtersButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            filtersButton.heightAnchor.constraint(equalToConstant: 50),
+            filtersButton.widthAnchor.constraint(equalToConstant: 114),
+
             backgroundScrollView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
             backgroundScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             backgroundScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -304,13 +341,50 @@ final class TrackersViewController: UIViewController,
         filterDateCategories = []
         var tracks: [Tracker] = []
 
-        categories.forEach({ category in
-            tracks = checkTrackers(trackers: category.trackers)
-            if !tracks.isEmpty {
-                filterDateCategories.append(TrackerCategory(name: category.name, trackers: tracks))
-                tracks = []
+        switch chooseFilter {
+        case .allTrackers:
+            filterDateCategories = categories
+        case .completedTrackers:
+            var trackerID: [UUID] = []
+            completedTrackers.forEach{
+                trackerID.append($0.id)
             }
-        })
+            for category in categories {
+                for tracker in category.trackers {
+                    if trackerID.contains(tracker.id) {
+                        tracks.append(tracker)
+                    }
+                }
+                if !tracks.isEmpty {
+                    filterDateCategories.append(TrackerCategory(name: category.name, trackers: tracks))
+                    tracks = []
+                }
+            }
+        case .openTrackers:
+            var trackerID: [UUID] = []
+            completedTrackers.forEach{
+                trackerID.append($0.id)
+            }
+            for category in categories {
+                for tracker in category.trackers {
+                    if !trackerID.contains(tracker.id) {
+                        tracks.append(tracker)
+                    }
+                }
+                if !tracks.isEmpty {
+                    filterDateCategories.append(TrackerCategory(name: category.name, trackers: tracks))
+                    tracks = []
+                }
+            }
+        case .thisDay:
+            categories.forEach({ category in
+                tracks = checkTrackers(trackers: category.trackers)
+                if !tracks.isEmpty {
+                    filterDateCategories.append(TrackerCategory(name: category.name, trackers: tracks))
+                    tracks = []
+                }
+            })
+        }
     }
 
     private func configFilterCategoriesWithFixedTrackers() {

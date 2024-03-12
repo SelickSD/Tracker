@@ -19,6 +19,7 @@
 "trackerView.uiMenu.edit" = "Редактировать";
 "trackerView.uiMenu.delete" = "Удалить";
 "trackerView.uiMenu.deleteMessage" = "Уверены что хотите удалить трекер?";
+"trackerView.filterButtonName" = "Фильтры";
 
 //MARK: CreateNewTrackerViewController
 "createNewTrackerView.pageName" = "Создание трекера";
@@ -72,6 +73,12 @@
 "dayOfWeek.short.friday" = "Пт";
 "dayOfWeek.short.saturday" = "Сб";
 "dayOfWeek.short.sunday" = "Вс";
+
+//MARK: Filters
+"filters.allTrackers" = "Все трекеры";
+"filters.thisDay" = "Трекеры на сегодня";
+"filters.completed" = "Завершенные";
+"filters.openTrackers" = "Не завершенные";
 
 
 
