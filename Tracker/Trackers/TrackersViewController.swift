@@ -427,11 +427,8 @@ final class TrackersViewController: UIViewController,
         } else {
             trackers.forEach({ track in
                 if track.name == currentTracker {
-                    print(track.name)
                     track.schedule.forEach({ dayOfWeek in
-                        print(track.name)
                         if weekday == dayOfWeek.rawValue {
-                            print(track.name)
                             tracks.append(track)
                         }
                     })

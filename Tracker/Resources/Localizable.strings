@@ -80,5 +80,16 @@
 "filters.completed" = "Завершенные";
 "filters.openTrackers" = "Не завершенные";
 
+//MARK: StatisticViewController
+"statisticView.opening" = "Анализировать пока нечего";
+
+//MARK: Filters
+"indicators.bestPeriod" = "Лучший период";
+"indicators.idealDays" = "Идельные дни";
+"indicators.completedTrackers" = "Трекеров завершено";
+"indicators.averageValue" = "Среднее значение";
+
+
+
 
 
