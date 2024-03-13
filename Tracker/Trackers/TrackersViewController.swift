@@ -156,6 +156,9 @@ final class TrackersViewController: UIViewController,
         analyticsService.report(event: "click", params: ["track": 1])
         completedTrackers.append(TrackerRecord(id: id, date: currentDate))
         dataProvider?.addRecord(record: TrackerRecord(id: id, date: currentDate))
+        updateFilterCategories()
+        configFilterCategoriesWithFixedTrackers()
+        trackersCollectionView.reloadData()
     }
 
     func searchBarSearchButtonClicked( _ searchBar: UISearchBar) {
@@ -187,6 +190,9 @@ final class TrackersViewController: UIViewController,
             }
             index += 1
         }
+        updateFilterCategories()
+        configFilterCategoriesWithFixedTrackers()
+        trackersCollectionView.reloadData()
     }
 
     func fetchNewTrack(newHabit: TrackerCategory) {

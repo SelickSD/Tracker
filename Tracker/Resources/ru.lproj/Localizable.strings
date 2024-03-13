@@ -89,6 +89,10 @@
 "indicators.completedTrackers" = "Трекеров завершено";
 "indicators.averageValue" = "Среднее значение";
 
+//MARK: TabBarController
+"tabBar.trackers" = "Трекеры";
+"tabBar.statistic" = "Статистика";
+
 
 
 
