@@ -343,7 +343,11 @@ final class TrackersViewController: UIViewController,
 
         switch chooseFilter {
         case .allTrackers:
-            filterDateCategories = categories
+            for value in categories {
+                if !value.trackers.isEmpty {
+                    filterDateCategories.append(value)
+                }
+            }
         case .completedTrackers:
             var trackerID: [UUID] = []
             completedTrackers.forEach{
