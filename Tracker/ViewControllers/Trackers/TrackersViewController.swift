@@ -20,8 +20,6 @@ final class TrackersViewController: UIViewController,
         return DataProvider()
     }()
 
-    private let analyticsService = AnalyticsService()
-
     private lazy var emptyView: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -142,18 +140,18 @@ final class TrackersViewController: UIViewController,
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        analyticsService.report(event: "open", params: ["screen":"Main"])
+        AnalyticsService.report(event: "open", params: ["screen":"Main"])
     }
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        analyticsService.report(event: "close", params: ["screen":"Main"])
+        AnalyticsService.report(event: "close", params: ["screen":"Main"])
     }
 
 
 
     func didTapPlusButton(id: UUID) {
-        analyticsService.report(event: "click", params: ["track": 1])
+        AnalyticsService.report(event: "click", params: ["track": 1])
         completedTrackers.append(TrackerRecord(id: id, date: currentDate))
         dataProvider?.addRecord(record: TrackerRecord(id: id, date: currentDate))
         updateFilterCategories()
@@ -206,7 +204,7 @@ final class TrackersViewController: UIViewController,
     }
 
     @objc private func didTapFiltersButton() {
-        analyticsService.report(event: "click", params: ["filter": 1])
+        AnalyticsService.report(event: "click", params: ["filter": 1])
         let filterView = FiltersViewController()
         filterView.delegate = self
         filterView.setupTableView(chooseFilter: chooseFilter)
@@ -229,7 +227,7 @@ final class TrackersViewController: UIViewController,
     }
 
     @objc private func addTapped() {
-        analyticsService.report(event: "click", params: ["add_track": 1])
+        AnalyticsService.report(event: "click", params: ["add_track": 1])
         resetCurrentDate()
         let createNewTrackerViewController = CreateNewTrackerViewController()
         createNewTrackerViewController.delegate = self
@@ -532,7 +530,7 @@ final class TrackersViewController: UIViewController,
     }
 
     private func editTracker(indexPath: IndexPath) {
-        analyticsService.report(event: "click", params: ["edit": 1])
+        AnalyticsService.report(event: "click", params: ["edit": 1])
         let tracker = filterDateCategories[indexPath.section].trackers[indexPath.row]
         let newHabitViewController = CreateNewHabitViewController()
         newHabitViewController.delegate = self
@@ -546,7 +544,7 @@ final class TrackersViewController: UIViewController,
     }
 
     private func deleteTracker(indexPath: IndexPath) {
-        analyticsService.report(event: "click", params: ["delete": 1])
+        AnalyticsService.report(event: "click", params: ["delete": 1])
         let tracker = filterDateCategories[indexPath.section].trackers[indexPath.row]
 
         dataProvider?.deleteTracker(tracker: tracker)

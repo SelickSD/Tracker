@@ -227,20 +227,17 @@
 		440289D72B17A04100A0BEBE /* Tracker */ = {
 			isa = PBXGroup;
 			children = (
-				447D80522B9EF8C200A06D3F /* Resources */,
-				447D80352B9B5CF600A06D3F /* PagesViewController */,
-				441324902B3206DC00CE4CFF /* Delegates */,
 				4413248F2B32067400CE4CFF /* Protocols */,
-				44ABD1FD2B8E378500ADF2AA /* Stores */,
-				441324782B25F3E500CE4CFF /* Trackers */,
-				440289F32B18F44700A0BEBE /* Extensions */,
+				441324902B3206DC00CE4CFF /* Delegates */,
 				440289EE2B18ECAB00A0BEBE /* Navigation */,
-				440289D82B17A04100A0BEBE /* AppDelegate.swift */,
-				440289DA2B17A04100A0BEBE /* SceneDelegate.swift */,
+				440B403A2BA35E9600B02BC4 /* ViewControllers */,
+				447D80522B9EF8C200A06D3F /* Resources */,
+				44ABD1FC2B866E4400ADF2AA /* CoreData */,
+				440B403D2BA3600200B02BC4 /* System */,
+				440289F32B18F44700A0BEBE /* Extensions */,
 				440289E12B17A04200A0BEBE /* Assets.xcassets */,
 				440289E32B17A04200A0BEBE /* LaunchScreen.storyboard */,
 				440289E62B17A04200A0BEBE /* Info.plist */,
-				440B402D2BA212B200B02BC4 /* AnalyticsService.swift */,
 			);
 			path = Tracker;
 			sourceTree = "<group>";
@@ -273,6 +270,43 @@
 			path = TrackerTests;
 			sourceTree = "<group>";
 		};
+		440B403A2BA35E9600B02BC4 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				447D80352B9B5CF600A06D3F /* PagesViewController */,
+				441324782B25F3E500CE4CFF /* Trackers */,
+				440B403C2BA35F7B00B02BC4 /* Filters */,
+				440B403B2BA35F4E00B02BC4 /* Statistic */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		440B403B2BA35F4E00B02BC4 /* Statistic */ = {
+			isa = PBXGroup;
+			children = (
+				440289F12B18ED3A00A0BEBE /* StatisticViewController.swift */,
+			);
+			path = Statistic;
+			sourceTree = "<group>";
+		};
+		440B403C2BA35F7B00B02BC4 /* Filters */ = {
+			isa = PBXGroup;
+			children = (
+				440B400D2BA0EFCE00B02BC4 /* FiltersViewController.swift */,
+			);
+			path = Filters;
+			sourceTree = "<group>";
+		};
+		440B403D2BA3600200B02BC4 /* System */ = {
+			isa = PBXGroup;
+			children = (
+				440289D82B17A04100A0BEBE /* AppDelegate.swift */,
+				440289DA2B17A04100A0BEBE /* SceneDelegate.swift */,
+				440B402D2BA212B200B02BC4 /* AnalyticsService.swift */,
+			);
+			path = System;
+			sourceTree = "<group>";
+		};
 		441324782B25F3E500CE4CFF /* Trackers */ = {
 			isa = PBXGroup;
 			children = (
@@ -282,8 +316,6 @@
 				441324802B277B3900CE4CFF /* CreateNewHabitViewController.swift */,
 				441324872B2B661B00CE4CFF /* ScheduleViewController.swift */,
 				44DE3A352B60E3BA007F5B5E /* CreateNewCategoryViewController.swift */,
-				440B400D2BA0EFCE00B02BC4 /* FiltersViewController.swift */,
-				440289F12B18ED3A00A0BEBE /* StatisticViewController.swift */,
 				441324792B25F40F00CE4CFF /* Models */,
 			);
 			path = Trackers;
@@ -292,7 +324,6 @@
 		441324792B25F40F00CE4CFF /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				44ABD1FC2B866E4400ADF2AA /* CoreData */,
 				441324862B28C8A700CE4CFF /* Cells */,
 				44028A3B2B23798100A0BEBE /* Tracker.swift */,
 				44028A3D2B23798F00A0BEBE /* TrackerCategory.swift */,
@@ -382,6 +413,7 @@
 		44ABD1FC2B866E4400ADF2AA /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				44ABD1FD2B8E378500ADF2AA /* Stores */,
 				44ABD1BA2B8663C400ADF2AA /* TrackerDB.xcdatamodeld */,
 			);
 			path = CoreData;
