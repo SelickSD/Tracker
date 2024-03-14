@@ -4,11 +4,8 @@
 //
 //  Created by Сергей Денисенко on 08.03.2024.
 //
-
 import UIKit
-
 final class PagesViewController: UIViewController {
-
     weak var delegate: OnboardingViewDelegate?
 
     private lazy var pagesManeView: UIImageView = {
@@ -29,7 +26,8 @@ final class PagesViewController: UIViewController {
     }()
 
     private lazy var cancelButton: UIButton = {
-        let cancelButtonName = NSLocalizedString("pagesView.cancelButtonName", comment: "Text displayed like name of cancel button")
+        let cancelButtonName = NSLocalizedString("pagesView.cancelButtonName",
+                                                 comment: "Text displayed like name of cancel button")
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.clipsToBounds = true
@@ -46,17 +44,14 @@ final class PagesViewController: UIViewController {
         let pageControl = UIPageControl()
         pageControl.numberOfPages = 2
         pageControl.currentPage = 0
-
         pageControl.currentPageIndicatorTintColor = UIColor.init(hex: "#1A1B22")
         pageControl.pageIndicatorTintColor = UIColor.init(hex: "#1A1B22")?.withAlphaComponent(0.3)
-
         pageControl.translatesAutoresizingMaskIntoConstraints = false
         return pageControl
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setupSelf()
     }
 

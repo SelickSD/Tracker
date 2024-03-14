@@ -4,7 +4,6 @@
 //
 //  Created by Сергей Денисенко on 28.02.2024.
 //
-
 import Foundation
 protocol DataProviderProtocol {
     func addNewCategory(category: TrackerCategory)

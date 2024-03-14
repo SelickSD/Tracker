@@ -35,7 +35,6 @@ final class StatisticViewController: UIViewController {
     private lazy var statisticTableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.dataSource = self
-        tableView.delegate = self
         tableView.backgroundColor = .white
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(StatisticCell.self, forCellReuseIdentifier: StatisticCell.identifier)
@@ -226,12 +225,6 @@ final class StatisticViewController: UIViewController {
             statisticTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
         ])
         statisticTableView.reloadData()
-    }
-}
-
-//MARK: -UITableViewDelegate
-extension StatisticViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     }
 }
 

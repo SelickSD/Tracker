@@ -4,27 +4,24 @@
 //
 //  Created by Сергей Денисенко on 23.01.2024.
 //
-
 import UIKit
 final class CategoryViewController: UIViewController,
                                     CreateNewCategoryViewControllerDelegate {
-
     weak var delegate: CategoryViewControllerDelegate?
     private var isCategorySelected = false
     private var viewModel: CategoryViewModelProtocol?
 
     private lazy var emptyView: UIImageView = {
         let view = UIImageView()
-        view.translatesAutoresizingMaskIntoConstraints = false
         view.clipsToBounds = true
         view.image = UIImage(named: "Star")
         return view
     }()
 
     private lazy var pageNameLabel: UILabel = {
-        let pageName = NSLocalizedString("categoryView.pageName", comment: "Text displayed like page name")
+        let pageName = NSLocalizedString("categoryView.pageName",
+                                         comment: "Text displayed like page name")
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.clipsToBounds = true
         label.text = pageName
         label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
@@ -32,9 +29,9 @@ final class CategoryViewController: UIViewController,
     }()
 
     private lazy var descriptionLabel: UILabel = {
-        let description = NSLocalizedString("categoryView.description", comment: "Text displayed like page description")
+        let description = NSLocalizedString("categoryView.description",
+                                            comment: "Text displayed like page description")
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.clipsToBounds = true
         label.text = description
         label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
@@ -48,16 +45,16 @@ final class CategoryViewController: UIViewController,
         tableView.dataSource = self
         tableView.delegate = self
         tableView.backgroundColor = .white
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(CategoriesTableViewCell.self, forCellReuseIdentifier: CategoriesTableViewCell.identifier)
+        tableView.register(CategoriesTableViewCell.self,
+                           forCellReuseIdentifier: CategoriesTableViewCell.identifier)
         tableView.separatorStyle = .none
         return tableView
     }()
 
     private lazy var doneButton: UIButton = {
-        let doneButtonName = NSLocalizedString("categoryView.doneButtonName", comment: "Text displayed like name of Done button")
+        let doneButtonName = NSLocalizedString("categoryView.doneButtonName",
+                                               comment: "Text displayed like name of Done button")
         let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.clipsToBounds = true
         button.backgroundColor = .ypBlack
         button.tintColor = .ypWhite
@@ -100,17 +97,14 @@ final class CategoryViewController: UIViewController,
 
     private func bind() {
         guard var viewModel = viewModel else { return }
-
         viewModel.isCategoryEmpty = { [weak self] isEmpty in
             self?.setupView(isEmpty: isEmpty)
         }
-
         viewModel.isCategoryUpdated = { [weak self] isCategoryUpdated in
             if isCategoryUpdated {
                 self?.categoriesTableView.reloadData()
             }
         }
-
         viewModel.isCategorySelected = { [weak self] isSelected in
             self?.isCategorySelected = isSelected
         }
@@ -121,10 +115,13 @@ final class CategoryViewController: UIViewController,
     }
 
     private func setupBlankView() {
-        view.addSubview(emptyView)
-        view.addSubview(pageNameLabel)
-        view.addSubview(descriptionLabel)
-        view.addSubview(doneButton)
+        [emptyView,
+         pageNameLabel,
+         descriptionLabel,
+         doneButton].forEach{
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview($0)
+        }
 
         NSLayoutConstraint.activate([
             pageNameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -145,9 +142,12 @@ final class CategoryViewController: UIViewController,
     }
 
     private func setupTargetView() {
-        view.addSubview(pageNameLabel)
-        view.addSubview(categoriesTableView)
-        view.addSubview(doneButton)
+        [pageNameLabel,
+         categoriesTableView,
+         doneButton].forEach{
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview($0)
+        }
 
         NSLayoutConstraint.activate([
             pageNameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -176,7 +176,6 @@ extension CategoryViewController: UITableViewDelegate {
             viewModel.setDoneIndexPath(indexPath: indexPath)
             return
         }
-
         if oldDone == indexPath {
             let cell = tableView.cellForRow(at: indexPath) as? CategoriesTableViewCell
             cell?.makeDone()
@@ -200,27 +199,24 @@ extension CategoryViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let viewModel = viewModel,
-              let cell = tableView.dequeueReusableCell(withIdentifier: CategoriesTableViewCell.identifier, for: indexPath) as? CategoriesTableViewCell else {
+              let cell = tableView.dequeueReusableCell(withIdentifier: CategoriesTableViewCell.identifier,
+                                                       for: indexPath) as? CategoriesTableViewCell else {
             return UITableViewCell()
         }
-
         let numberOfRowsInSection = viewModel.numberOfRowsInSection()
         let category = viewModel.categoryOfIndex(index: indexPath.row)
-
-        cell.configCell(rowOfCell: indexPath.row, maxCount: numberOfRowsInSection, category: category)
         let startIndex = viewModel.getStartIndex()
+        cell.configCell(rowOfCell: indexPath.row, maxCount: numberOfRowsInSection, category: category)
 
         if startIndex != nil && indexPath.row == startIndex {
             cell.makeDone()
             viewModel.setDoneIndexPath(indexPath: indexPath)
         }
-
         if numberOfRowsInSection >= 2 {
             if indexPath.row >= 0 && indexPath.row < numberOfRowsInSection - 1 {
                 cell.setSeparatorView()
             }
         }
-
         return cell
     }
 

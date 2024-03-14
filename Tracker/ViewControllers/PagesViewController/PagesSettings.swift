@@ -4,7 +4,6 @@
 //
 //  Created by Сергей Денисенко on 08.03.2024.
 //
-
 import UIKit
 enum PagesSettings {
     case blue
@@ -13,9 +12,11 @@ enum PagesSettings {
     var label: String {
         switch self {
         case .blue:
-            return NSLocalizedString("pagesSettings.fistPage", comment: "Text displayed like page description")
+            return NSLocalizedString("pagesSettings.fistPage",
+                                     comment: "Text displayed like page description")
         case .red:
-            return NSLocalizedString("pagesSettings.secondPage", comment: "Text displayed like page description")
+            return NSLocalizedString("pagesSettings.secondPage",
+                                     comment: "Text displayed like page description")
         }
     }
 

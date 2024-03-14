@@ -4,9 +4,7 @@
 //
 //  Created by Сергей Денисенко on 08.03.2024.
 //
-
 import UIKit
-
 final class OnboardingViewController: UIPageViewController,
                                       UIPageViewControllerDataSource,
                                       UIPageViewControllerDelegate,
@@ -20,13 +18,11 @@ final class OnboardingViewController: UIPageViewController,
         let red = PagesViewController()
         red.delegate = self
         red.setupView(settings: .red)
-
         return [blue, red]
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         dataSource = self
         delegate = self
 
@@ -35,17 +31,22 @@ final class OnboardingViewController: UIPageViewController,
         }
     }
 
-    override init(transitionStyle style: UIPageViewController.TransitionStyle, navigationOrientation: UIPageViewController.NavigationOrientation, options: [UIPageViewController.OptionsKey : Any]? = nil) {
-        super.init(transitionStyle: style, navigationOrientation: navigationOrientation)
+    override init(transitionStyle style: UIPageViewController.TransitionStyle,
+                  navigationOrientation: UIPageViewController.NavigationOrientation,
+                  options: [UIPageViewController.OptionsKey : Any]? = nil) {
+        super.init(transitionStyle: style,
+                   navigationOrientation: navigationOrientation)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    // MARK: - UIPageViewControllerDelegate
-    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
 
+    // MARK: - UIPageViewControllerDelegate
+    func pageViewController(_ pageViewController: UIPageViewController,
+                            didFinishAnimating finished: Bool,
+                            previousViewControllers: [UIViewController],
+                            transitionCompleted completed: Bool) {
         if let currentViewController = pageViewController.viewControllers?.first as? PagesViewController,
            let currentIndex = pages.firstIndex(of: currentViewController) {
             currentViewController.setPages(currentIndex: currentIndex)
@@ -53,31 +54,27 @@ final class OnboardingViewController: UIPageViewController,
     }
 
     // MARK: - UIPageViewControllerDataSource
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+    func pageViewController(_ pageViewController: UIPageViewController,
+                            viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let viewControllerIndex = pages.firstIndex(of: viewController) else {
             return nil
         }
-
         let previousIndex = viewControllerIndex - 1
-
         guard previousIndex >= 0 else {
             return nil
         }
-
         return pages[previousIndex]
     }
 
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+    func pageViewController(_ pageViewController: UIPageViewController,
+                            viewControllerAfter viewController: UIViewController) -> UIViewController? {
         guard let viewControllerIndex = pages.firstIndex(of: viewController) else {
             return nil
         }
-
         let nextIndex = viewControllerIndex + 1
-
         guard nextIndex < pages.count else {
             return nil
         }
-
         return pages[nextIndex]
     }
 

@@ -4,7 +4,6 @@
 //
 //  Created by Сергей Денисенко on 10.03.2024.
 //
-
 import Foundation
 protocol CategoryViewModelProtocol {
     var isCategoryEmpty: Binding<Bool>? { get set }

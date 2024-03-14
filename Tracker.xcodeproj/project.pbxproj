@@ -231,6 +231,8 @@
 				441324902B3206DC00CE4CFF /* Delegates */,
 				440289EE2B18ECAB00A0BEBE /* Navigation */,
 				440B403A2BA35E9600B02BC4 /* ViewControllers */,
+				441324862B28C8A700CE4CFF /* Cells */,
+				441324792B25F40F00CE4CFF /* Models */,
 				447D80522B9EF8C200A06D3F /* Resources */,
 				44ABD1FC2B866E4400ADF2AA /* CoreData */,
 				440B403D2BA3600200B02BC4 /* System */,
@@ -316,7 +318,6 @@
 				441324802B277B3900CE4CFF /* CreateNewHabitViewController.swift */,
 				441324872B2B661B00CE4CFF /* ScheduleViewController.swift */,
 				44DE3A352B60E3BA007F5B5E /* CreateNewCategoryViewController.swift */,
-				441324792B25F40F00CE4CFF /* Models */,
 			);
 			path = Trackers;
 			sourceTree = "<group>";
@@ -324,7 +325,6 @@
 		441324792B25F40F00CE4CFF /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				441324862B28C8A700CE4CFF /* Cells */,
 				44028A3B2B23798100A0BEBE /* Tracker.swift */,
 				44028A3D2B23798F00A0BEBE /* TrackerCategory.swift */,
 				44028A3F2B23799C00A0BEBE /* TrackerRecord.swift */,

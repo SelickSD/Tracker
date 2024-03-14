@@ -4,20 +4,15 @@
 //
 //  Created by Сергей Денисенко on 08.03.2024.
 //
-
 import Foundation
 typealias Binding<T> = (T) -> Void
-
 final class CategoryViewModel: CategoryViewModelProtocol {
-
     var isCategoryEmpty: Binding<Bool>?
     var isCategoryUpdated: Binding<Bool>?
     var isCategorySelected: Binding<Bool>?
-
     weak var delegate: CategoryViewControllerDelegate?
     private var index: Int?
     private var doneIndex: IndexPath?
-
     private let categoryDataStore: CategoryDataStore
 
     init(for model: CategoryDataStore, index: Int?) {
@@ -55,7 +50,6 @@ final class CategoryViewModel: CategoryViewModelProtocol {
             return
         }
         delegate?.fetchCategory(index: done.row, categories: categories)
-
     }
 
     func getDoneIndexPath() -> IndexPath? {
