@@ -4,12 +4,9 @@
 //
 //  Created by Сергей Денисенко on 12.12.2023.
 //
-
 import UIKit
-
 final class MainTableViewCell: UITableViewCell {
     static let identifier = "MainTableViewCell"
-
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -55,19 +52,19 @@ final class MainTableViewCell: UITableViewCell {
     }
 
     func discardChanges() {
-        titleLabel.removeFromSuperview()
-        nextButton.removeFromSuperview()
-        categoryLabel.removeFromSuperview()
-
+        [titleLabel, nextButton, categoryLabel].forEach{
+            $0.removeFromSuperview()
+        }
         setupView()
         layoutIfNeeded()
-
     }
 
     func configCell(rowOfCell: Int, maxCount: Int) {
-        let categoryCellName = NSLocalizedString("mainTableViewCell.categoryCellName", comment: "Text displayed like cell name")
-        let scheduleCellName = NSLocalizedString("mainTableViewCell.scheduleCellName", comment: "Text displayed like cell name")
-        
+        let categoryCellName = NSLocalizedString("mainTableViewCell.categoryCellName", 
+                                                 comment: "Text displayed like cell name")
+        let scheduleCellName = NSLocalizedString("mainTableViewCell.scheduleCellName", 
+                                                 comment: "Text displayed like cell name")
+
         if maxCount == 1 {
             self.layer.masksToBounds = true
             self.layer.cornerRadius = 10

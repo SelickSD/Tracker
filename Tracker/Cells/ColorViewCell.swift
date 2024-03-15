@@ -4,9 +4,7 @@
 //
 //  Created by Сергей Денисенко on 21.01.2024.
 //
-
 import UIKit
-
 final class ColorViewCell: UICollectionViewCell {
     static let identifier = "ColorViewCell"
 
@@ -37,7 +35,6 @@ final class ColorViewCell: UICollectionViewCell {
 
     func setColorOff(color: String) {
         guard let color = UIColor(hex: color) else {return}
-
         contentView.backgroundColor = .ypWhite
         colorView.layer.borderColor = color.cgColor
         colorView.backgroundColor = color

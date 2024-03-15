@@ -5,10 +5,8 @@
 //  Created by Сергей Денисенко on 29.02.2024.
 //
 import Foundation
-
 @objc
 final class DaysValueTransformer: ValueTransformer {
-
     static func register() {
         ValueTransformer.setValueTransformer(
             DaysValueTransformer(),

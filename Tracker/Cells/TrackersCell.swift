@@ -4,9 +4,7 @@
 //
 //  Created by Сергей Денисенко on 10.12.2023.
 //
-
 import UIKit
-
 final class TrackersCell: UICollectionViewCell {
     static let identifier = "TrackersCell"
     weak var delegate: TrackersCellDelegate?
@@ -72,7 +70,8 @@ final class TrackersCell: UICollectionViewCell {
     }()
     
     private lazy var dateLabel: UILabel = {
-        let cellDateName = NSLocalizedString("trackersCell.cellDateName", comment: "Text displayed like cell name")
+        let cellDateName = NSLocalizedString("trackersCell.cellDateName", 
+                                             comment: "Text displayed like cell name")
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.clipsToBounds = true
@@ -103,12 +102,10 @@ final class TrackersCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         setupView()
     }
     
     func configCell(track: Tracker, isCompleted: Bool, count: Int, isEnabled: Bool, isFix: Bool) {
-
         plusButtonBackView.backgroundColor = track.color
         plusButton.isEnabled = isEnabled
         colorView.backgroundColor = track.color

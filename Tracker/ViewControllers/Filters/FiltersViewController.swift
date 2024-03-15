@@ -4,13 +4,9 @@
 //
 //  Created by Сергей Денисенко on 12.03.2024.
 //
-
 import UIKit
-
 final class FiltersViewController: UIViewController {
-
     weak var delegate: FilterViewDelegate?
-
     private var filters: [Filters] = [.allTrackers, .thisDay, .completedTrackers, .openTrackers]
     private var chooseFilter: Filters = .allTrackers
 
@@ -37,7 +33,6 @@ final class FiltersViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setupView()
     }
 
@@ -55,7 +50,6 @@ final class FiltersViewController: UIViewController {
     }
 
     private func setupView() {
-
         view.backgroundColor = .ypWhite
         view.addSubview(pageNameLabel)
         view.addSubview(scheduleTableView)
@@ -89,7 +83,6 @@ extension FiltersViewController: UITableViewDelegate {
             cell?.makeDone()
             return
         }
-
         if oldDone == indexPath {
             let cell = tableView.cellForRow(at: indexPath) as? CategoriesTableViewCell
             let first = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? CategoriesTableViewCell
@@ -114,16 +107,13 @@ extension FiltersViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CategoriesTableViewCell.identifier, for: indexPath) as? CategoriesTableViewCell else {
             return UITableViewCell()
         }
-
         cell.configCell(rowOfCell: indexPath.row, maxCount: filters.count, category: filters[indexPath.row].nameString)
         if chooseFilter == filters[indexPath.row]  {
             cell.makeDone()
         }
-
         if filters.count >= 2 {
             if indexPath.row >= 0 && indexPath.row < filters.count - 1 {
                 cell.setSeparatorView()

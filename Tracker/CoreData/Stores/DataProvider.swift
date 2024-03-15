@@ -4,10 +4,8 @@
 //
 //  Created by Сергей Денисенко on 28.02.2024.
 //
-
 import UIKit
 final class DataProvider: DataProviderProtocol {
-
     enum DataProviderError: Error {
         case failedToInitializeContext
     }

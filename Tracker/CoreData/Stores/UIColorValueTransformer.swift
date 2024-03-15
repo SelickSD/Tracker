@@ -4,12 +4,9 @@
 //
 //  Created by Сергей Денисенко on 29.02.2024.
 //
-
 import UIKit
-
 @objc(UIColorValueTransformer)
 public final class UIColorValueTransformer: ValueTransformer {
-    
     override public class func transformedValueClass() -> AnyClass {
         return UIColor.self
     }

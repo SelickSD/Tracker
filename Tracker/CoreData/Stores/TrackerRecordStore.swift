@@ -4,12 +4,9 @@
 //
 //  Created by Сергей Денисенко on 27.02.2024.
 //
-
 import UIKit
 import CoreData
-
 final class TrackerRecordStore: RecordDataStore {
-
     private let context: NSManagedObjectContext
     private let entityName = "TrackerRecordCD"
 
@@ -48,7 +45,6 @@ final class TrackerRecordStore: RecordDataStore {
         let request = NSFetchRequest<TrackerRecordCD>(entityName: entityName)
         request.predicate = NSPredicate(format: "%K == %@", #keyPath(TrackerRecordCD.trackerId), trackerId as CVarArg)
         guard let trackerRecordCD = try? context.fetch(request) else { return }
-
         trackerRecordCD.forEach{ context.delete($0) }
         saveContext()
     }

@@ -4,20 +4,15 @@
 //
 //  Created by Сергей Денисенко on 14.12.2023.
 //
-
 import UIKit
-
 final class ScheduleViewController: UIViewController {
-
     weak var delegate: ScheduleViewControllerDelegate?
-    
     private let dayOfWeek: [DayOfWeek] = [.monday, .tuesday, .wednesday, .thursday, .friday, .saturday, .sunday]
     private var choseDay: [DayOfWeek] = []
 
     private lazy var pageNameLabel: UILabel = {
         let pageName = NSLocalizedString("scheduleView.pageName", comment: "Text displayed like page name")
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.clipsToBounds = true
         label.text = pageName
         label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
@@ -29,7 +24,6 @@ final class ScheduleViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.backgroundColor = .white
-        tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorStyle = .none
         tableView.register(ScheduleTableViewCell.self, forCellReuseIdentifier: ScheduleTableViewCell.identifier)
         return tableView
@@ -38,7 +32,6 @@ final class ScheduleViewController: UIViewController {
     private lazy var doneButton: UIButton = {
         let doneButtonName = NSLocalizedString("scheduleView.doneButtonName", comment: "Text displayed like name of Done button")
         let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.clipsToBounds = true
         button.backgroundColor = .ypBlack
         button.tintColor = .ypWhite
@@ -48,10 +41,8 @@ final class ScheduleViewController: UIViewController {
         return button
     }()
 
-
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setupView()
     }
 
@@ -64,7 +55,6 @@ final class ScheduleViewController: UIViewController {
         self.choseDay = choseDay
     }
 
-
     @objc private func didTapDoneButton() {
         self.dismiss(animated: true)
     }
@@ -74,11 +64,13 @@ final class ScheduleViewController: UIViewController {
     }
 
     private func setupView() {
-
         view.backgroundColor = .ypWhite
-        view.addSubview(pageNameLabel)
-        view.addSubview(scheduleTableView)
-        view.addSubview(doneButton)
+        [pageNameLabel, 
+         scheduleTableView,
+         doneButton].forEach{
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview($0)
+        }
 
         NSLayoutConstraint.activate([
             pageNameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -114,22 +106,20 @@ extension ScheduleViewController: UITableViewDelegate {
 
 //MARK: -UITableViewDataSource
 extension ScheduleViewController: UITableViewDataSource {
-
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dayOfWeek.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: ScheduleTableViewCell.identifier, for: indexPath) as? ScheduleTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ScheduleTableViewCell.identifier, 
+                                                       for: indexPath) as? ScheduleTableViewCell else {
             return UITableViewCell()
         }
-
-        cell.configCell(rowOfCell: indexPath.row, maxCount: dayOfWeek.count, dayName: dayOfWeek[indexPath.row].nameString)
+        cell.configCell(rowOfCell: indexPath.row, maxCount: dayOfWeek.count, 
+                        dayName: dayOfWeek[indexPath.row].nameString)
         if choseDay.contains(dayOfWeek[indexPath.row]) {
             cell.setSwitchOn()
         }
-
         if dayOfWeek.count >= 2 {
             if indexPath.row >= 0 && indexPath.row < dayOfWeek.count - 1 {
                 cell.setSeparatorView()

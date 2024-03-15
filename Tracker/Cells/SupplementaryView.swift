@@ -4,9 +4,7 @@
 //
 //  Created by Сергей Денисенко on 20.01.2024.
 //
-
 import UIKit
-
 final class SupplementaryView: UICollectionReusableView {
     let titleLabel = UILabel()
 

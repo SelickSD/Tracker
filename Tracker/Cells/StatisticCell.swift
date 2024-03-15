@@ -4,9 +4,7 @@
 //
 //  Created by Сергей Денисенко on 13.03.2024.
 //
-
 import UIKit
-
 final class StatisticCell: UITableViewCell {
     static let identifier = "StatisticCell"
 
@@ -81,7 +79,6 @@ final class StatisticCell: UITableViewCell {
     }
 
     private func gradientPointsForAngle(_ angle: CGFloat) -> (CGPoint, CGPoint) {
-
         let end = pointForAngle(angle)
         let start = oppositePoint(end)
         let p0 = transformToGradientSpace(start)

@@ -4,9 +4,7 @@
 //
 //  Created by Сергей Денисенко on 20.01.2024.
 //
-
 import UIKit
-
 final class PresentViewCell: UICollectionViewCell {
     static let identifier = "PresentViewCell"
 
@@ -21,7 +19,6 @@ final class PresentViewCell: UICollectionViewCell {
         super.init(frame: frame)
         self.layer.cornerRadius = 12
         self.clipsToBounds = true
-
         contentView.addSubview(titleLabel)
 
         NSLayoutConstraint.activate([

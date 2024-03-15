@@ -4,12 +4,9 @@
 //
 //  Created by Сергей Денисенко on 10.12.2023.
 //
-
 import UIKit
-
 final class HeaderCellView: UICollectionReusableView {
     static let identifier = "TrackersCellHeader"
-
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false

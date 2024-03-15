@@ -4,12 +4,9 @@
 //
 //  Created by Сергей Денисенко on 27.02.2024.
 //
-
 import UIKit
 import CoreData
-
 final class TrackerCategoryStore: CategoryDataStore {
-
     private let context: NSManagedObjectContext
     private let entityName = "TrackerCategoryCD"
 

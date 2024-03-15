@@ -4,17 +4,23 @@
 //
 //  Created by Сергей Денисенко on 30.11.2023.
 //
-
 import UIKit
-
 final class TrackersViewController: UIViewController,
                                     TrackersCellDelegate,
                                     TrackersViewControllerDelegate,
                                     UIGestureRecognizerDelegate,
                                     UISearchBarDelegate,
                                     CreateNewHabitViewControllerDelegate,
-                                    FilterViewDelegate
-{
+                                    FilterViewDelegate {
+
+    private var categories: [TrackerCategory] = []
+    private var completedTrackers: [TrackerRecord] = []
+    private var currentDate: Date = Date()
+    private var filterDateCategories: [TrackerCategory] = []
+    private var isBlankView = false
+    private var currentTracker = ""
+    private var fixedTrackers: [Tracker] = []
+    private var chooseFilter: Filters = .allTrackers
 
     private lazy var dataProvider: DataProviderProtocol? = {
         return DataProvider()
@@ -29,7 +35,8 @@ final class TrackersViewController: UIViewController,
     }()
 
     private lazy var openingLabel: UILabel = {
-        let openingLabelText = NSLocalizedString("trackerView.openingLabelText", comment: "Text displayed like page description")
+        let openingLabelText = NSLocalizedString("trackerView.openingLabelText",
+                                                 comment: "Text displayed like page description")
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.clipsToBounds = true
@@ -76,25 +83,29 @@ final class TrackersViewController: UIViewController,
         view.delegate = self
         view.dataSource = self
         view.register(TrackersCell.self, forCellWithReuseIdentifier: TrackersCell.identifier)
-        view.register(HeaderCellView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderCellView.identifier)
+        view.register(HeaderCellView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                      withReuseIdentifier: HeaderCellView.identifier)
         view.backgroundColor = .ypWhite
         return view
     }()
 
     private lazy var searchBar: UISearchBar = {
-        let searchBarPlaceholder = NSLocalizedString("trackerView.searchBar.placeholder", comment: "Text displayed like placeholder")
+        let searchBarPlaceholder = NSLocalizedString("trackerView.searchBar.placeholder",
+                                                     comment: "Text displayed like placeholder")
         let view = UISearchBar()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.clipsToBounds = true
         view.barTintColor = UIColor.white
-        view.setBackgroundImage(UIImage.init(), for: UIBarPosition.any, barMetrics: UIBarMetrics.default)
+        view.setBackgroundImage(UIImage.init(), for: UIBarPosition.any,
+                                barMetrics: UIBarMetrics.default)
         view.placeholder = searchBarPlaceholder
         view.delegate = self
         return view
     }()
 
     private lazy var filtersButton: UIButton = {
-        let createHabitButtonName = NSLocalizedString("trackerView.filterButtonName", comment: "Text displayed like name of filter button")
+        let createHabitButtonName = NSLocalizedString("trackerView.filterButtonName",
+                                                      comment: "Text displayed like name of filter button")
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.clipsToBounds = true
@@ -107,18 +118,8 @@ final class TrackersViewController: UIViewController,
         return button
     }()
 
-    private var categories: [TrackerCategory] = []
-    private var completedTrackers: [TrackerRecord] = []
-    private var currentDate: Date = Date()
-    private var filterDateCategories: [TrackerCategory] = []
-    private var isBlankView = false
-    private var currentTracker = ""
-    private var fixedTrackers: [Tracker] = []
-    private var chooseFilter: Filters = .allTrackers
-
     override func viewDidLoad() {
         super.viewDidLoad()
-
         updateCategoriesFromCoreData()
         setupUIBarButtonItem()
         updateFilterCategories()
@@ -147,8 +148,6 @@ final class TrackersViewController: UIViewController,
         super.viewDidDisappear(animated)
         AnalyticsService.report(event: "close", params: ["screen":"Main"])
     }
-
-
 
     func didTapPlusButton(id: UUID) {
         AnalyticsService.report(event: "click", params: ["track": 1])
@@ -290,8 +289,12 @@ final class TrackersViewController: UIViewController,
     private func setupBlankView() {
         view.backgroundColor = .ypWhite
 
-        [backgroundScrollView, contentView, trackersCollectionView, filtersButton].forEach { $0.removeFromSuperview() }
-        [emptyView, openingLabel].forEach{ view.addSubview($0) }
+        [backgroundScrollView,
+         contentView,
+         trackersCollectionView,
+         filtersButton].forEach { $0.removeFromSuperview() }
+        [emptyView,
+         openingLabel].forEach{ view.addSubview($0) }
 
         NSLayoutConstraint.activate([
             emptyView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -323,7 +326,8 @@ final class TrackersViewController: UIViewController,
 
     private func setupView(){
 
-        [emptyView, openingLabel].forEach { $0.removeFromSuperview() }
+        [emptyView,
+         openingLabel].forEach { $0.removeFromSuperview() }
 
         view.addSubview(backgroundScrollView)
         view.addSubview(filtersButton)
@@ -499,7 +503,11 @@ final class TrackersViewController: UIViewController,
             }
         }
 
-        cell.configCell(track: trackForCategory, isCompleted: isCompleted, count: count, isEnabled: isEnabled, isFix: isFix)
+        cell.configCell(track: trackForCategory,
+                        isCompleted: isCompleted,
+                        count: count,
+                        isEnabled: isEnabled,
+                        isFix: isFix)
     }
 
     private func showMessage(title: String, message: String, buttonName: String) {
@@ -539,7 +547,8 @@ final class TrackersViewController: UIViewController,
             categoryNames.append($0.name)
         }
         guard let editCategory = getCategory(tracker: tracker) else {return}
-        newHabitViewController.configViewForEdit(trackerCategory: TrackerCategory(name: editCategory, trackers: [tracker]), categories: categoryNames)
+        newHabitViewController.configViewForEdit(trackerCategory: TrackerCategory(name: editCategory,
+                                                                                  trackers: [tracker]), categories: categoryNames)
         self.present(newHabitViewController, animated: true)
     }
 
@@ -632,8 +641,10 @@ extension TrackersViewController: UICollectionViewDataSource {
         return filterDateCategories[section].trackers.count
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TrackersCell.identifier, for: indexPath) as? TrackersCell else {
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TrackersCell.identifier,
+                                                            for: indexPath) as? TrackersCell else {
             return UICollectionViewCell()
         }
         cell.delegate = self
@@ -641,9 +652,13 @@ extension TrackersViewController: UICollectionViewDataSource {
         return cell
     }
 
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+    func collectionView(_ collectionView: UICollectionView,
+                        viewForSupplementaryElementOfKind kind: String,
+                        at indexPath: IndexPath) -> UICollectionReusableView {
 
-        guard let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HeaderCellView.identifier, for: indexPath) as? HeaderCellView else {
+        guard let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
+                                                                         withReuseIdentifier: HeaderCellView.identifier,
+                                                                         for: indexPath) as? HeaderCellView else {
             return UICollectionReusableView()
         }
 
@@ -655,17 +670,25 @@ extension TrackersViewController: UICollectionViewDataSource {
 //MARK: - UICollectionViewDelegate
 
 extension TrackersViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemsAt indexPaths: [IndexPath], point: CGPoint) -> UIContextMenuConfiguration? {
+    func collectionView(_ collectionView: UICollectionView,
+                        contextMenuConfigurationForItemsAt indexPaths: [IndexPath],
+                        point: CGPoint) -> UIContextMenuConfiguration? {
         guard indexPaths.count > 0 else {
             return nil
         }
 
-        let fix = NSLocalizedString("trackerView.uiMenu.fix", comment: "Text displayed context menu settings")
-        let unFix = NSLocalizedString("trackerView.uiMenu.unFix", comment: "Text displayed context menu settings")
-        let edit = NSLocalizedString("trackerView.uiMenu.edit", comment: "Text displayed context menu settings")
-        let delete = NSLocalizedString("trackerView.uiMenu.delete", comment: "Text displayed context menu settings")
-        let deleteMassage = NSLocalizedString("trackerView.uiMenu.deleteMessage", comment: "Text displayed in alarm")
-        let cancelButtonName = NSLocalizedString("createNewHabitView.cancelButtonName", comment: "Text displayed like name of cance button")
+        let fix = NSLocalizedString("trackerView.uiMenu.fix",
+                                    comment: "Text displayed context menu settings")
+        let unFix = NSLocalizedString("trackerView.uiMenu.unFix",
+                                      comment: "Text displayed context menu settings")
+        let edit = NSLocalizedString("trackerView.uiMenu.edit",
+                                     comment: "Text displayed context menu settings")
+        let delete = NSLocalizedString("trackerView.uiMenu.delete",
+                                       comment: "Text displayed context menu settings")
+        let deleteMassage = NSLocalizedString("trackerView.uiMenu.deleteMessage",
+                                              comment: "Text displayed in alarm")
+        let cancelButtonName = NSLocalizedString("createNewHabitView.cancelButtonName",
+                                                 comment: "Text displayed like name of cance button")
 
         let indexPath = indexPaths[0]
 

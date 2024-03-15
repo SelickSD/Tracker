@@ -4,9 +4,7 @@
 //
 //  Created by Сергей Денисенко on 23.01.2024.
 //
-
 import UIKit
-
 final class CategoriesTableViewCell: UITableViewCell {
     static let identifier = "CategoriesTableViewCell"
 
@@ -24,7 +22,6 @@ final class CategoriesTableViewCell: UITableViewCell {
         button.clipsToBounds = true
         button.setImage(UIImage(named: "Done"), for: .normal)
         button.tintColor = .ypBlack
-        button.addTarget(self, action: #selector(didTapNextButton), for: .touchUpInside)
         button.isHidden = true
         return button
     }()
@@ -40,13 +37,8 @@ final class CategoriesTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    @objc private func didTapNextButton() {
-        //TODO
-    }
-
     func configCell(rowOfCell: Int, maxCount: Int, category: String) {
         titleLabel.text = category
-
         if maxCount == 1 {
             self.layer.masksToBounds = true
             self.layer.cornerRadius = 10

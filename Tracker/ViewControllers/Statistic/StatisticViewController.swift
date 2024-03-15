@@ -4,12 +4,9 @@
 //
 //  Created by Сергей Денисенко on 30.11.2023.
 //
-
 import UIKit
 final class StatisticViewController: UIViewController {
-
     private let indicators: [Indicators] = [.bestPeriod, .idealDays, .completedTrackers, .averageValue]
-
     private lazy var dataProvider: DataProviderProtocol? = {
         return DataProvider()
     }()
@@ -58,7 +55,6 @@ final class StatisticViewController: UIViewController {
             setupBlankView()
             return
         }
-
         if objects.isEmpty {
             setupBlankView()
         } else {
@@ -67,7 +63,6 @@ final class StatisticViewController: UIViewController {
     }
 
     private func getCount(indicator: Indicators) -> Int {
-
         var count = 0
         switch indicator {
         case .averageValue:
@@ -91,7 +86,6 @@ final class StatisticViewController: UIViewController {
     private func averageValue(trackers: [TrackerRecord]) -> Int {
         let count = trackers.count
         var period: [Date] = []
-
         for value in trackers {
             if let date = value.date.ignoringTime  {
                 if !period.contains(date) {
@@ -109,7 +103,6 @@ final class StatisticViewController: UIViewController {
         var count = 0
         var newCount = 1
         var period: [Date] = []
-
         for value in trackers {
             if let date = value.date.ignoringTime  {
                 if !period.contains(date) {
@@ -117,19 +110,14 @@ final class StatisticViewController: UIViewController {
                 }
             }
         }
-
         let newPeriod = period.sorted()
-
         if period.isEmpty {
             return 0
         }
-
         if period.count == 1 {
             return 1
         }
-
         for i in 0...newPeriod.count - 2 {
-
             if let days = Calendar.current.dateComponents([.day], from: newPeriod[i], to: newPeriod[i + 1]).day {
                 if days <= 1 {
                     newCount += 1
@@ -153,7 +141,6 @@ final class StatisticViewController: UIViewController {
         var goalPeriod: [Date: Int] = [:]
         var allTrack: [Tracker] = []
         var period: [Date] = []
-
         for value in trackers {
             if let date = value.date.ignoringTime  {
                 if !period.contains(date) {
@@ -166,13 +153,11 @@ final class StatisticViewController: UIViewController {
                 }
             }
         }
-
         for value in category {
             value.trackers.forEach{
                 allTrack.append($0)
             }
         }
-
         for day in period {
             let weekday = Calendar.current.component(.weekday, from: day)
             for trackValue in allTrack {
@@ -187,7 +172,6 @@ final class StatisticViewController: UIViewController {
                 }
             }
         }
-
         for (_, value) in completePeriod.enumerated() {
             if let goalValue = goalPeriod[value.key] {
                 if value.value == goalValue {
@@ -200,10 +184,8 @@ final class StatisticViewController: UIViewController {
 
     private func setupBlankView() {
         view.backgroundColor = .ypWhite
-
         [statisticTableView].forEach { $0.removeFromSuperview() }
         [emptyView, openingLabel].forEach{ view.addSubview($0) }
-
         NSLayoutConstraint.activate([
             emptyView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             emptyView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
@@ -215,9 +197,7 @@ final class StatisticViewController: UIViewController {
 
     private func setupView(){
         [emptyView, openingLabel].forEach { $0.removeFromSuperview() }
-
         view.addSubview(statisticTableView)
-
         NSLayoutConstraint.activate([
             statisticTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 90),
             statisticTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
@@ -238,9 +218,7 @@ extension StatisticViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: StatisticCell.identifier, for: indexPath) as? StatisticCell else {
             return UITableViewCell()
         }
-
         let indicator = indicators[indexPath.row]
-
         cell.setInformation(name: indicator.nameString, count: getCount(indicator: indicator))
         return cell
     }

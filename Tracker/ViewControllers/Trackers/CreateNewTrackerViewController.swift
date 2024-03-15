@@ -4,29 +4,26 @@
 //
 //  Created by Сергей Денисенко on 11.12.2023.
 //
-
 import UIKit
-
 final class CreateNewTrackerViewController: UIViewController,
                                             CreateNewHabitViewControllerDelegate {
 
     weak var delegate: TrackersViewControllerDelegate?
+    private var isReady = false
 
     private lazy var pageNameLabel: UILabel = {
-        let pageName = NSLocalizedString("createNewTrackerView.pageName", comment: "Text displayed like page name")
+        let pageName = NSLocalizedString("createNewTrackerView.pageName", 
+                                         comment: "Text displayed like page name")
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.clipsToBounds = true
         label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         label.text = pageName
         return label
     }()
 
     private lazy var createHabitButton: UIButton = {
-        let createHabitButtonName = NSLocalizedString("createNewTrackerView.createHabitButtonName", comment: "Text displayed like name of create habit button")
+        let createHabitButtonName = NSLocalizedString("createNewTrackerView.createHabitButtonName", 
+                                                      comment: "Text displayed like name of create habit button")
         let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.clipsToBounds = true
         button.backgroundColor = .ypBlack
         button.tintColor = .ypWhite
         button.setTitle(createHabitButtonName, for: .normal)
@@ -37,10 +34,9 @@ final class CreateNewTrackerViewController: UIViewController,
     }()
 
     private lazy var createEventButton: UIButton = {
-        let createEventButtonName = NSLocalizedString("createNewTrackerView.createEventButtonName", comment: "Text displayed like name of create event button")
+        let createEventButtonName = NSLocalizedString("createNewTrackerView.createEventButtonName", 
+                                                      comment: "Text displayed like name of create event button")
         let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.clipsToBounds = true
         button.backgroundColor = .ypBlack
         button.tintColor = .ypWhite
         button.setTitle(createEventButtonName, for: .normal)
@@ -50,11 +46,8 @@ final class CreateNewTrackerViewController: UIViewController,
         return button
     }()
 
-    private var isReady = false
-
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setupView()
     }
 
@@ -76,12 +69,12 @@ final class CreateNewTrackerViewController: UIViewController,
     }
 
     private func setupView() {
-
         view.backgroundColor = .ypWhite
-        view.addSubview(pageNameLabel)
-        view.addSubview(createHabitButton)
-        view.addSubview(createEventButton)
-
+        [pageNameLabel, createHabitButton, createEventButton].forEach{
+            $0.clipsToBounds = true
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview($0)
+        }
         NSLayoutConstraint.activate([
             pageNameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             pageNameLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),

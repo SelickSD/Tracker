@@ -4,12 +4,9 @@
 //
 //  Created by Сергей Денисенко on 11.03.2024.
 //
-
 import UIKit
 import CoreData
-
 final class FixedTrackersStore: FixedTrackersStoreProtocol {
-
     private let context: NSManagedObjectContext
     private let entityName = "FixedTrackersCD"
 

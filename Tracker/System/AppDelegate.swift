@@ -4,13 +4,11 @@
 //
 //  Created by Сергей Денисенко on 29.11.2023.
 //
-
 import UIKit
 import CoreData
 import YandexMobileMetrica
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "TrackerDB")
         container.loadPersistentStores { description, error in
@@ -22,7 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-
         AnalyticsService.activate()
         DaysValueTransformer.register()
         UIColorValueTransformer.register()

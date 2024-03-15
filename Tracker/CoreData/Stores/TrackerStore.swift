@@ -4,12 +4,9 @@
 //
 //  Created by Сергей Денисенко on 27.02.2024.
 //
-
 import UIKit
 import CoreData
-
 final class TrackerStore: TrackerDataStore {
-
     private let context: NSManagedObjectContext
     private let entityName = "TrackerCD"
 
@@ -30,7 +27,6 @@ final class TrackerStore: TrackerDataStore {
         managedRecord.emoji = tracker.emoji
         managedRecord.schedule = tracker.schedule as NSObject
         managedRecord.category = category
-
         saveContext()
     }
 
@@ -60,7 +56,6 @@ final class TrackerStore: TrackerDataStore {
         let request = NSFetchRequest<TrackerCD>(entityName: entityName)
         request.predicate = NSPredicate(format: "%K == %@", #keyPath(TrackerCD.trackerId), trackerId as CVarArg)
         guard let trackerCD = try? context.fetch(request) else { return }
-
         trackerCD.forEach{ context.delete($0) }
         saveContext()
     }

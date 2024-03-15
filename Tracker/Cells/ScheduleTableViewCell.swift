@@ -4,9 +4,7 @@
 //
 //  Created by Сергей Денисенко on 14.12.2023.
 //
-
 import UIKit
-
 final class ScheduleTableViewCell: UITableViewCell {
     static let identifier = "ScheduleTableViewCell"
 
@@ -31,7 +29,6 @@ final class ScheduleTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.clipsToBounds = true
         self.selectionStyle = .none
-
         setupView()
     }
 

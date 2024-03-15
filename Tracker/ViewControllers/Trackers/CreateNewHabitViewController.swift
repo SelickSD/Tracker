@@ -4,29 +4,25 @@
 //
 //  Created by Сергей Денисенко on 11.12.2023.
 //
-
 import UIKit
-
 final class CreateNewHabitViewController: UIViewController,
                                           CategoryViewControllerDelegate,
                                           ScheduleViewControllerDelegate {
 
     var isEvent = false
     weak var delegate: CreateNewHabitViewControllerDelegate?
-
     private let emojis = [
         "🙂", "😻", "🌺", "🐶", "❤️", "😱",
         "😇", "😡", "🥶", "🤔", "🙌", "🍔",
         "🥦", "🏓", "🥇", "🎸", "🏝️", "😪"
     ]
-
     private let colours = [
         "FD4C49", "FF881E", "007BFA", "6E44FE", "33CF69", "E66DD4",
         "F9D4D4", "34A7FE", "46E69D", "35347C", "FF674D", "FF99CC",
         "F6C48B", "7994F5", "832CF1", "AD56DA", "8D72E6", "2FD058"
     ]
-    private let dayOfWeek: [DayOfWeek] = [.monday, .tuesday, .wednesday, .thursday, .friday, .saturday, .sunday]
-
+    private let dayOfWeek: [DayOfWeek] = [.monday, .tuesday, .wednesday,
+                                          .thursday, .friday, .saturday, .sunday]
     private var configCells: [String: IndexPath] = [:]
     private var newTrackerName: String?
     private var category: Int?
@@ -35,7 +31,8 @@ final class CreateNewHabitViewController: UIViewController,
     private var trackerID: UUID?
 
     private lazy var pageNameLabel: UILabel = {
-        let pageName = NSLocalizedString("createNewHabitView.pageName", comment: "Text displayed like page name")
+        let pageName = NSLocalizedString("createNewHabitView.pageName",
+                                         comment: "Text displayed like page name")
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.clipsToBounds = true
@@ -64,7 +61,8 @@ final class CreateNewHabitViewController: UIViewController,
     }()
 
     private lazy var habitTextField: UITextField = {
-        let textFieldPlaceholder = NSLocalizedString("createNewHabitView.textField.placeholder", comment: "Text displayed like placeholder")
+        let textFieldPlaceholder = NSLocalizedString("createNewHabitView.textField.placeholder",
+                                                     comment: "Text displayed like placeholder")
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.clipsToBounds = true
@@ -106,7 +104,8 @@ final class CreateNewHabitViewController: UIViewController,
     }()
 
     private lazy var cancelButton: UIButton = {
-        let cancelButtonName = NSLocalizedString("createNewHabitView.cancelButtonName", comment: "Text displayed like name of cance button")
+        let cancelButtonName = NSLocalizedString("createNewHabitView.cancelButtonName",
+                                                 comment: "Text displayed like name of cance button")
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.clipsToBounds = true
@@ -122,7 +121,8 @@ final class CreateNewHabitViewController: UIViewController,
     }()
 
     private lazy var createButton: UIButton = {
-        let createButtonName = NSLocalizedString("createNewHabitView.createButtonName", comment: "Text displayed like name of create button")
+        let createButtonName = NSLocalizedString("createNewHabitView.createButtonName",
+                                                 comment: "Text displayed like name of create button")
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.clipsToBounds = true
@@ -149,7 +149,6 @@ final class CreateNewHabitViewController: UIViewController,
         self.categories = categories
         trackerID = trackerCategory.trackers[0].id
         choseDay = trackerCategory.trackers[0].schedule
-
         var colorIndex = 0
         var emojiIndex = 0
         var categoryIndex = 0
@@ -261,7 +260,6 @@ final class CreateNewHabitViewController: UIViewController,
 
         let equalHeight = contentView.heightAnchor.constraint(equalToConstant: 850)
         equalHeight.priority = UILayoutPriority(250)
-
         var mainTableViewHeightAnchor = mainTableView.heightAnchor.constraint(equalToConstant: 210)
 
         if isEvent {
@@ -374,7 +372,6 @@ extension CreateNewHabitViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MainTableViewCell.identifier, for: indexPath) as? MainTableViewCell else {
             return UITableViewCell()
         }
@@ -395,7 +392,6 @@ extension CreateNewHabitViewController: UITableViewDataSource {
         default:
             break
         }
-
         cell.configCell(rowOfCell: indexPath.row, maxCount: maxRows)
         if !isEvent{
             if indexPath.row == 0 {
@@ -412,7 +408,6 @@ extension CreateNewHabitViewController: UITableViewDataSource {
 
 //MARK: -UICollectionViewDelegateFlowLayout
 extension CreateNewHabitViewController: UICollectionViewDelegateFlowLayout {
-
     private var params: GeometricParams {
         return GeometricParams(cellCount: 2,
                                leftInset: 10,
@@ -436,7 +431,6 @@ extension CreateNewHabitViewController: UICollectionViewDelegateFlowLayout {
 
 //MARK: -UICollectionViewDataSource
 extension CreateNewHabitViewController: UICollectionViewDataSource {
-
     func numberOfSections(in: UICollectionView) -> Int {
         return 2
     }
@@ -509,13 +503,11 @@ extension CreateNewHabitViewController: UICollectionViewDataSource {
         default:
             break
         }
-
         return view
     }
 }
 
 extension CreateNewHabitViewController: UICollectionViewDelegate {
-
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         view.endEditing(true)
         let tmpConfig = configCells
@@ -528,9 +520,7 @@ extension CreateNewHabitViewController: UICollectionViewDelegate {
         default:
             break
         }
-
         checkWellDone()
-
         for (key, value) in configCells {
             if tmpConfig[key] != value && key == "Emoji" {
                 guard let index = tmpConfig[key] else {

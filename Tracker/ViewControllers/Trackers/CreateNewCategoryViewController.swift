@@ -4,29 +4,24 @@
 //
 //  Created by Сергей Денисенко on 24.01.2024.
 //
-
 import UIKit
-
 final class CreateNewCategoryViewController: UIViewController {
-
     weak var delegate: CreateNewCategoryViewControllerDelegate?
     private var newCategoryName: String?
     
     private lazy var pageNameLabel: UILabel = {
-        let pageName = NSLocalizedString("createNewCategory.pageName", comment: "Text displayed like page name")
+        let pageName = NSLocalizedString("createNewCategory.pageName", 
+                                         comment: "Text displayed like page name")
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.clipsToBounds = true
         label.text = pageName
         label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         return label
     }()
 
     private lazy var categoryTextField: UITextField = {
-        let categoryTextFieldPlaceholder = NSLocalizedString("createNewCategory.categoryTextField.placeholder", comment: "Text displayed like placeholder")
+        let categoryTextFieldPlaceholder = NSLocalizedString("createNewCategory.categoryTextField.placeholder", 
+                                                             comment: "Text displayed like placeholder")
         let textField = UITextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.clipsToBounds = true
         textField.placeholder = categoryTextFieldPlaceholder
         textField.autocapitalizationType = .none
         textField.backgroundColor = .systemGray6
@@ -40,10 +35,9 @@ final class CreateNewCategoryViewController: UIViewController {
     }()
 
     private lazy var createButton: UIButton = {
-        let doneButtonName = NSLocalizedString("createNewCategory.doneButtonName", comment: "Text displayed like name of Done button")
+        let doneButtonName = NSLocalizedString("createNewCategory.doneButtonName", 
+                                               comment: "Text displayed like name of Done button")
         let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.clipsToBounds = true
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .lightGray
         button.isEnabled = false
@@ -55,7 +49,6 @@ final class CreateNewCategoryViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setupView()
         setupGestures()
     }
@@ -89,11 +82,11 @@ final class CreateNewCategoryViewController: UIViewController {
 
     private func setupView() {
         view.backgroundColor = .ypWhite
-
-        view.addSubview(pageNameLabel)
-        view.addSubview(categoryTextField)
-        view.addSubview(createButton)
-
+        [pageNameLabel, categoryTextField, createButton].forEach{
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            $0.clipsToBounds = true
+            view.addSubview($0)
+        }
         NSLayoutConstraint.activate([
             pageNameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             pageNameLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
