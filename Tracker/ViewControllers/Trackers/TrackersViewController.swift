@@ -370,13 +370,21 @@ final class TrackersViewController: UIViewController,
         case .allTrackers:
             for value in categories {
                 if !value.trackers.isEmpty {
-                    filterDateCategories.append(value)
+                    let tempTrackers = checkTrackers(trackers: value.trackers)
+                    if !tempTrackers.isEmpty {
+                        filterDateCategories.append(TrackerCategory(name: value.name, trackers: tempTrackers))
+                    }
                 }
             }
         case .completedTrackers:
             var trackerID: [UUID] = []
+            guard let currentPeriod = currentDate.ignoringTime else {return}
             completedTrackers.forEach{
-                trackerID.append($0.id)
+                if let newPeriod = $0.date.ignoringTime {
+                    if Calendar.current.compare(newPeriod, to: currentPeriod, toGranularity: .day) == .orderedSame {
+                        trackerID.append($0.id)
+                    }
+                }
             }
             for category in categories {
                 for tracker in category.trackers {
@@ -385,14 +393,22 @@ final class TrackersViewController: UIViewController,
                     }
                 }
                 if !tracks.isEmpty {
-                    filterDateCategories.append(TrackerCategory(name: category.name, trackers: tracks))
+                    let tmpTrackers = checkTrackers(trackers: tracks)
+                    if !tmpTrackers.isEmpty {
+                        filterDateCategories.append(TrackerCategory(name: category.name, trackers: tracks))
+                    }
                     tracks = []
                 }
             }
         case .openTrackers:
             var trackerID: [UUID] = []
+            guard let currentPeriod = currentDate.ignoringTime else {return}
             completedTrackers.forEach{
-                trackerID.append($0.id)
+                if let newPeriod = $0.date.ignoringTime {
+                    if Calendar.current.compare(newPeriod, to: currentPeriod, toGranularity: .day) == .orderedSame {
+                        trackerID.append($0.id)
+                    }
+                }
             }
             for category in categories {
                 for tracker in category.trackers {
@@ -401,7 +417,11 @@ final class TrackersViewController: UIViewController,
                     }
                 }
                 if !tracks.isEmpty {
-                    filterDateCategories.append(TrackerCategory(name: category.name, trackers: tracks))
+                    let tmpTrackers = checkTrackers(trackers: tracks)
+                    print(tmpTrackers.count)
+                    if !tmpTrackers.isEmpty {
+                        filterDateCategories.append(TrackerCategory(name: category.name, trackers: tracks))
+                    }
                     tracks = []
                 }
             }
