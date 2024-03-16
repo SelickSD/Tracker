@@ -312,14 +312,12 @@ final class TrackersViewController: UIViewController,
                                                            target: self,
                                                            action: #selector(addTapped))
         navigationItem.leftBarButtonItem?.tintColor = .ypBlack
-
         view.addSubview(searchBar)
-
         NSLayoutConstraint.activate([
             searchBar.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
+            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8)
         ])
 
     }
@@ -344,8 +342,8 @@ final class TrackersViewController: UIViewController,
             filtersButton.widthAnchor.constraint(equalToConstant: 114),
 
             backgroundScrollView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
-            backgroundScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            backgroundScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            backgroundScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
+            backgroundScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
             backgroundScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 
             contentView.topAnchor.constraint(equalTo: backgroundScrollView.topAnchor),
