@@ -342,8 +342,8 @@ final class TrackersViewController: UIViewController,
             filtersButton.widthAnchor.constraint(equalToConstant: 114),
 
             backgroundScrollView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
-            backgroundScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
-            backgroundScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
+            backgroundScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            backgroundScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             backgroundScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 
             contentView.topAnchor.constraint(equalTo: backgroundScrollView.topAnchor),
@@ -354,8 +354,8 @@ final class TrackersViewController: UIViewController,
             equalHeight,
 
             trackersCollectionView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
-            trackersCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            trackersCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            trackersCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
+            trackersCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
             trackersCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
