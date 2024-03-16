@@ -7,13 +7,17 @@
 
 import XCTest
 import SnapshotTesting
+import UIKit
 @testable import Tracker
 
 final class TrackerTests: XCTestCase {
 
     func testViewController() {
-        let tracer = TrackersViewController()
-        assertSnapshot(matching: tracer, as: .image)
+        let tracker = TrackersViewController()
+        if tracker.traitCollection.userInterfaceStyle == .light {
+            assertSnapshot(matching: tracker, as: .image(traits: .init(userInterfaceStyle: .light)))
+        } else {
+            assertSnapshot(matching: tracker, as: .image(traits: .init(userInterfaceStyle: .dark)))
+        }
     }
-
 }
