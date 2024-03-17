@@ -81,6 +81,7 @@ extension FiltersViewController: UITableViewDelegate {
         guard let oldDone = getDoneIndexPath() else {
             let cell = tableView.cellForRow(at: indexPath) as? CategoriesTableViewCell
             cell?.makeDone()
+            self.dismiss(animated: true)
             return
         }
         if oldDone == indexPath {
@@ -95,6 +96,7 @@ extension FiltersViewController: UITableViewDelegate {
             cell?.makeDone()
             oldCell?.makeDone()
             chooseFilter = filters[indexPath.row]
+            self.dismiss(animated: true)
         }
     }
 }

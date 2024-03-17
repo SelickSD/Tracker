@@ -324,11 +324,9 @@ final class TrackersViewController: UIViewController,
             searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
             searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8)
         ])
-
     }
 
     private func setupView(){
-
         [emptyView,
          openingLabel].forEach { $0.removeFromSuperview() }
 
@@ -440,7 +438,8 @@ final class TrackersViewController: UIViewController,
 
     private func configFilterCategoriesWithFixedTrackers() {
         guard !fixedTrackers.isEmpty else {return}
-        let tracks = checkTrackers(trackers: fixedTrackers)
+        let checkTracks = checkTrackers(trackers: fixedTrackers)
+        let tracks = checkFilters(trackers: checkTracks)
         guard !tracks.isEmpty else {return}
         let fixCategoryName = NSLocalizedString("trackerView.fixedCategoryName", comment: "Fixed Category name")
         let oldFilterCategories = filterDateCategories
@@ -461,6 +460,47 @@ final class TrackersViewController: UIViewController,
                 tempTrackers = []
             }
         }
+    }
+
+    private func checkFilters(trackers: [Tracker]) -> [Tracker] {
+        var tracks: [Tracker] = []
+        switch chooseFilter {
+        case .allTrackers:
+            tracks = trackers
+        case .completedTrackers:
+            var trackerID: [UUID] = []
+            guard let currentPeriod = currentDate.ignoringTime else {return []}
+            completedTrackers.forEach{
+                if let newPeriod = $0.date.ignoringTime {
+                    if Calendar.current.compare(newPeriod, to: currentPeriod, toGranularity: .day) == .orderedSame {
+                        trackerID.append($0.id)
+                    }
+                }
+            }
+            for tracker in trackers {
+                if trackerID.contains(tracker.id) {
+                    tracks.append(tracker)
+                }
+            }
+        case .openTrackers:
+            var trackerID: [UUID] = []
+            guard let currentPeriod = currentDate.ignoringTime else {return []}
+            completedTrackers.forEach{
+                if let newPeriod = $0.date.ignoringTime {
+                    if Calendar.current.compare(newPeriod, to: currentPeriod, toGranularity: .day) == .orderedSame {
+                        trackerID.append($0.id)
+                    }
+                }
+            }
+            for tracker in trackers {
+                if !trackerID.contains(tracker.id) {
+                    tracks.append(tracker)
+                }
+            }
+        case .thisDay:
+            tracks = trackers
+        }
+        return tracks
     }
 
     private func checkTrackers(trackers: [Tracker]) -> [Tracker] {
