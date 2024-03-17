@@ -117,6 +117,21 @@ final class TrackersViewController: UIViewController,
         return button
     }()
 
+    private lazy var clearFiltersButton: UIButton = {
+        let createHabitButtonName = NSLocalizedString("trackerView.filterButtonName",
+                                                      comment: "Text displayed like name of filter button")
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.clipsToBounds = true
+        button.backgroundColor = Colors().buttonDisabledColor
+        button.tintColor = .ypWhite
+        button.setTitle(createHabitButtonName, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+        button.layer.cornerRadius = 16
+        button.addTarget(self, action: #selector(didTapFiltersButton), for: .touchUpInside)
+        return button
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         updateCategoriesFromCoreData()
@@ -293,21 +308,51 @@ final class TrackersViewController: UIViewController,
 
     private func setupBlankView() {
         view.backgroundColor = .ypWhite
-
         [backgroundScrollView,
          contentView,
          trackersCollectionView,
          filtersButton].forEach { $0.removeFromSuperview() }
-        [emptyView,
-         openingLabel].forEach{ view.addSubview($0) }
 
-        NSLayoutConstraint.activate([
-            emptyView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            emptyView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+        if chooseFilter == .allTrackers && currentTracker.isEmpty {
+            let openingLabelText = NSLocalizedString("trackerView.openingLabelText",
+                                                     comment: "Text displayed like page description")
+            let image = UIImage(named: "Star")
+            emptyView.image = image
+            openingLabel.text = openingLabelText
 
-            openingLabel.topAnchor.constraint(equalTo: emptyView.bottomAnchor, constant: 8),
-            openingLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-        ])
+            [emptyView,
+             openingLabel].forEach{ view.addSubview($0) }
+
+            NSLayoutConstraint.activate([
+                emptyView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                emptyView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+
+                openingLabel.topAnchor.constraint(equalTo: emptyView.bottomAnchor, constant: 8),
+                openingLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            ])
+        } else {
+            let openingLabelText = NSLocalizedString("trackerView.openingLabelTextWithFilter",
+                                                     comment: "Text displayed like page description")
+            let image = UIImage(named: "Filter")
+            emptyView.image = image
+            openingLabel.text = openingLabelText
+
+            [clearFiltersButton, emptyView,
+             openingLabel].forEach{ view.addSubview($0) }
+
+            NSLayoutConstraint.activate([
+                clearFiltersButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+                clearFiltersButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                clearFiltersButton.heightAnchor.constraint(equalToConstant: 50),
+                clearFiltersButton.widthAnchor.constraint(equalToConstant: 114),
+
+                emptyView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                emptyView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+
+                openingLabel.topAnchor.constraint(equalTo: emptyView.bottomAnchor, constant: 8),
+                openingLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            ])
+        }
     }
 
     private func setupUIBarButtonItem(){
@@ -328,7 +373,7 @@ final class TrackersViewController: UIViewController,
 
     private func setupView(){
         [emptyView,
-         openingLabel].forEach { $0.removeFromSuperview() }
+         openingLabel, clearFiltersButton].forEach { $0.removeFromSuperview() }
 
         view.addSubview(backgroundScrollView)
         view.addSubview(filtersButton)

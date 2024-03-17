@@ -20,6 +20,7 @@
 "trackerView.uiMenu.delete" = "Удалить";
 "trackerView.uiMenu.deleteMessage" = "Уверены что хотите удалить трекер?";
 "trackerView.filterButtonName" = "Фильтры";
+"trackerView.openingLabelTextWithFilter" = "Ничего не найдено";
 
 //MARK: CreateNewTrackerViewController
 "createNewTrackerView.pageName" = "Создание трекера";
