@@ -321,6 +321,7 @@ final class TrackersViewController: UIViewController,
             let image = UIImage(named: "Star")
             emptyView.image = image
             openingLabel.text = openingLabelText
+            clearFiltersButton.removeFromSuperview()
 
             [emptyView,
              openingLabel].forEach{ view.addSubview($0) }
