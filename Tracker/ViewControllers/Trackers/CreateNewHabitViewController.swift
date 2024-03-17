@@ -7,10 +7,11 @@
 import UIKit
 final class CreateNewHabitViewController: UIViewController,
                                           CategoryViewControllerDelegate,
-                                          ScheduleViewControllerDelegate {
+                                          ScheduleViewControllerDelegate,
+                                          CreateNewHabitProtocol {
 
     var isEvent = false
-    weak var delegate: CreateNewHabitViewControllerDelegate?
+    weak var delegate: TrackersViewControllerDelegate?
     private let emojis = [
         "🙂", "😻", "🌺", "🐶", "❤️", "😱",
         "😇", "😡", "🥶", "🤔", "🙌", "🍔",

@@ -7,4 +7,5 @@
 import Foundation
 protocol TrackersViewControllerDelegate: AnyObject {
     func fetchNewTrack(newHabit: TrackerCategory)
+    func presentView(vc: CreateNewHabitProtocol)
 }

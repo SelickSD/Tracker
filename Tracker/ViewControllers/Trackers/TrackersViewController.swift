@@ -10,7 +10,6 @@ final class TrackersViewController: UIViewController,
                                     TrackersViewControllerDelegate,
                                     UIGestureRecognizerDelegate,
                                     UISearchBarDelegate,
-                                    CreateNewHabitViewControllerDelegate,
                                     FilterViewDelegate {
 
     private var categories: [TrackerCategory] = []
@@ -147,6 +146,12 @@ final class TrackersViewController: UIViewController,
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         AnalyticsService.report(event: "close", params: ["screen":"Main"])
+    }
+
+    func presentView(vc: CreateNewHabitProtocol) {
+        guard let viewController = vc as? CreateNewHabitViewController else {return}
+        viewController.delegate = self
+        self.present(viewController, animated: true)
     }
 
     func didTapPlusButton(id: UUID) {
@@ -416,7 +421,6 @@ final class TrackersViewController: UIViewController,
                 }
                 if !tracks.isEmpty {
                     let tmpTrackers = checkTrackers(trackers: tracks)
-                    print(tmpTrackers.count)
                     if !tmpTrackers.isEmpty {
                         filterDateCategories.append(TrackerCategory(name: category.name, trackers: tracks))
                     }

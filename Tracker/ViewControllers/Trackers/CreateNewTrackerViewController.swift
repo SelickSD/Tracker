@@ -57,15 +57,15 @@ final class CreateNewTrackerViewController: UIViewController,
 
     @objc private func didTapCreateHabitButton() {
         let newHabitViewController = CreateNewHabitViewController()
-        newHabitViewController.delegate = self
-        self.present(newHabitViewController, animated: true)
+        self.dismiss(animated: true)
+        delegate?.presentView(vc: newHabitViewController)
     }
 
     @objc private func didTapCreateEventButton() {
         let newHabitViewController = CreateNewHabitViewController()
-        newHabitViewController.delegate = self
         newHabitViewController.isEvent = true
-        self.present(newHabitViewController, animated: true)
+        self.dismiss(animated: true)
+        delegate?.presentView(vc: newHabitViewController)
     }
 
     private func setupView() {
