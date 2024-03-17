@@ -274,6 +274,8 @@ final class TrackersViewController: UIViewController,
         } else if !filterDateCategories.isEmpty && isBlankView {
             setupView()
             isBlankView = false
+        } else if filterDateCategories.isEmpty && isBlankView {
+            setupBlankView()
         }
     }
 
