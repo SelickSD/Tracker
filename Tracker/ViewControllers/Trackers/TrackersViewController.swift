@@ -170,7 +170,7 @@ final class TrackersViewController: UIViewController,
     }
 
     func didTapPlusButton(id: UUID) {
-        AnalyticsService.report(event: "click", params: ["track": "Main"])
+        AnalyticsService.report(event: "click", params: ["screen":"Main", "item" : "track"])
         completedTrackers.append(TrackerRecord(id: id, date: currentDate))
         dataProvider?.addRecord(record: TrackerRecord(id: id, date: currentDate))
         updateFilterCategories()
@@ -223,7 +223,7 @@ final class TrackersViewController: UIViewController,
     }
 
     @objc private func didTapFiltersButton() {
-        AnalyticsService.report(event: "click", params: ["filter": "Main"])
+        AnalyticsService.report(event: "click", params: ["screen":"Main", "item" : "filter"])
         let filterView = FiltersViewController()
         filterView.delegate = self
         filterView.setupTableView(chooseFilter: chooseFilter)
@@ -246,7 +246,7 @@ final class TrackersViewController: UIViewController,
     }
 
     @objc private func addTapped() {
-        AnalyticsService.report(event: "click", params: ["add_track": "Main"])
+        AnalyticsService.report(event: "click", params: ["screen":"Main", "item" : "add_track"])
         resetCurrentDate()
         let createNewTrackerViewController = CreateNewTrackerViewController()
         createNewTrackerViewController.delegate = self
@@ -648,7 +648,7 @@ final class TrackersViewController: UIViewController,
     }
 
     private func editTracker(indexPath: IndexPath) {
-        AnalyticsService.report(event: "click", params: ["edit": "Main"])
+        AnalyticsService.report(event: "click", params: ["screen":"Main", "item" : "edit"])
         let tracker = filterDateCategories[indexPath.section].trackers[indexPath.row]
         let newHabitViewController = CreateNewHabitViewController()
         newHabitViewController.delegate = self
@@ -663,7 +663,7 @@ final class TrackersViewController: UIViewController,
     }
 
     private func deleteTracker(indexPath: IndexPath) {
-        AnalyticsService.report(event: "click", params: ["delete": "Main"])
+        AnalyticsService.report(event: "click", params: ["screen":"Main", "item" : "delete"])
         let tracker = filterDateCategories[indexPath.section].trackers[indexPath.row]
 
         dataProvider?.deleteTracker(tracker: tracker)
