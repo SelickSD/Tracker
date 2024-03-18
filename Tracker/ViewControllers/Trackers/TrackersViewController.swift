@@ -564,8 +564,11 @@ final class TrackersViewController: UIViewController,
                 })
             })
         } else {
+            var data:[String] = []
+            trackers.forEach{ data.append($0.name) }
+            let filteredData = data.filter { $0.lowercased().contains(currentTracker.lowercased())}
             trackers.forEach({ track in
-                if track.name == currentTracker {
+                if filteredData.contains(track.name) {
                     track.schedule.forEach({ dayOfWeek in
                         if weekday == dayOfWeek.rawValue {
                             tracks.append(track)
