@@ -4,14 +4,11 @@
 //
 //  Created by Сергей Денисенко on 30.11.2023.
 //
-
 import UIKit
 
 final class TabBarController: UITabBarController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
-
         view.backgroundColor = .ypWhite
         setupTabBarController()
     }
@@ -48,9 +45,11 @@ extension TabBarController {
         var label: String {
             switch self {
             case .trackers:
-                return "Трекеры"
+                return NSLocalizedString("tabBar.trackers", 
+                                         comment: "Text displayed track name")
             case .statistic:
-                return "Статистика"
+                return NSLocalizedString("tabBar.statistic", 
+                                         comment: "Text displayed track name")
             }
         }
 

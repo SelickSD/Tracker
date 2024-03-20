@@ -1,0 +1,100 @@
+/* 
+  Localizable.strings
+  Tracker
+
+  Created by Сергей Денисенко on 11.03.2024.
+  
+*/
+//MARK: CategoryViewController
+"categoryView.pageName" = "Category";
+"categoryView.description" = "Habits and events can be combined by meaning";
+"categoryView.doneButtonName" = "Add category";
+
+//MARK: TrackersViewController
+"trackerView.openingLabelText" = "What will we track?";
+"trackerView.searchBar.placeholder" = "Search";
+"trackerView.fixedCategoryName" = "Pinned";
+"trackerView.uiMenu.fix" = "Pin";
+"trackerView.uiMenu.unFix" = "Unpin";
+"trackerView.uiMenu.edit" = "Edit";
+"trackerView.uiMenu.delete" = "Delete";
+"trackerView.uiMenu.deleteMessage" = "Are you sure you want to delete the tracker?";
+"trackerView.filterButtonName" = "Filters";
+"trackerView.openingLabelTextWithFilter" = "Nothing found";
+
+//MARK: CreateNewTrackerViewController
+"createNewTrackerView.pageName" = "Creating a tracker";
+"createNewTrackerView.createHabitButtonName" = "Habit";
+"createNewTrackerView.createEventButtonName" = "Not a regular event";
+
+//MARK: CreateNewHabitViewController
+"createNewHabitView.pageName" = "New habit";
+"createNewHabitView.cellEmojiName" = "Emoji";
+"createNewHabitView.cellColorName" = "Color";
+"createNewHabitView.textField.placeholder" = "Enter tracker name";
+"createNewHabitView.cancelButtonName" = "Cancel";
+"createNewHabitView.createButtonName" = "Create";
+
+//MARK: ScheduleViewController
+"scheduleView.pageName" = "Schedule";
+"scheduleView.doneButtonName" = "Ready";
+
+//MARK: CreateNewCategoryViewController
+"createNewCategory.pageName" = "New category";
+"createNewCategory.categoryTextField.placeholder" = "Enter category name";
+"createNewCategory.doneButtonName" = "Ready";
+
+//MARK: TrackersCell
+"trackersCell.cellDateName" = "0 days";
+
+//MARK: MainTableViewCell
+"mainTableViewCell.categoryCellName" = "Category";
+"mainTableViewCell.scheduleCellName" = "Schedule";
+
+//MARK: PagesViewController
+"pagesView.cancelButtonName" = "This is technology!";
+
+//MARK: PagesSettings
+"pagesSettings.fistPage" = "Track only what you want";
+"pagesSettings.secondPage" = "Even if it's not liters of water and yoga";
+
+//MARK: DayOfWeek
+"dayOfWeek.monday" = "Monday";
+"dayOfWeek.tuesday" = "Tuesday";
+"dayOfWeek.wednesday" = "Wednesday";
+"dayOfWeek.thursday" = "Thursday";
+"dayOfWeek.friday" = "Friday";
+"dayOfWeek.saturday" = "Saturday";
+"dayOfWeek.sunday" = "Sunday";
+
+"dayOfWeek.short.monday" = "Mon";
+"dayOfWeek.short.tuesday" = "Tue";
+"dayOfWeek.short.wednesday" = "Wed";
+"dayOfWeek.short.thursday" = "Thu";
+"dayOfWeek.short.friday" = "Fri";
+"dayOfWeek.short.saturday" = "Sat";
+"dayOfWeek.short.sunday" = "Sun";
+
+//MARK: Filters
+"filters.allTrackers" = "All trackers";
+"filters.thisDay" = "Trackers for today";
+"filters.completed" = "Completed";
+"filters.openTrackers" = "Not completed";
+
+//MARK: StatisticViewController
+"statisticView.opening" = "There is nothing to analyze yet";
+
+//MARK: Filters
+"indicators.bestPeriod" = "Best period";
+"indicators.idealDays" = "Ideal days";
+"indicators.completedTrackers" = "Trackers completed";
+"indicators.averageValue" = "Average value";
+
+//MARK: TabBarController
+"tabBar.trackers" = "Trackers";
+"tabBar.statistic" = "Statistics";
+
+
+
+
+
